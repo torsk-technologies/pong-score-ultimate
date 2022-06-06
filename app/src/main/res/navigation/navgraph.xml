@@ -7,7 +7,15 @@
 
     <fragment
         android:id="@+id/openingScreenFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.OpeningScreenFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.opening_screen.OpeningScreenFragment"
         android:label="opening_screen_fragment"
-        tools:layout="@layout/opening_screen_fragment" />
+        tools:layout="@layout/opening_screen_fragment" >
+        <action
+            android:id="@+id/action_openingScreenFragment_to_playFragment"
+            app:destination="@id/playFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
+        android:label="PlayFragment" />
 </navigation>
