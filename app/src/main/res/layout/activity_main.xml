@@ -9,8 +9,9 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.opening_screen.OpeningScreenFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/navgraph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

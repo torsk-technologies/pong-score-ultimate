@@ -17,5 +17,9 @@
     <fragment
         android:id="@+id/playFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
-        android:label="PlayFragment" />
+        android:label="PlayFragment" >
+        <action
+            android:id="@+id/action_playFragment_to_openingScreenFragment"
+            app:destination="@id/openingScreenFragment" />
+    </fragment>
 </navigation>
