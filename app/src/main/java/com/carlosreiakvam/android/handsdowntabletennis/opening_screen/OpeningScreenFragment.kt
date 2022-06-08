@@ -15,7 +15,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.databinding.OpeningScreen
 class OpeningScreenFragment : Fragment() {
 
 
-    private lateinit var viewModel: OpeningScreenViewModel
     private lateinit var binding: OpeningScreenFragmentBinding
 
     override fun onCreateView(
@@ -27,7 +26,6 @@ class OpeningScreenFragment : Fragment() {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
         }
-        viewModel = ViewModelProvider(this)[OpeningScreenViewModel::class.java]
         return binding.root
     }
 
