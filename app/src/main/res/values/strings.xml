@@ -3,4 +3,5 @@
     <string name="lets_play">Let\'s play!</string>
     <string name="player_one">player one</string>
     <string name="player_two">player two</string>
+    <string name="p1score">p1Score</string>
 </resources>
