@@ -15,7 +15,6 @@ class PlayFragment : Fragment() {
 
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
-    private var playerOneHasTopPos = true
 
 
     override fun onCreateView(
@@ -23,6 +22,7 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
+        setPlayersTurnSymbol()
         return binding.root
     }
 
@@ -33,21 +33,30 @@ class PlayFragment : Fragment() {
 
         binding.player1Container.setOnClickListener {
             viewModel.p1IncreaseGameScore()
+            if (viewModel.checkForPlayerSwitch()) {
+                setPlayersTurnSymbol()
+            }
         }
+
         binding.player2Container.setOnClickListener {
             viewModel.p2IncreaseGameScore()
+            if (viewModel.checkForPlayerSwitch()) {
+                setPlayersTurnSymbol()
+            }
+        }
+    }
+
+    fun setPlayersTurnSymbol() {
+        if (viewModel.player1Turn.value == true) {
+            Log.d("TAG", "p1 turn")
+            binding.tvP1Turn.text = "X"
+            binding.tvP2Turn.text = ""
+        } else {
+            Log.d("TAG", "p2 turn")
+            binding.tvP1Turn.text = ""
+            binding.tvP2Turn.text = "X"
         }
 
     }
-
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        Log.d("TAG", "onConfigurationChanged")
-//        super.onConfigurationChanged(newConfig)
-//        Log.d("TAG", requireActivity().requestedOrientation.toString())
-//        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-//            requireActivity().setContentView(R.layout.play_fragment_upside_down)
-//        }
-//    }
-
 
 }

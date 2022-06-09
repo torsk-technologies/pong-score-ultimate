@@ -22,7 +22,7 @@
 
             <TextView
                 android:id="@+id/tv_player1_score_game"
-                style="@style/player_button_tv_name"
+                style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/tv_player1_name"
-                style="@style/player_button_tv_name"
+                style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_one"
@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/tv_player1_score"
-                style="@style/player_button_tv_name"
+                style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
@@ -67,7 +67,7 @@
 
         <TextView
             android:id="@+id/tv_player2_score_game"
-            style="@style/player_button_tv_name"
+            style="@style/text_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -77,7 +77,7 @@
 
         <TextView
             android:id="@+id/tv_player2_name"
-            style="@style/player_button_tv_name"
+            style="@style/text_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/player_two"
@@ -88,7 +88,7 @@
 
         <TextView
             android:id="@+id/tv_player_2_score"
-            style="@style/player_button_tv_name"
+            style="@style/text_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2"
