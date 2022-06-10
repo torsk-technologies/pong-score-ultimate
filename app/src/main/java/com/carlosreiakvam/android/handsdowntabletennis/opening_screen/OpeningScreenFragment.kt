@@ -14,7 +14,8 @@ class OpeningScreenFragment : Fragment() {
     private lateinit var binding: OpeningScreenFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)

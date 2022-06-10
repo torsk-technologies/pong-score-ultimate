@@ -22,7 +22,7 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
-        setPlayersTurnSymbol()
+
         return binding.root
     }
 
@@ -32,31 +32,13 @@ class PlayFragment : Fragment() {
         binding.viewmodel = viewModel
 
         binding.player1Container.setOnClickListener {
-            viewModel.p1IncreaseGameScore()
-            if (viewModel.checkForPlayerSwitch()) {
-                setPlayersTurnSymbol()
-            }
+            viewModel.increaseGameScore(1)
         }
 
         binding.player2Container.setOnClickListener {
-            viewModel.p2IncreaseGameScore()
-            if (viewModel.checkForPlayerSwitch()) {
-                setPlayersTurnSymbol()
-            }
+            viewModel.increaseGameScore(2)
         }
     }
 
-    fun setPlayersTurnSymbol() {
-        if (viewModel.player1Turn.value == true) {
-            Log.d("TAG", "p1 turn")
-            binding.tvP1Turn.text = "X"
-            binding.tvP2Turn.text = ""
-        } else {
-            Log.d("TAG", "p2 turn")
-            binding.tvP1Turn.text = ""
-            binding.tvP2Turn.text = "X"
-        }
-
-    }
 
 }
