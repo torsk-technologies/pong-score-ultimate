@@ -1,5 +1,6 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,6 +23,9 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
+
+//        // Force landscape orientation
+//        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 
         return binding.root
     }

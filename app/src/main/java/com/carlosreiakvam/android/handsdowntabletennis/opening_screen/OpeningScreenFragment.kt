@@ -1,5 +1,6 @@
 package com.carlosreiakvam.android.handsdowntabletennis.opening_screen
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,10 @@ class OpeningScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
+
+        // Force portrait orientation
+//        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         binding.btnLetsplay.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
