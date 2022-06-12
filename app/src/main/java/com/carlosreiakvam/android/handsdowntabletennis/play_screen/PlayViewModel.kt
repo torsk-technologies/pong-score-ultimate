@@ -1,11 +1,17 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class PlayViewModel : ViewModel() {
+
+    private val _pTurn = MutableLiveData(0)
+    val pTurn: LiveData<Int>
+        get() = _pTurn
 
     private val _p1Turn = MutableLiveData("X")
     val p1Turn: LiveData<String>
@@ -32,7 +38,25 @@ class PlayViewModel : ViewModel() {
         get() = _p2MatchScore
 
     init {
-        Log.d("tag", "init i viewmodel")
+        Log.d("TAG", "viewmodel")
+        _p1GameScore.value = 22
+        Log.d("TAG", _p1GameScore.value.toString())
+    }
+
+
+    fun setGamestate(
+        p1GameScore: Int,
+        p2GameScore: Int,
+        p1MatchScore: Int,
+        p2MatchScore: Int,
+        pTurn: Int,
+    ) {
+        _p1GameScore.value = p1GameScore
+        _p2GameScore.value = p2GameScore
+        _p1MatchScore.value = p1MatchScore
+        _p2MatchScore.value = p2MatchScore
+        _pTurn.value = pTurn
+
     }
 
     fun checkForPlayerSwitch() {
@@ -42,7 +66,6 @@ class PlayViewModel : ViewModel() {
             switchPlayerTurn()
         }
     }
-
 
     fun increaseGameScore(player: Int) {
         when (player) {
