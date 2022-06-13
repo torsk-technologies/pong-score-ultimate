@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/player1_container"
+            android:id="@+id/p1_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
@@ -33,48 +33,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.p1Turn}"
-                android:textSize="100sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="X" />
 
             <TextView
-                android:id="@+id/tv_player1_score_game"
+                android:id="@+id/tv_p1_match_score"
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:text="@{viewmodel.p1MatchScore.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:text="3" />
 
-            <TextView
-                android:id="@+id/tv_player1_name"
-                style="@style/text_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/player_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_p1_turn" />
 
             <TextView
-                android:id="@+id/tv_player1_score"
+                android:id="@+id/tv_p1_game_score"
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.p1GameScore.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_player1_name" />
+                tools:text="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/player2_container"
+            android:id="@+id/p2_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
@@ -90,14 +81,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.p2Turn}"
-                android:textSize="100sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="X" />
 
             <TextView
-                android:id="@+id/tv_player2_score_game"
+                android:id="@+id/tv_p2_match_score"
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,26 +97,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="5" />
 
-            <TextView
-                android:id="@+id/tv_player2_name"
-                style="@style/text_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/player_two"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_player_2_score"
+                android:id="@+id/tv_p2_game_score"
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.p2GameScore.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_player2_name"
                 tools:text="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

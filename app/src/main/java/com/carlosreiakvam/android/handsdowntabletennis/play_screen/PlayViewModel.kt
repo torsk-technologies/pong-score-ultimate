@@ -1,11 +1,9 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 class PlayViewModel : ViewModel() {
 
@@ -39,8 +37,7 @@ class PlayViewModel : ViewModel() {
 
     init {
         Log.d("TAG", "viewmodel")
-        _p1GameScore.value = 22
-        Log.d("TAG", _p1GameScore.value.toString())
+//        Log.d("TAG", _p1GameScore.value.toString())
     }
 
 
@@ -59,7 +56,7 @@ class PlayViewModel : ViewModel() {
 
     }
 
-    fun checkForPlayerSwitch() {
+    private fun checkForServeSwitch() {
         if (_p1GameScore.value!! >= 10 && _p2GameScore.value!! >= 10) {
             switchPlayerTurn()
         } else if ((_p1GameScore.value!! + _p2GameScore.value!!) % 2 == 0) {
@@ -90,7 +87,7 @@ class PlayViewModel : ViewModel() {
                 }
             }
         }
-        checkForPlayerSwitch()
+        checkForServeSwitch()
     }
 
     private fun resetGameScore() {
