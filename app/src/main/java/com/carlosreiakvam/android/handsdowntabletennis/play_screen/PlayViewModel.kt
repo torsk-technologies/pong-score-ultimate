@@ -113,6 +113,13 @@ class PlayViewModel : ViewModel() {
         }
     }
 
+    fun resetMatch() {
+        _p1GameScore.value = 0
+        _p2GameScore.value = 0
+        _p1MatchScore.value = 0
+        _p2MatchScore.value = 0
+    }
+
 //    init {
 //        val p1 = Player("Player 1")
 //        val p2 = Player("Player 2")

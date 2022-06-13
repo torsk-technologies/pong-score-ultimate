@@ -1,14 +1,16 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.carlosreiakvam.android.handsdowntabletennis.R
@@ -37,6 +39,7 @@ class PlayFragment : Fragment() {
         binding.viewmodel = viewModel
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
 
+
         binding.p1Container?.setOnClickListener {
             viewModel.increaseGameScore(1)
             savePref(sharedPref)
@@ -46,6 +49,7 @@ class PlayFragment : Fragment() {
             viewModel.increaseGameScore(2)
             savePref(sharedPref)
         }
+
 
         // Load saved scores from sharedPref
         loadPref(sharedPref)
@@ -87,10 +91,49 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.tvPlayer1Score.text = viewModel.p1GameScore.value.toString()
-//        binding.tvPlayer2Score.text = viewModel.p2GameScore.value.toString()
-//        binding.tvPlayer1ScoreGame.text = viewModel.p1MatchScore.value.toString()
-//        binding.tvPlayer2ScoreGame.text = viewModel.p2MatchScore.value.toString()
+
+        binding.playFragmentLinear?.setOnLongClickListener() {
+            alertReset()
+            true
+        }
+
+        binding.p1Container?.setOnLongClickListener() {
+            alertReset()
+            true
+        }
+
+        binding.p2Container?.setOnLongClickListener() {
+            alertReset()
+            true
+        }
+
+
+
+        view.rootView.setOnClickListener {
+            Toast.makeText(context, "hei", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun alertReset() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton("Reset match",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        viewModel.resetMatch()
+                    })
+                setNegativeButton("cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog
+                    })
+            }
+            // Set other dialog properties
+
+            // Create the AlertDialog
+            builder.create()
+        }
+        alertDialog?.show()
     }
 
     override fun onDestroy() {
