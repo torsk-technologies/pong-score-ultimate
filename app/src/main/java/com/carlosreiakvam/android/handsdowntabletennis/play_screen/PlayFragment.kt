@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -25,12 +26,31 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         Log.d("TAG", "onCreateView")
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
+        setupOnClickListeners(sharedPref)
+        loadPref(sharedPref)
+        observeGameState()
+        observeGameStart()
+        // Force landscape orientation
+        // activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+        return binding.root
+    }
 
+    private fun observeGameStart() {
+        viewModel.gameStart.observe(viewLifecycleOwner) {
+            if (it == true) {
+                chooseSide()
+                viewModel.setupNewGame()
+                // popup fragment, choose sides
+            }
+        }
+    }
+
+    private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
             savePref(sharedPref)
@@ -41,8 +61,11 @@ class PlayFragment : Fragment() {
             savePref(sharedPref)
         }
 
+    }
+
+    private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) {
-            if (viewModel.gameState.value?.get(PTURN.int) == 1) {
+            if (it[PTURN.int] == 1) {
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -51,21 +74,13 @@ class PlayFragment : Fragment() {
                 binding.tvP2GameScore?.paintFlags =
                     binding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP1GameScore?.paintFlags = 0
-
             }
-
         }
 
-//                textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+    }
 
-
-        // Load saved scores from sharedPref
-        loadPref(sharedPref)
-
-        // Force landscape orientation
-//        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
-
-        return binding.root
+    private fun chooseSide() {
+        Toast.makeText(requireContext(), "choose sides", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -111,7 +126,7 @@ class PlayFragment : Fragment() {
 
     }
 
-    fun alertReset() {
+    private fun alertReset() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
@@ -128,7 +143,7 @@ class PlayFragment : Fragment() {
                 ) { dialog, id ->
                     // User cancelled the dialog
                 }
-                setTitle("Reset Match")
+                setTitle("Options")
             }
             // Set other dialog properties
 

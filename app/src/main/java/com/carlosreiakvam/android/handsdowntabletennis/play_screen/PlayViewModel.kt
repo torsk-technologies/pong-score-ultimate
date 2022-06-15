@@ -11,6 +11,11 @@ class PlayViewModel : ViewModel() {
 
     private val undoList: LinkedList<Map<Int, Int>> = LinkedList<Map<Int, Int>>()
 
+    private val _gameStart: MutableLiveData<Boolean> = MutableLiveData(false)
+    val gameStart: LiveData<Boolean>
+        get() = _gameStart
+
+
     private val _gameState = MutableLiveData<Map<Int, Int>>(
         mapOf(
             P1GAMESCORE.int to 0,
@@ -26,6 +31,19 @@ class PlayViewModel : ViewModel() {
 
     init {
         Log.d("TAG", "viewmodel")
+        if (isGameEmpty()) {
+            Log.d("TAG", "game is empty")
+            _gameStart.value = true
+            setupNewGame()
+        }
+    }
+
+    fun isGameEmpty(): Boolean {
+        return (_gameState.value?.get(P1GAMESCORE.int)?.equals(0)!! &&
+                _gameState.value?.get(P2GAMESCORE.int)?.equals(0)!! &&
+                _gameState.value?.get(P1MATCHSCORE.int)?.equals(0)!! &&
+                _gameState.value?.get(P2MATCHSCORE.int)?.equals(0)!!
+                )
     }
 
 
@@ -76,6 +94,10 @@ class PlayViewModel : ViewModel() {
         setGameState(p1GameScore = 0, p2GameScore = 0)
     }
 
+    fun setupNewGame() {
+        _gameStart.value = false
+    }
+
     private fun increaseGameScore(playerGameScore: Int) {
         if (playerGameScore == P1GAMESCORE.int) {
             setGameState(p1GameScore = _gameState.value?.get(playerGameScore)?.plus(1) ?: 0)
@@ -117,6 +139,7 @@ class PlayViewModel : ViewModel() {
 
     fun resetMatch() {
         setGameState(p1GameScore = 0, p2GameScore = 0, p1MatchScore = 0, p2MatchScore = 0)
+        _gameStart.value = true
     }
 
     fun undo() {
