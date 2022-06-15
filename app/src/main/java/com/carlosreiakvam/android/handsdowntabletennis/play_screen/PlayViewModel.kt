@@ -9,7 +9,7 @@ import java.util.*
 
 class PlayViewModel : ViewModel() {
 
-    private val undoList: LinkedList<Map<Int, Int>> = LinkedList()
+    private val undoList: LinkedList<Map<Int, Int>> = LinkedList<Map<Int, Int>>()
 
     private val _gameState = MutableLiveData<Map<Int, Int>>(
         mapOf(
@@ -86,17 +86,6 @@ class PlayViewModel : ViewModel() {
         }
     }
 
-//    fun undo() {
-//        val peekScores = undoList.peek()
-//        setGameState(
-//            p1GameScore = peekScores?.get(P1GAMESCORE) ?: 0,
-//            p2GameScore = peekScores?.get(P1GAMESCORE) ?: 0,
-//            p1MatchScore = peekScores?.get(P1GAMESCORE) ?: 0,
-//            p2MatchScore = peekScores?.get(P1GAMESCORE) ?: 0,
-//            pTurn = peekScores?.get(TURN) ?: 0
-//        )
-//        undoList.pop()
-//    }
 
     private fun increaseMatchScore(playerMatchScore: Int) {
         if (playerMatchScore == P1MATCHSCORE.int) {
@@ -133,7 +122,9 @@ class PlayViewModel : ViewModel() {
     }
 
     fun undo() {
-        val peekScores = undoList.pop()
+        Log.d("TAG", "undo")
+        undoList.pollLast()
+        val peekScores = undoList.peekLast()
         setGameState(
             p1GameScore = peekScores?.get(P1GAMESCORE.int) ?: 0,
             p2GameScore = peekScores?.get(P2GAMESCORE.int) ?: 0,
@@ -141,5 +132,6 @@ class PlayViewModel : ViewModel() {
             p2MatchScore = peekScores?.get(P2MATCHSCORE.int) ?: 0,
             pTurn = peekScores?.get(PTURN.int) ?: 0
         )
+        Log.d("TAG", "undolist after undo: ${undoList.peekLast()}")
     }
 }
