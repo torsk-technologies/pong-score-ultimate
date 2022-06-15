@@ -1,33 +1,23 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
 
 
 class PlayFragment : Fragment() {
 
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
-
-    private val P1_GAME_SCORE = "p1GameScore"
-    private val P2_GAME_SCORE = "p2GameScore"
-    private val P1_MATCH_SCORE = "p1MatchScore"
-    private val P2_MATCH_SCORE = "p2MatchScore"
-    private val P_TURN = "pTurn"
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +27,16 @@ class PlayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
+
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
 
-
         binding.p1Container?.setOnClickListener {
-            viewModel.increaseGameScore(1)
+            viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
             savePref(sharedPref)
         }
 
         binding.p2Container?.setOnClickListener {
-            viewModel.increaseGameScore(2)
+            viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
             savePref(sharedPref)
         }
 
@@ -54,20 +44,20 @@ class PlayFragment : Fragment() {
         // Load saved scores from sharedPref
         loadPref(sharedPref)
 
-
         // Force landscape orientation
 //        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 
         return binding.root
     }
 
+
     private fun loadPref(sharedPref: SharedPreferences) {
-        val p1GameScore = sharedPref.getInt(P1_GAME_SCORE, 0)
-        val p2GameScore = sharedPref.getInt(P2_GAME_SCORE, 0)
-        val p1MatchScore = sharedPref.getInt(P1_MATCH_SCORE, 0)
-        val p2MatchScore = sharedPref.getInt(P2_MATCH_SCORE, 0)
-        val pTurn = sharedPref.getInt(P_TURN, 0)
-        viewModel.setGamestate(
+        val p1GameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
+        val p2GameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
+        val p1MatchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
+        val p2MatchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
+        val pTurn = sharedPref.getInt(PTURN.str, 0)
+        viewModel.setGameState(
             p1GameScore,
             p2GameScore,
             p1MatchScore,
@@ -79,23 +69,17 @@ class PlayFragment : Fragment() {
 
     private fun savePref(sharedPref: SharedPreferences) {
         with(sharedPref.edit()) {
-            putInt(P1_GAME_SCORE, viewModel.p1GameScore.value ?: 0)
-            putInt(P2_GAME_SCORE, viewModel.p2GameScore.value ?: 0)
-            putInt(P1_MATCH_SCORE, viewModel.p1MatchScore.value ?: 0)
-            putInt(P2_MATCH_SCORE, viewModel.p2MatchScore.value ?: 0)
-            putInt(P_TURN, viewModel.pTurn.value ?: 0)
+            putInt(P1GAMESCORE.str, viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0)
+            putInt(P2GAMESCORE.str, viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0)
+            putInt(P1MATCHSCORE.str, viewModel.gameState.value?.get(P1MATCHSCORE.int) ?: 0)
+            putInt(P2MATCHSCORE.str, viewModel.gameState.value?.get(P2MATCHSCORE.int) ?: 0)
+            putInt(PTURN.str, viewModel.gameState.value?.get(PTURN.int) ?: 0)
             apply()
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        binding.playFragmentLinear?.setOnLongClickListener() {
-            alertReset()
-            true
-        }
 
         binding.p1Container?.setOnLongClickListener() {
             alertReset()
@@ -107,28 +91,29 @@ class PlayFragment : Fragment() {
             true
         }
 
-
-
-        view.rootView.setOnClickListener {
-            Toast.makeText(context, "hei", Toast.LENGTH_SHORT).show()
-        }
-
     }
 
     fun alertReset() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setPositiveButton("Reset match",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        viewModel.resetMatch()
-                    })
-                setNegativeButton("cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
-                    })
+                setNeutralButton("Undo") { dialog, id ->
+                    viewModel.undo()
+                }
+                setPositiveButton(
+                    "Reset match"
+                ) { dialog, id ->
+                    viewModel.resetMatch()
+                }
+                setNegativeButton(
+                    "cancel"
+                ) { dialog, id ->
+                    // User cancelled the dialog
+                }
+                setTitle("Reset Match")
             }
             // Set other dialog properties
+
 
             // Create the AlertDialog
             builder.create()
@@ -150,5 +135,5 @@ class PlayFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d("TAG", "onCreate")
     }
-
 }
+

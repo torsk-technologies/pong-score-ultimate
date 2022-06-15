@@ -4,155 +4,142 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
+import java.util.*
 
 class PlayViewModel : ViewModel() {
 
-    private val _pTurn = MutableLiveData(0)
-    val pTurn: LiveData<Int>
-        get() = _pTurn
+    private val undoList: LinkedList<Map<Int, Int>> = LinkedList()
 
-    private val _p1Turn = MutableLiveData("X")
-    val p1Turn: LiveData<String>
-        get() = _p1Turn
+    private val _gameState = MutableLiveData<Map<Int, Int>>(
+        mapOf(
+            P1GAMESCORE.int to 0,
+            P2GAMESCORE.int to 0,
+            P1MATCHSCORE.int to 0,
+            P2MATCHSCORE.int to 0,
+            PTURN.int to 0
+        )
+    )
+    val gameState: LiveData<Map<Int, Int>>
+        get() = _gameState
 
-    private val _p2Turn = MutableLiveData("")
-    val p2Turn: LiveData<String>
-        get() = _p2Turn
-
-    private val _p1GameScore = MutableLiveData(0)
-    val p1GameScore: LiveData<Int>
-        get() = _p1GameScore
-
-    private val _p1MatchScore = MutableLiveData(0)
-    val p1MatchScore: LiveData<Int>
-        get() = _p1MatchScore
-
-    private var _p2GameScore = MutableLiveData(0)
-    val p2GameScore: LiveData<Int>
-        get() = _p2GameScore
-
-    private val _p2MatchScore = MutableLiveData(0)
-    val p2MatchScore: LiveData<Int>
-        get() = _p2MatchScore
 
     init {
         Log.d("TAG", "viewmodel")
-//        Log.d("TAG", _p1GameScore.value.toString())
     }
 
 
-    fun setGamestate(
-        p1GameScore: Int,
-        p2GameScore: Int,
-        p1MatchScore: Int,
-        p2MatchScore: Int,
-        pTurn: Int,
+    fun setGameState(
+        p1GameScore: Int = gameState.value?.get(P1GAMESCORE.int)!!,
+        p2GameScore: Int = gameState.value?.get(P2GAMESCORE.int)!!,
+        p1MatchScore: Int = gameState.value?.get(P1MATCHSCORE.int)!!,
+        p2MatchScore: Int = gameState.value?.get(P2MATCHSCORE.int)!!,
+        pTurn: Int = gameState.value?.get(PTURN.int)!!
     ) {
-        _p1GameScore.value = p1GameScore
-        _p2GameScore.value = p2GameScore
-        _p1MatchScore.value = p1MatchScore
-        _p2MatchScore.value = p2MatchScore
-        _pTurn.value = pTurn
+        _gameState.value = mapOf(
+            P1GAMESCORE.int to p1GameScore,
+            P2GAMESCORE.int to p2GameScore,
+            P1MATCHSCORE.int to p1MatchScore,
+            P2MATCHSCORE.int to p2MatchScore,
+            PTURN.int to pTurn
+        )
 
     }
 
-    private fun checkForServeSwitch() {
-        if (_p1GameScore.value!! >= 10 && _p2GameScore.value!! >= 10) {
-            switchPlayerTurn()
-        } else if ((_p1GameScore.value!! + _p2GameScore.value!!) % 2 == 0) {
-            switchPlayerTurn()
+    private fun isMatchWon(playerGameScore: Int, otherPlayerGameScore: Int): Boolean {
+        val clickedPlayerHasNormalWin =
+            _gameState.value!![playerGameScore] == 11 && _gameState.value!![otherPlayerGameScore]!! <= 9
+
+        val clickedPlayerHasOvertimeWin = _gameState.value!![playerGameScore]!! >= 11
+                && _gameState.value!![playerGameScore]!! >= _gameState.value!![otherPlayerGameScore]!!.plus(
+            2
+        )
+
+        return clickedPlayerHasNormalWin || clickedPlayerHasOvertimeWin
+    }
+
+
+    fun registerPoint(playerGameScore: Int, otherPlayerGameScore: Int, playerMatchScore: Int) {
+        increaseGameScore(playerGameScore)
+
+        if (isMatchWon(playerGameScore, otherPlayerGameScore)) {
+            increaseMatchScore(playerMatchScore)
+            resetGameScore()
         }
+
+        Log.d("TAG", "gamestate.value: ${_gameState.value}")
+        undoList.add(_gameState.value!!)
+        Log.d("TAG", "undolist: ${undoList.peekLast()}")
+//        checkForServeSwitch()
     }
 
-    fun increaseGameScore(player: Int) {
-        when (player) {
-            1 -> {
-                _p1GameScore.value = _p1GameScore.value?.plus(1)
-                if (_p1GameScore.value == 11 && _p2GameScore.value!! <= 9) {
-                    p1IncreaseMatchScore()
-                    resetGameScore()
-                } else if (_p1GameScore.value!! >= 11 && _p1GameScore.value!! >= _p2GameScore.value!! + 2) {
-                    p1IncreaseMatchScore()
-                    resetGameScore()
-                }
-            }
-            2 -> {
-                _p2GameScore.value = _p2GameScore.value?.plus(1)
-                if (_p2GameScore.value == 11 && _p1GameScore.value!! <= 9) {
-                    p2IncreaseMatchScore()
-                    resetGameScore()
-                } else if (_p2GameScore.value!! >= 11 && _p2GameScore.value!! >= _p1GameScore.value!! + 2) {
-                    p2IncreaseMatchScore()
-                    resetGameScore()
-                }
-            }
-        }
-        checkForServeSwitch()
-    }
 
     private fun resetGameScore() {
-        _p1GameScore.value = 0
-        _p2GameScore.value = 0
+        setGameState(p1GameScore = 0, p2GameScore = 0)
     }
 
-    private fun p1IncreaseMatchScore() {
-        _p1MatchScore.value = _p1MatchScore.value?.plus(1)
-    }
-
-    private fun p2IncreaseMatchScore() {
-        _p2MatchScore.value = _p2MatchScore.value?.plus(1)
-    }
-
-    private fun switchPlayerTurn() {
-        if (_p1Turn.value == "X") {
-            _p1Turn.value = ""
-            _p2Turn.value = "X"
+    private fun increaseGameScore(playerGameScore: Int) {
+        if (playerGameScore == P1GAMESCORE.int) {
+            setGameState(p1GameScore = _gameState.value?.get(playerGameScore)?.plus(1) ?: 0)
         } else {
-            _p1Turn.value = "X"
-            _p2Turn.value = ""
+            setGameState(p2GameScore = _gameState.value?.get(playerGameScore)?.plus(1) ?: 0)
         }
     }
 
-    fun resetMatch() {
-        _p1GameScore.value = 0
-        _p2GameScore.value = 0
-        _p1MatchScore.value = 0
-        _p2MatchScore.value = 0
+//    fun undo() {
+//        val peekScores = undoList.peek()
+//        setGameState(
+//            p1GameScore = peekScores?.get(P1GAMESCORE) ?: 0,
+//            p2GameScore = peekScores?.get(P1GAMESCORE) ?: 0,
+//            p1MatchScore = peekScores?.get(P1GAMESCORE) ?: 0,
+//            p2MatchScore = peekScores?.get(P1GAMESCORE) ?: 0,
+//            pTurn = peekScores?.get(TURN) ?: 0
+//        )
+//        undoList.pop()
+//    }
+
+    private fun increaseMatchScore(playerMatchScore: Int) {
+        if (playerMatchScore == P1MATCHSCORE.int) {
+            setGameState(p1MatchScore = _gameState.value?.get(playerMatchScore)?.plus(1) ?: 0)
+        } else {
+            setGameState(p2MatchScore = _gameState.value?.get(playerMatchScore)?.plus(1) ?: 0)
+
+        }
+
     }
 
-//    init {
-//        val p1 = Player("Player 1")
-//        val p2 = Player("Player 2")
+//    private fun checkForServeSwitch() {
+//        if (_p1GameScore.value!! >= 10 && _p2GameScore.value!! >= 10) {
+//            switchPlayerTurn()
+//        } else if ((_p1GameScore.value!! + _p2GameScore.value!!) % 2 == 0) {
+//            switchPlayerTurn()
+//        }
 //    }
 
 
-}
-
-//class Player(val name: String) {
-//
-//    val _gameScore = MutableLiveData(0)
-//    val gamescore: LiveData<Int>
-//        get() = _gameScore
-//    val _matchScore = MutableLiveData(0)
-//    val matchScore: LiveData<Int>
-//        get() = _matchScore
-//
-//    fun increaseScore(other_score: MutableLiveData<Int>) {
-//        _gameScore.value = _gameScore.value?.plus(1)
-//        if (_gameScore.value == 11 && other_score.value!! <= 9) {
-//            increaseMatchScore()
-//            resetGameScore()
-//        } else if (_gameScore.value!! >= 11 && _gameScore.value!! >= other_score.value!! + 2) {
-//            increaseMatchScore()
-//            resetGameScore()
+//    private fun switchPlayerTurn() {
+//        if (_p1Turn.value == "X") {
+//            _p1Turn.value = ""
+//            _p2Turn.value = "X"
+//        } else {
+//            _p1Turn.value = "X"
+//            _p2Turn.value = ""
 //        }
 //    }
 //
-//    fun increaseMatchScore() {
-//        _matchScore.value = _matchScore.value?.plus(1)
-//    }
-//
-//    private fun resetGameScore() {
-//        _gameScore.value = 0
-//    }
-//}
+
+    fun resetMatch() {
+        setGameState(p1GameScore = 0, p2GameScore = 0, p1MatchScore = 0, p2MatchScore = 0)
+    }
+
+    fun undo() {
+        val peekScores = undoList.pop()
+        setGameState(
+            p1GameScore = peekScores?.get(P1GAMESCORE.int) ?: 0,
+            p2GameScore = peekScores?.get(P2GAMESCORE.int) ?: 0,
+            p1MatchScore = peekScores?.get(P1MATCHSCORE.int) ?: 0,
+            p2MatchScore = peekScores?.get(P2MATCHSCORE.int) ?: 0,
+            pTurn = peekScores?.get(PTURN.int) ?: 0
+        )
+    }
+}

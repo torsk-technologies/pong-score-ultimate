@@ -8,6 +8,10 @@
         <variable
             name="viewmodel"
             type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayViewModel" />
+
+        <variable
+            name="constants"
+            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants" />
     </data>
 
 
@@ -45,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@{viewmodel.p1MatchScore.toString()}"
+                android:text="@{viewmodel.gameState.get(2).toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="3" />
@@ -56,10 +60,7 @@
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="true"
-                android:lineHeight="0dp"
-                android:padding="0dp"
-                android:text="@{viewmodel.p1GameScore.toString()}"
+                android:text="@{viewmodel.gameState.get(0).toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@{viewmodel.p2MatchScore.toString()}"
+                android:text="@{viewmodel.gameState.get(3).toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="5" />
@@ -108,7 +109,7 @@
                 style="@style/text_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.p2GameScore.toString()}"
+                android:text="@{viewmodel.gameState.get(1).toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
