@@ -17,7 +17,7 @@ class PlayViewModel : ViewModel() {
             P2GAMESCORE.int to 0,
             P1MATCHSCORE.int to 0,
             P2MATCHSCORE.int to 0,
-            PTURN.int to 0
+            PTURN.int to 1
         )
     )
     val gameState: LiveData<Map<Int, Int>>
@@ -67,10 +67,8 @@ class PlayViewModel : ViewModel() {
             resetGameScore()
         }
 
-        Log.d("TAG", "gamestate.value: ${_gameState.value}")
         undoList.add(_gameState.value!!)
-        Log.d("TAG", "undolist: ${undoList.peekLast()}")
-//        checkForServeSwitch()
+        checkForServeSwitch()
     }
 
 
@@ -97,25 +95,25 @@ class PlayViewModel : ViewModel() {
 
     }
 
-//    private fun checkForServeSwitch() {
-//        if (_p1GameScore.value!! >= 10 && _p2GameScore.value!! >= 10) {
-//            switchPlayerTurn()
-//        } else if ((_p1GameScore.value!! + _p2GameScore.value!!) % 2 == 0) {
-//            switchPlayerTurn()
-//        }
-//    }
+    private fun checkForServeSwitch() {
+        if (_gameState.value?.get(P1GAMESCORE.int)!! >= 10 && _gameState.value?.get(P2GAMESCORE.int)!! >= 10) {
+            switchPlayerTurn()
+        } else if ((_gameState.value!!.get(P1GAMESCORE.int)!!
+                .plus(_gameState.value!!.get(P2GAMESCORE.int)!!)) % 2 == 0
+        ) {
+            switchPlayerTurn()
+        }
+    }
 
 
-//    private fun switchPlayerTurn() {
-//        if (_p1Turn.value == "X") {
-//            _p1Turn.value = ""
-//            _p2Turn.value = "X"
-//        } else {
-//            _p1Turn.value = "X"
-//            _p2Turn.value = ""
-//        }
-//    }
-//
+    private fun switchPlayerTurn() {
+        if (_gameState.value?.get(PTURN.int) == 1) {
+            setGameState(pTurn = 2)
+        } else {
+            setGameState(pTurn = 1)
+        }
+    }
+
 
     fun resetMatch() {
         setGameState(p1GameScore = 0, p2GameScore = 0, p1MatchScore = 0, p2MatchScore = 0)

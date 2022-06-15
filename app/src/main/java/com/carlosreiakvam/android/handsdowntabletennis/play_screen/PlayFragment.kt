@@ -2,6 +2,7 @@ package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -39,6 +40,23 @@ class PlayFragment : Fragment() {
             viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
             savePref(sharedPref)
         }
+
+        viewModel.gameState.observe(viewLifecycleOwner) {
+            if (viewModel.gameState.value?.get(PTURN.int) == 1) {
+                binding.tvP1GameScore?.paintFlags =
+                    binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
+                binding.tvP2GameScore?.paintFlags = 0
+
+            } else {
+                binding.tvP2GameScore?.paintFlags =
+                    binding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
+                binding.tvP1GameScore?.paintFlags = 0
+
+            }
+
+        }
+
+//                textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
 
         // Load saved scores from sharedPref
