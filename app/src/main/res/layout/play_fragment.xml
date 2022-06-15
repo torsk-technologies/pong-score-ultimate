@@ -32,17 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/tv_p1_turn"-->
-            <!--                style="@style/text_large"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="@{viewmodel.p1Turn}"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:text="" />-->
-
             <TextView
                 android:id="@+id/tv_p1_match_score"
                 style="@style/text_medium"
@@ -80,17 +69,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tv_p2_turn"-->
-            <!--                style="@style/text_large"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="@{viewmodel.p2Turn}"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:text="X" />-->
 
             <TextView
                 android:id="@+id/tv_p2_match_score"
