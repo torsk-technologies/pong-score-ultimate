@@ -15,6 +15,11 @@
         <item name="fontFamily">@font/kaushan_script</item>
     </style>
 
+    <style name="in_game_options_style" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+    </style>
+
     <style name="text_medium">
         <item name="android:textSize">68sp</item>
         <item name="autoSizeTextType">uniform</item>

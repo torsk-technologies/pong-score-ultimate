@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayViewModel" />
+
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bg"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp">
+
+        <Button
+            android:id="@+id/btn_undo"
+            style="@style/text_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/azure"
+            android:text="@string/undo"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/btn_new_match"
+            style="@style/text_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/azure"
+            android:text="@string/new_match"
+            android:textSize="40sp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

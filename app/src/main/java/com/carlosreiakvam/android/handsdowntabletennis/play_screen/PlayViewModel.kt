@@ -1,15 +1,21 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
+import kotlinx.coroutines.withContext
 import java.util.*
 
-class PlayViewModel : ViewModel() {
+class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     private val undoList: LinkedList<Map<Int, Int>> = LinkedList<Map<Int, Int>>()
+
 
     private val _gameStart: MutableLiveData<Boolean> = MutableLiveData(false)
     val gameStart: LiveData<Boolean>
@@ -31,20 +37,13 @@ class PlayViewModel : ViewModel() {
 
     init {
         Log.d("TAG", "viewmodel")
-        if (isGameEmpty()) {
-            Log.d("TAG", "game is empty")
-            _gameStart.value = true
-            setupNewGame()
-        }
     }
 
-    fun isGameEmpty(): Boolean {
-        return (_gameState.value?.get(P1GAMESCORE.int)?.equals(0)!! &&
-                _gameState.value?.get(P2GAMESCORE.int)?.equals(0)!! &&
-                _gameState.value?.get(P1MATCHSCORE.int)?.equals(0)!! &&
-                _gameState.value?.get(P2MATCHSCORE.int)?.equals(0)!!
-                )
-    }
+
+//    fun setupPrefs() {
+//        val preferences = PreferenceManager.getDefaultSharedPreferences(getApplication())
+//        preferences.
+//    }
 
 
     fun setGameState(
@@ -125,6 +124,15 @@ class PlayViewModel : ViewModel() {
         ) {
             switchPlayerTurn()
         }
+    }
+
+    fun chooseServer(player: Int) {
+        if (player == 1) {
+            setGameState(pTurn = 1)
+        } else {
+            setGameState(pTurn = 2)
+        }
+
     }
 
 

@@ -6,11 +6,14 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
@@ -20,6 +23,7 @@ class PlayFragment : Fragment() {
 
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
+    private val mirroredMode: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +35,21 @@ class PlayFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val ape = sharedPreferences.all
+        if (ape["mirrored"] == true) {
+            binding.p1Container?.rotation = 180f
+        }
+
         setupOnClickListeners(sharedPref)
         loadPref(sharedPref)
         observeGameState()
         observeGameStart()
-        // Force landscape orientation
-        // activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+
+
         return binding.root
     }
+
 
     private fun observeGameStart() {
         viewModel.gameStart.observe(viewLifecycleOwner) {
@@ -63,6 +74,7 @@ class PlayFragment : Fragment() {
 
     }
 
+
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) {
             if (it[PTURN.int] == 1) {
@@ -81,6 +93,7 @@ class PlayFragment : Fragment() {
 
     private fun chooseSide() {
         Toast.makeText(requireContext(), "choose sides", Toast.LENGTH_SHORT).show()
+        // viewModel.chooseServer(1)
     }
 
 
@@ -115,43 +128,31 @@ class PlayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.p1Container?.setOnLongClickListener() {
-            alertReset()
+            alertInGameOptions()
             true
         }
 
         binding.p2Container?.setOnLongClickListener() {
-            alertReset()
+            alertInGameOptions()
             true
         }
 
     }
 
-    private fun alertReset() {
+    private fun alertInGameOptions() {
         val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setNeutralButton("Undo") { dialog, id ->
-                    viewModel.undo()
-                }
-                setPositiveButton(
-                    "Reset match"
-                ) { dialog, id ->
-                    viewModel.resetMatch()
-                }
-                setNegativeButton(
-                    "cancel"
-                ) { dialog, id ->
-                    // User cancelled the dialog
-                }
-                setTitle("Options")
-            }
-            // Set other dialog properties
-
-
-            // Create the AlertDialog
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.in_game_options)
             builder.create()
         }
         alertDialog?.show()
+        alertDialog?.findViewById<Button>(R.id.btn_undo)?.setOnClickListener() {
+            viewModel.undo()
+        }
+        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener() {
+            viewModel.resetMatch()
+            alertDialog.cancel()
+        }
     }
 
     override fun onDestroy() {
