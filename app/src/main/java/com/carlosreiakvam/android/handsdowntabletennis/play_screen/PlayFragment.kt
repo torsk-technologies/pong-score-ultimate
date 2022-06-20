@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Paint
-import android.media.MediaDataSource
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -27,8 +25,6 @@ class PlayFragment : Fragment() {
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
 
-    //    private val mirroredMode: Boolean = false
-    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,26 +35,16 @@ class PlayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
-        mediaPlayer = MediaPlayer().apply {
-            setOnPreparedListener { start() }
-            setOnCompletionListener { reset() }
-        }
 
         setupOnClickListeners(sharedPref)
         loadPref(sharedPref)
         observeGameState()
         observeGameStart()
         actOnPreferences()
-        val windowManager = requireActivity().windowManager.toString()
-        Log.d("TAG", windowManager)
 
         return binding.root
     }
 
-    private fun releaseMediaPlayer() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
-    }
 
     private fun actOnPreferences() {
         val sharedPreferences =
@@ -90,28 +76,14 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun setNextMediaDataSource(dataSource: MediaDataSource) {
-        mediaPlayer.setDataSource(dataSource)
-
-    }
-
-    private fun playDing(score: Int) {
-        if (mediaPlayer.isPlaying) {
-            Log.d("TAG", "isplayuing")
-            mediaPlayer.seekTo(0)
-        }
-        mediaPlayer.start()
-    }
 
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
-            playDing(viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0)
             viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
             savePref(sharedPref)
         }
 
         binding.p2Container?.setOnClickListener {
-            playDing(viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0)
             viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
             savePref(sharedPref)
 
@@ -229,9 +201,5 @@ class PlayFragment : Fragment() {
         super.onPause()
     }
 
-    override fun onStop() {
-        super.onStop()
-        releaseMediaPlayer()
-    }
 }
 

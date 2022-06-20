@@ -6,4 +6,5 @@
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
     <string name="new_match">New match</string>
+    <string name="settings">Settings</string>
 </resources>
