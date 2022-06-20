@@ -24,6 +24,7 @@ class PlayFragment : Fragment() {
 
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
+    private lateinit var soundPlayer: SoundPlayer
 
 
     override fun onCreateView(
@@ -41,8 +42,16 @@ class PlayFragment : Fragment() {
         observeGameState()
         observeGameStart()
         actOnPreferences()
+        setupSoundPlayer()
 
         return binding.root
+    }
+
+    private fun setupSoundPlayer() {
+        soundPlayer = SoundPlayer(requireContext())
+        soundPlayer.fetchSounds()
+//        val ding = Sound("sounds/ding_1.mp3")
+//        soundPlayer.loadSound(ding)
     }
 
 
@@ -81,11 +90,22 @@ class PlayFragment : Fragment() {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
             savePref(sharedPref)
+            var gamePoint: Int = viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0
+            if (gamePoint >= 30) {
+                gamePoint = 30
+            }
+            Log.d("KAGGE", "gamepoint: $gamePoint")
+            soundPlayer.playSound(gamePoint)
         }
 
         binding.p2Container?.setOnClickListener {
             viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
             savePref(sharedPref)
+            var gamePoint: Int = viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0
+            if (gamePoint >= 30) {
+                gamePoint = 30
+            }
+            soundPlayer.playSound(gamePoint)
 
         }
     }
