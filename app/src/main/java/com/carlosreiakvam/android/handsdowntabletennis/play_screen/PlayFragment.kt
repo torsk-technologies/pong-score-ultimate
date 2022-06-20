@@ -2,7 +2,10 @@ package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Paint
+import android.media.MediaDataSource
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -23,7 +26,9 @@ class PlayFragment : Fragment() {
 
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
-    private val mirroredMode: Boolean = false
+
+    //    private val mirroredMode: Boolean = false
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,44 +39,83 @@ class PlayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
-
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val ape = sharedPreferences.all
-        if (ape["mirrored"] == true) {
-            binding.p1Container?.rotation = 180f
+        mediaPlayer = MediaPlayer().apply {
+            setOnPreparedListener { start() }
+            setOnCompletionListener { reset() }
         }
 
         setupOnClickListeners(sharedPref)
         loadPref(sharedPref)
         observeGameState()
         observeGameStart()
-
+        actOnPreferences()
+        val windowManager = requireActivity().windowManager.toString()
+        Log.d("TAG", windowManager)
 
         return binding.root
+    }
+
+    private fun releaseMediaPlayer() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
+    }
+
+    private fun actOnPreferences() {
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).all
+        if (sharedPreferences["mirrored"] == true) {
+            binding.p1Container?.rotation = 180f
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        Log.d("TAG", "onConfigurationChanged")
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
     private fun observeGameStart() {
         viewModel.gameStart.observe(viewLifecycleOwner) {
             if (it == true) {
-                chooseSide()
+                Toast.makeText(context, "new game", Toast.LENGTH_SHORT).show()
+                Log.d("TAG", "gameNumber: ${viewModel.gameNumber.value}")
+//                chooseSide()
+//                viewModel.setupNewGame()
+//                popup fragment, choose sides
                 viewModel.setupNewGame()
-                // popup fragment, choose sides
             }
         }
     }
 
+    private fun setNextMediaDataSource(dataSource: MediaDataSource) {
+        mediaPlayer.setDataSource(dataSource)
+
+    }
+
+    private fun playDing(score: Int) {
+        if (mediaPlayer.isPlaying) {
+            Log.d("TAG", "isplayuing")
+            mediaPlayer.seekTo(0)
+        }
+        mediaPlayer.start()
+    }
+
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
+            playDing(viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0)
             viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
             savePref(sharedPref)
         }
 
         binding.p2Container?.setOnClickListener {
+            playDing(viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0)
             viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
             savePref(sharedPref)
-        }
 
+        }
     }
 
 
@@ -91,10 +135,10 @@ class PlayFragment : Fragment() {
 
     }
 
-    private fun chooseSide() {
-        Toast.makeText(requireContext(), "choose sides", Toast.LENGTH_SHORT).show()
-        // viewModel.chooseServer(1)
-    }
+//    private fun chooseSide() {
+//        Toast.makeText(requireContext(), "choose sides", Toast.LENGTH_SHORT).show()
+// viewModel.chooseServer(1)
+//    }
 
 
     private fun loadPref(sharedPref: SharedPreferences) {
@@ -127,14 +171,18 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.p1Container?.setOnLongClickListener() {
+        binding.p1Container?.setOnLongClickListener {
             alertInGameOptions()
             true
         }
 
-        binding.p2Container?.setOnLongClickListener() {
+        binding.p2Container?.setOnLongClickListener {
             alertInGameOptions()
             true
+        }
+
+        binding.btnFloatingUndo?.setOnClickListener {
+            viewModel.undo()
         }
 
     }
@@ -146,12 +194,18 @@ class PlayFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
-        alertDialog?.findViewById<Button>(R.id.btn_undo)?.setOnClickListener() {
-            viewModel.undo()
-        }
-        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener() {
+//        alertDialog?.findViewById<Button>(R.id.btn_undo)?.setOnClickListener() {
+//            viewModel.undo()
+//        }
+        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
             viewModel.resetMatch()
             alertDialog.cancel()
+        }
+
+        alertDialog?.findViewById<Button>(R.id.btn_settings)?.setOnClickListener {
+            alertDialog.cancel()
+            this.findNavController()
+                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
         }
     }
 
@@ -168,6 +222,16 @@ class PlayFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("TAG", "onCreate")
+    }
+
+    override fun onPause() {
+        Log.d("TAG", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        releaseMediaPlayer()
     }
 }
 

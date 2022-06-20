@@ -5,11 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.preference.Preference
-import androidx.preference.PreferenceManager
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
-import kotlinx.coroutines.withContext
 import java.util.*
 
 class PlayViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,8 +17,12 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     val gameStart: LiveData<Boolean>
         get() = _gameStart
 
+    private val _gameNumber: MutableLiveData<Int> = MutableLiveData(0)
+    val gameNumber: MutableLiveData<Int>
+        get() = _gameNumber
 
-    private val _gameState = MutableLiveData<Map<Int, Int>>(
+
+    private val _gameState = MutableLiveData(
         mapOf(
             P1GAMESCORE.int to 0,
             P2GAMESCORE.int to 0,
@@ -46,6 +46,23 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 //    }
 
 
+    fun registerPoint(playerGameScore: Int, otherPlayerGameScore: Int, playerMatchScore: Int) {
+        increaseGameScore(playerGameScore)
+        if (isGameWon(playerGameScore, otherPlayerGameScore)) {
+            gameWon(playerMatchScore)
+        }
+        undoList.add(_gameState.value!!)
+        checkForServeSwitch()
+    }
+
+    fun gameWon(playerMatchScore: Int) {
+        increaseMatchScore(playerMatchScore)
+        resetGameScore()
+        _gameStart.value = true
+        _gameNumber.value = _gameNumber.value?.plus(1)
+    }
+
+
     fun setGameState(
         p1GameScore: Int = gameState.value?.get(P1GAMESCORE.int)!!,
         p2GameScore: Int = gameState.value?.get(P2GAMESCORE.int)!!,
@@ -63,7 +80,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    private fun isMatchWon(playerGameScore: Int, otherPlayerGameScore: Int): Boolean {
+    private fun isGameWon(playerGameScore: Int, otherPlayerGameScore: Int): Boolean {
         val clickedPlayerHasNormalWin =
             _gameState.value!![playerGameScore] == 11 && _gameState.value!![otherPlayerGameScore]!! <= 9
 
@@ -73,19 +90,6 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         return clickedPlayerHasNormalWin || clickedPlayerHasOvertimeWin
-    }
-
-
-    fun registerPoint(playerGameScore: Int, otherPlayerGameScore: Int, playerMatchScore: Int) {
-        increaseGameScore(playerGameScore)
-
-        if (isMatchWon(playerGameScore, otherPlayerGameScore)) {
-            increaseMatchScore(playerMatchScore)
-            resetGameScore()
-        }
-
-        undoList.add(_gameState.value!!)
-        checkForServeSwitch()
     }
 
 
@@ -119,21 +123,20 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     private fun checkForServeSwitch() {
         if (_gameState.value?.get(P1GAMESCORE.int)!! >= 10 && _gameState.value?.get(P2GAMESCORE.int)!! >= 10) {
             switchPlayerTurn()
-        } else if ((_gameState.value!!.get(P1GAMESCORE.int)!!
-                .plus(_gameState.value!!.get(P2GAMESCORE.int)!!)) % 2 == 0
+        } else if ((_gameState.value!![P1GAMESCORE.int]!!
+                .plus(_gameState.value!![P2GAMESCORE.int]!!)) % 2 == 0
         ) {
             switchPlayerTurn()
         }
     }
 
-    fun chooseServer(player: Int) {
-        if (player == 1) {
-            setGameState(pTurn = 1)
-        } else {
-            setGameState(pTurn = 2)
-        }
-
-    }
+//    fun chooseServer(player: Int) {
+//        if (player == 1) {
+//            setGameState(pTurn = 1)
+//        } else {
+//            setGameState(pTurn = 2)
+//        }
+//    }
 
 
     private fun switchPlayerTurn() {

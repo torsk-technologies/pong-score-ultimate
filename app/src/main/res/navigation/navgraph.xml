@@ -13,14 +13,15 @@
         <action
             android:id="@+id/action_openingScreenFragment_to_playFragment"
             app:destination="@id/playFragment" />
-        <action
-            android:id="@+id/action_openingScreenFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
-        android:label="PlayFragment" />
+        android:label="PlayFragment" >
+        <action
+            android:id="@+id/action_playFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/optionsFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.OptionsFragment"

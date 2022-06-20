@@ -25,7 +25,7 @@
             android:id="@+id/p1_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="@dimen/game_tile_space"
             android:layout_weight="1"
             android:background="@color/azure"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,10 +34,9 @@
 
             <TextView
                 android:id="@+id/tv_p1_match_score"
-                style="@style/text_medium"
+                style="@style/match_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="@{viewmodel.gameState.get(2).toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +62,7 @@
             android:id="@+id/p2_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/game_tile_space"
             android:layout_weight="1"
             android:background="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,10 +71,9 @@
 
             <TextView
                 android:id="@+id/tv_p2_match_score"
-                style="@style/text_medium"
+                style="@style/match_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="@{viewmodel.gameState.get(3).toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -93,6 +91,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="0" />
+
+            <!--            android:backgroundTint="@color/azure_transparent"-->
+            <!--                app:circularflow_radiusInDP="100dp"-->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_floating_undo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/undo"
+                app:fabCustomSize="75dp"
+                android:src="@drawable/ic_baseline_undo_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
