@@ -1,13 +1,9 @@
 package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores
-import kotlinx.coroutines.internal.artificialFrame
-
 class Game() {
 
     var player1 = Player("player one", 1)
     var player2 = Player("player two", 1)
-    var firstServer: Int = 1
     var currentPlayerServer = 1
     var gameNumber = 1
     var isGameStart = false
@@ -49,11 +45,11 @@ class Game() {
         if (player1.gameScore >= 10 && player2.gameScore >= 10 ||
             (player1.gameScore.plus(player2.gameScore) % 2 == 0)
         ) {
-            switchPlayerTurn()
+            switchPlayerServer()
         }
     }
 
-    private fun switchPlayerTurn() {
+    private fun switchPlayerServer() {
         if (currentPlayerServer == 1) currentPlayerServer = 2
         else if (currentPlayerServer == 2) currentPlayerServer = 1
     }

@@ -19,6 +19,8 @@ import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Turn.*
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 
 
 class PlayFragment : Fragment() {
@@ -39,79 +41,42 @@ class PlayFragment : Fragment() {
         binding.viewmodel = viewModel
 
         setupOnClickListeners(sharedPref)
-        loadPref(sharedPref)
+        viewModel.setGameState()
         observeGameState()
-        observeGameStart()
         actOnPreferences()
         setupSoundPlayer()
 
         return binding.root
     }
 
-    private fun setupSoundPlayer() {
-        soundPlayer = SoundPlayer(requireContext())
-        soundPlayer.fetchSounds()
-    }
-
-
-    private fun actOnPreferences() {
-        val sharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(requireContext()).all
-        if (sharedPreferences["mirrored"] == true) {
-            binding.p1Container?.rotation = 180f
-        }
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        Log.d("TAG", "onConfigurationChanged")
-        super.onConfigurationChanged(newConfig)
-        if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private fun observeGameStart() {
-        viewModel.gameStart.observe(viewLifecycleOwner) {
-            if (it == true) {
-                Toast.makeText(context, "new game", Toast.LENGTH_SHORT).show()
-                Log.d("TAG", "gameNumber: ${viewModel.gameNumber.value}")
-//                chooseSide()
-//                viewModel.setupNewGame()
-//                popup fragment, choose sides
-                viewModel.setupNewGame()
-            }
-        }
-    }
-
-
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(1)
             savePref(sharedPref)
-            var gamePoint: Int = viewModel.gameState.value?.get(P1GAMESCORE.index) ?: 0
-            if (gamePoint >= 30) {
-                gamePoint = 30
+            val gamePoint: Int = viewModel.game.player1.gameScore
+            if (viewModel.game.gameNumber >= 30) {
+                soundPlayer.playSound(39)
+            } else {
+                soundPlayer.playSound(gamePoint)
             }
-            soundPlayer.playSound(gamePoint)
         }
 
         binding.p2Container?.setOnClickListener {
             viewModel.registerPoint(2)
             savePref(sharedPref)
-            var gamePoint: Int = viewModel.gameState.value?.get(P2GAMESCORE.index) ?: 0
-            if (gamePoint >= 30) {
-                gamePoint = 30
+            val gamePoint: Int = viewModel.game.player2.gameScore
+            if (viewModel.game.gameNumber >= 30) {
+                soundPlayer.playSound(39)
             }
             soundPlayer.playSound(gamePoint)
-
         }
     }
 
-
     private fun observeGameState() {
-        viewModel.gameState.observe(viewLifecycleOwner) {
-            if (it[PTURN.index] == 1) {
+        viewModel.gameState.observe(viewLifecycleOwner) { state ->
+            if (state[ISGAMESTART.index] == true) viewModel.game.newGame()
+
+            if (state[PTURN.index] == 1) {
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -125,35 +90,37 @@ class PlayFragment : Fragment() {
 
     }
 
-//    private fun chooseSide() {
-//        Toast.makeText(requireContext(), "choose sides", Toast.LENGTH_SHORT).show()
-// viewModel.chooseServer(1)
-//    }
-
-
-    private fun loadPref(sharedPref: SharedPreferences) {
-        val p1GameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
-        val p2GameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
-        val p1MatchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
-        val p2MatchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
-        val pTurn = sharedPref.getInt(PTURN.str, 0)
-        viewModel.setGameState(
-            p1GameScore,
-            p2GameScore,
-            p1MatchScore,
-            p2MatchScore,
-            pTurn
-        )
-
+    private fun actOnPreferences() {
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).all
+        if (sharedPreferences["mirrored"] == true) {
+            binding.p1Container?.rotation = 180f
+        }
     }
+
+
+    private fun setupSoundPlayer() {
+        soundPlayer = SoundPlayer(requireContext())
+        soundPlayer.fetchSounds()
+    }
+
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        Log.d("TAG", "onConfigurationChanged")
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun savePref(sharedPref: SharedPreferences) {
         with(sharedPref.edit()) {
-            putInt(P1GAMESCORE.str, viewModel.gameState.value?.get(P1GAMESCORE.index) ?: 0)
-            putInt(P2GAMESCORE.str, viewModel.gameState.value?.get(P2GAMESCORE.index) ?: 0)
-            putInt(P1MATCHSCORE.str, viewModel.gameState.value?.get(P1MATCHSCORE.index) ?: 0)
-            putInt(P2MATCHSCORE.str, viewModel.gameState.value?.get(P2MATCHSCORE.index) ?: 0)
-            putInt(PTURN.str, viewModel.gameState.value?.get(PTURN.index) ?: 0)
+            putInt(P1GAMESCORE.str, viewModel.game.player1.gameScore)
+            putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
+            putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
+            putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
+            putInt(PTURN.name, viewModel.game.currentPlayerServer)
             apply()
         }
     }
@@ -184,11 +151,9 @@ class PlayFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
-//        alertDialog?.findViewById<Button>(R.id.btn_undo)?.setOnClickListener() {
-//            viewModel.undo()
-//        }
+
         alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.resetMatch()
+            viewModel.game.newMatch(1)
             alertDialog.cancel()
         }
 

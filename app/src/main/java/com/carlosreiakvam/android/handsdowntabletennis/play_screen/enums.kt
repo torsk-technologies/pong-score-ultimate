@@ -9,8 +9,8 @@ enum class Scores(val index: Int, val str: String) {
 }
 
 enum class States(val index: Int, boolean: Boolean) {
-    GAMESTART(5, false),
-    MATCHSTART(6, false)
+    ISGAMESTART(5, false),
+    ISMATCHSTART(6, false)
 }
 
 enum class Turn(val index: Int, playerNumber: Int) {
