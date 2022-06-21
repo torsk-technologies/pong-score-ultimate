@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.handsdowntabletennis.audio_logic
 
 class Sound(private var pathName: String) {
 

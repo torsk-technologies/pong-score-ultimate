@@ -11,7 +11,7 @@
 
         <variable
             name="constants"
-            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants" />
+            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores" />
     </data>
 
 

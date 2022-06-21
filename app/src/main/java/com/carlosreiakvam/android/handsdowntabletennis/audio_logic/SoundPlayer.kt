@@ -1,10 +1,11 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.handsdowntabletennis.audio_logic
 
 import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.util.Log
+import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.Sound
 import java.io.IOException
 
 class SoundPlayer(context: Context) {
@@ -34,16 +35,16 @@ class SoundPlayer(context: Context) {
                 Log.d("TAG", "Could not load sound $filename")
             }
         }
+        Log.d("TAG", "all sounds loaded")
     }
 
-    fun loadSound(sound: Sound) {
+    private fun loadSound(sound: Sound) {
         val fileDescriptor = assetManager.openFd(sound.getPathName())
         val soundID = soundPool.load(fileDescriptor, 1)
         sound.setId(soundID)
     }
 
     fun playSound(soundId: Int) {
-//        val soundId: Int = sound.getId()
         soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
     }
 }

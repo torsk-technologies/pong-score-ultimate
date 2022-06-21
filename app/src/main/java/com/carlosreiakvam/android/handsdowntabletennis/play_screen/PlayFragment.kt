@@ -16,8 +16,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.carlosreiakvam.android.handsdowntabletennis.R
+import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Constants.*
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
 
 
 class PlayFragment : Fragment() {
@@ -50,8 +51,6 @@ class PlayFragment : Fragment() {
     private fun setupSoundPlayer() {
         soundPlayer = SoundPlayer(requireContext())
         soundPlayer.fetchSounds()
-//        val ding = Sound("sounds/ding_1.mp3")
-//        soundPlayer.loadSound(ding)
     }
 
 
@@ -88,20 +87,19 @@ class PlayFragment : Fragment() {
 
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
-            viewModel.registerPoint(P1GAMESCORE.int, P2GAMESCORE.int, P1MATCHSCORE.int)
+            viewModel.registerPoint(1)
             savePref(sharedPref)
-            var gamePoint: Int = viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0
+            var gamePoint: Int = viewModel.gameState.value?.get(P1GAMESCORE.index) ?: 0
             if (gamePoint >= 30) {
                 gamePoint = 30
             }
-            Log.d("KAGGE", "gamepoint: $gamePoint")
             soundPlayer.playSound(gamePoint)
         }
 
         binding.p2Container?.setOnClickListener {
-            viewModel.registerPoint(P2GAMESCORE.int, P1GAMESCORE.int, P2MATCHSCORE.int)
+            viewModel.registerPoint(2)
             savePref(sharedPref)
-            var gamePoint: Int = viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0
+            var gamePoint: Int = viewModel.gameState.value?.get(P2GAMESCORE.index) ?: 0
             if (gamePoint >= 30) {
                 gamePoint = 30
             }
@@ -113,7 +111,7 @@ class PlayFragment : Fragment() {
 
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) {
-            if (it[PTURN.int] == 1) {
+            if (it[PTURN.index] == 1) {
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -151,11 +149,11 @@ class PlayFragment : Fragment() {
 
     private fun savePref(sharedPref: SharedPreferences) {
         with(sharedPref.edit()) {
-            putInt(P1GAMESCORE.str, viewModel.gameState.value?.get(P1GAMESCORE.int) ?: 0)
-            putInt(P2GAMESCORE.str, viewModel.gameState.value?.get(P2GAMESCORE.int) ?: 0)
-            putInt(P1MATCHSCORE.str, viewModel.gameState.value?.get(P1MATCHSCORE.int) ?: 0)
-            putInt(P2MATCHSCORE.str, viewModel.gameState.value?.get(P2MATCHSCORE.int) ?: 0)
-            putInt(PTURN.str, viewModel.gameState.value?.get(PTURN.int) ?: 0)
+            putInt(P1GAMESCORE.str, viewModel.gameState.value?.get(P1GAMESCORE.index) ?: 0)
+            putInt(P2GAMESCORE.str, viewModel.gameState.value?.get(P2GAMESCORE.index) ?: 0)
+            putInt(P1MATCHSCORE.str, viewModel.gameState.value?.get(P1MATCHSCORE.index) ?: 0)
+            putInt(P2MATCHSCORE.str, viewModel.gameState.value?.get(P2MATCHSCORE.index) ?: 0)
+            putInt(PTURN.str, viewModel.gameState.value?.get(PTURN.index) ?: 0)
             apply()
         }
     }
@@ -174,7 +172,7 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnFloatingUndo?.setOnClickListener {
-            viewModel.undo()
+            viewModel.performUndo()
         }
 
     }
