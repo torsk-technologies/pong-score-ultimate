@@ -20,6 +20,8 @@ import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Defaults.*
+import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 
 
 class PlayFragment : Fragment() {
@@ -33,15 +35,14 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("TAG", "onCreateView")
+        Log.d("slabras", "onCreateView")
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 
         setupOnClickListeners(sharedPref)
-        loadPref(sharedPref)
-//        viewModel.setGameState()
+        loadGameStateSharedPrefs(sharedPref)
         observeGameState()
         actOnPreferences()
         setupSoundPlayer()
@@ -51,25 +52,25 @@ class PlayFragment : Fragment() {
 
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
-            viewModel.registerPoint(1)
-            savePref(sharedPref)
-            val gamePoint: Int = viewModel.game.player1.gameScore
-            if (viewModel.game.gameNumber >= 30) {
-                soundPlayer.playSound(30)
-            } else {
-                soundPlayer.playSound(gamePoint)
-            }
+            viewModel.registerPoint(viewModel.game.player1)
+            saveGameStateSharedPrefs(sharedPref)
+            playDing(viewModel.game.player1)
         }
 
         binding.p2Container?.setOnClickListener {
-            viewModel.registerPoint(2)
-            savePref(sharedPref)
-            val gamePoint: Int = viewModel.game.player2.gameScore
-            if (viewModel.game.gameNumber >= 30) {
-                soundPlayer.playSound(30)
-            }
-            soundPlayer.playSound(gamePoint)
+            viewModel.registerPoint(viewModel.game.player2)
+            saveGameStateSharedPrefs(sharedPref)
+            playDing(viewModel.game.player2)
         }
+    }
+
+    private fun playDing(player: Player) {
+        if (player.gameScore >= 30) {
+            soundPlayer.playSound(30)
+        } else {
+            soundPlayer.playSound(player.gameScore)
+        }
+
     }
 
     private fun observeGameState() {
@@ -93,8 +94,11 @@ class PlayFragment : Fragment() {
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext()).all
         if (sharedPreferences["mirrored"] == true) {
-            binding.p1Container?.rotation = 180f
+            binding.tvP1GameScore?.rotation = 180f
+            binding.tvP1MatchScore?.rotation = 180f
         }
+
+        viewModel.game.bestOf = sharedPreferences["best_of"] as Int
     }
 
 
@@ -105,7 +109,7 @@ class PlayFragment : Fragment() {
 
 
     override fun onConfigurationChanged(newConfig: Configuration) {
-        Log.d("TAG", "onConfigurationChanged")
+        Log.d("slabras", "onConfigurationChanged")
         super.onConfigurationChanged(newConfig)
         if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
@@ -113,23 +117,26 @@ class PlayFragment : Fragment() {
     }
 
 
-    private fun savePref(sharedPref: SharedPreferences) {
+    private fun saveGameStateSharedPrefs(sharedPref: SharedPreferences) {
         with(sharedPref.edit()) {
             putInt(P1GAMESCORE.str, viewModel.game.player1.gameScore)
             putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
             putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
             putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
-            putInt(CURRENTPLAYERSERVER.name, viewModel.game.currentPlayerServer)
+            putInt(CURRENTPLAYERSERVER.name, viewModel.game.currentPlayerServer.playerNumber)
+            putInt(BESTOF.name, viewModel.game.bestOf)
             apply()
         }
     }
 
-    private fun loadPref(sharedPref: SharedPreferences) {
+    private fun loadGameStateSharedPrefs(sharedPref: SharedPreferences) {
         viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
         viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
         viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
         viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
-        viewModel.game.currentPlayerServer = sharedPref.getInt(CURRENTPLAYERSERVER.name, 0)
+        viewModel.game.currentPlayerServer.playerNumber =
+            sharedPref.getInt(CURRENTPLAYERSERVER.name, viewModel.game.player1.playerNumber)
+        viewModel.game.bestOf = sharedPref.getInt(BESTOF.name, BESTOFDEFAULT.int)
         viewModel.setGameState(
         )
 
@@ -163,7 +170,7 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
 
         alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.newMatch(1)
+            viewModel.newMatch(viewModel.game.player1)
             alertDialog.cancel()
         }
 
@@ -177,17 +184,17 @@ class PlayFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         soundPlayer.release()
-        Log.d("TAG", "onDestroy")
+        Log.d("slabras", "onDestroy")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("TAG", "onStart")
+        Log.d("slabras", "onStart")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("TAG", "onCreate")
+        Log.d("slabras", "onCreate")
     }
 
     override fun onStop() {
@@ -196,7 +203,7 @@ class PlayFragment : Fragment() {
     }
 
     override fun onPause() {
-        Log.d("TAG", "onPause")
+        Log.d("slabras", "onPause")
         soundPlayer.release()
         super.onPause()
     }

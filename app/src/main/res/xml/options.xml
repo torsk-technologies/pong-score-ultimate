@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         app:key="mirrored"
         app:title="Mirrored mode" />
+
+    <SeekBarPreference
+        app:key="best_of"
+        app:showSeekBarValue="true"
+        app:title="Best of" />
 
 
     <Preference

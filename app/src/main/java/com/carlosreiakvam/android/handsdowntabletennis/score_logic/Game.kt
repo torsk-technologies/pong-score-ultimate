@@ -1,80 +1,99 @@
 package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
 import android.util.Log
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Defaults.BESTOFDEFAULT
 
 class Game {
 
     var player1 = Player("player one", 1)
-    var player2 = Player("player two", 1)
-    var currentPlayerServer = 1
+    var player2 = Player("player two", 2)
+    var currentPlayerServer = player1
     var gameNumber = 1
     var isGameStart = false
     var isMatchStart = false
+    var bestOf = BESTOFDEFAULT.int
 
 
-    fun registerPoint(playerNumber: Int) {
+    fun registerPoint(player: Player) {
         isGameStart = false
-        when (playerNumber) {
-            1 -> {
-                player1.increaseGameScore()
-                if (isGameWon(1)) {
-                    onGameWon(1)
-                }
-            }
-            2 -> {
-                player2.increaseGameScore()
-                if (isGameWon(2)) {
-                    onGameWon(2)
-                }
-            }
+        player.increaseGameScore()
+        if (isMatchWon(player)) {
+            newMatch(player)
+            gameNumber += 1
+        } else if (isGameWon(player)) {
+            onGameWon(player)
+            gameNumber += 1
         }
-        gameNumber += 1
         switchServeIfNecessary()
+        Log.d("slabras", "gamenumber: $gameNumber")
     }
 
-    fun newGame() {
+    private fun onMatchWon() {
+        TODO("Not yet implemented")
+    }
+
+    private fun newGame() {
+        gameNumber = 1
         player1.resetGameScore()
         player2.resetGameScore()
         isGameStart = true
-        currentPlayerServer = if (player1.isFirstServer && gameNumber % 2 != 0) 1 else 2
-        Log.d("TAG", "current server: $currentPlayerServer")
+        if (player1.isFirstServer && gameNumber % 2 != 0) {
+            currentPlayerServer = player1
+        } else if (player2.isFirstServer && gameNumber % 2 == 0) {
+            currentPlayerServer = player2
+        }
+        Log.d("slabras", "current server: $currentPlayerServer")
     }
 
-    /**
-     * @param firstServerPlayer must be 1 or 2
-     */
-    fun newMatch(firstServerPlayer: Int) {
+    fun newMatch(firstServerPlayer: Player) {
         when (firstServerPlayer) {
-            1 -> player1.isFirstServer = true
-            2 -> player2.isFirstServer = true
+            player1 -> {
+                currentPlayerServer = player1
+                player1.isFirstServer = true
+                player2.isFirstServer = false
+            }
+            player2 -> {
+                currentPlayerServer = player2
+                player2.isFirstServer = true
+                player1.isFirstServer = false
+            }
         }
+        gameNumber = 1
         player1.resetGameScore()
         player1.resetMatchScore()
         player2.resetGameScore()
         player2.resetMatchScore()
-        currentPlayerServer = 1
     }
 
-    /**
-     * @return player number of player that won, or -1 if no winner.
-     */
-    private fun isGameWon(player: Int): Boolean {
+    fun isGameWon(player: Player): Boolean {
         return when (player) {
-            1 -> player1.gameScore == 11 && player2.gameScore <= 9 ||
+            player1 -> player1.gameScore == 11 && player2.gameScore <= 9 ||
                     player1.gameScore >= 11 && player1.gameScore >= player2.gameScore + 2
-            2 -> player2.gameScore == 11 && player1.gameScore <= 9 ||
+            player2 -> player2.gameScore == 11 && player1.gameScore <= 9 ||
                     player2.gameScore >= 11 && player2.gameScore >= player1.gameScore + 2
             else -> false
         }
     }
 
-    private fun onGameWon(player: Int) {
-        when (player) {
-            1 -> player1.increaseMatchScore()
-            2 -> player2.increaseMatchScore()
+    fun isMatchWon(player: Player): Boolean {
+        return when (bestOf) {
+            3 -> player.matchScore == 2
+            5 -> player.matchScore == 3
+            7 -> player.matchScore == 4
+            9 -> player.matchScore == 5
+            11 -> player.matchScore == 6
+            13 -> player.matchScore == 7
+            15 -> player.matchScore == 8
+            17 -> player.matchScore == 9
+            19 -> player.matchScore == 10
+            21 -> player.matchScore == 11
+            else -> false
         }
-        newGame()
+    }
 
+    private fun onGameWon(player: Player) {
+        player.increaseMatchScore()
+        newGame()
     }
 
     private fun switchServeIfNecessary() {
@@ -86,18 +105,7 @@ class Game {
     }
 
     private fun switchPlayerServer() {
-        if (currentPlayerServer == 1) currentPlayerServer = 2
-        else if (currentPlayerServer == 2) currentPlayerServer = 1
+        if (currentPlayerServer == player1) currentPlayerServer = player2
+        else if (currentPlayerServer == player2) currentPlayerServer = player1
     }
-
-//    fun checkIfGameStart() {
-//        if (player1.gameScore == 0 && player2.gameScore == 0) isGameStart = true
-//    }
-//
-//    fun checkIfMatchStart() {
-//        if (player1.gameScore == 0 && player2.gameScore == 0
-//            && player1.matchScore == 0 && player2.matchScore == 0
-//        ) isMatchStart = true
-//    }
-
 }

@@ -12,5 +12,10 @@ enum class States(val index: Int) {
     ISGAMESTART(5),
     ISMATCHSTART(6),
     CURRENTPLAYERSERVER(7),
+    BESTOF(8)
+}
+
+enum class Defaults(val int: Int) {
+    BESTOFDEFAULT(3);
 }
 
