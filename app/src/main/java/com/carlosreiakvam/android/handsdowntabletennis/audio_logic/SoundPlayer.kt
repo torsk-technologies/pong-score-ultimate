@@ -5,7 +5,6 @@ import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.util.Log
-import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.Sound
 import java.io.IOException
 
 class SoundPlayer(context: Context) {
@@ -39,12 +38,16 @@ class SoundPlayer(context: Context) {
     }
 
     private fun loadSound(sound: Sound) {
-        val fileDescriptor = assetManager.openFd(sound.getPathName())
-        val soundID = soundPool.load(fileDescriptor, 1)
-        sound.setId(soundID)
+        val fileDescriptor = assetManager.openFd(sound.pathName)
+        sound.id = soundPool.load(fileDescriptor, 1)
+        Log.d("TAG", "sound.id: ${sound.id}")
     }
 
     fun playSound(soundId: Int) {
         soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
+    }
+
+    fun release() {
+        soundPool.release()
     }
 }

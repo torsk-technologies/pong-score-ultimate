@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Turn.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import java.util.*
 
@@ -22,8 +21,9 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P1MATCHSCORE.index to 0,
             P2MATCHSCORE.index to 0,
             GAMENUMBER.index to 1,
-            PTURN.index to 1,
-            ISGAMESTART.index to true,
+            CURRENTPLAYERSERVER.index to 1,
+            ISGAMESTART.index to false,
+            ISMATCHSTART.index to false
         )
     )
     val gameState: LiveData<Map<Int, Any>>
@@ -32,36 +32,12 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     val game = Game()
 
     init {
-        Log.d("TAG", "viewmodel")
+        Log.d("TAG", "viewModel")
     }
 
     fun registerPoint(playerNumber: Int) {
-        game.isGameStart = false
-        when (playerNumber) {
-            1 -> {
-                game.player1.increaseGameScore()
-                if (game.isGameWon(1)) {
-                    game.player1.increaseMatchScore()
-                    game.newGame()
-                    game.isGameStart = true
-                    game.currentPlayerServer = 2
-                    game.switchServeIfNecessary()
-                }
-            }
-            2 -> {
-                game.player2.increaseGameScore()
-                if (game.isGameWon(2)) {
-                    game.player2.increaseMatchScore()
-                    game.newGame()
-                    game.isGameStart = true
-                    game.currentPlayerServer = 1
-                    game.switchServeIfNecessary()
-                }
-            }
-        }
-        game.gameNumber += 1
+        game.registerPoint(playerNumber)
         setGameState()
-
     }
 
     fun setGameState() {
@@ -70,7 +46,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P2GAMESCORE.index to game.player2.gameScore,
             P1MATCHSCORE.index to game.player1.matchScore,
             P2MATCHSCORE.index to game.player2.matchScore,
-            PTURN.index to game.currentPlayerServer,
+            CURRENTPLAYERSERVER.index to game.currentPlayerServer,
             ISGAMESTART.index to game.isGameStart,
             ISMATCHSTART.index to game.isMatchStart
         )
@@ -85,10 +61,15 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.player2.gameScore = (peekScores?.get(P2GAMESCORE.index) ?: 0) as Int
         game.player1.matchScore = (peekScores?.get(P1MATCHSCORE.index) ?: 0) as Int
         game.player2.matchScore = (peekScores?.get(P2MATCHSCORE.index) ?: 0) as Int
-        game.currentPlayerServer = (peekScores?.get(PTURN.index) ?: 0) as Int
+        game.currentPlayerServer = (peekScores?.get(CURRENTPLAYERSERVER.index) ?: 1) as Int
         game.isGameStart = (peekScores?.get(ISGAMESTART.index) ?: false) as Boolean
         game.isMatchStart = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
         setGameState()
-        Log.d("TAG", "undolist after undo: ${undoList.peekLast()}")
+        Log.d("TAG", "undo-list after undo: ${undoList.peekLast()}")
+    }
+
+    fun newMatch(playerServer: Int) {
+        game.newMatch(playerServer)
+        setGameState()
     }
 }

@@ -19,7 +19,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Turn.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 
 
@@ -55,7 +54,7 @@ class PlayFragment : Fragment() {
             savePref(sharedPref)
             val gamePoint: Int = viewModel.game.player1.gameScore
             if (viewModel.game.gameNumber >= 30) {
-                soundPlayer.playSound(39)
+                soundPlayer.playSound(30)
             } else {
                 soundPlayer.playSound(gamePoint)
             }
@@ -66,7 +65,7 @@ class PlayFragment : Fragment() {
             savePref(sharedPref)
             val gamePoint: Int = viewModel.game.player2.gameScore
             if (viewModel.game.gameNumber >= 30) {
-                soundPlayer.playSound(39)
+                soundPlayer.playSound(30)
             }
             soundPlayer.playSound(gamePoint)
         }
@@ -74,9 +73,8 @@ class PlayFragment : Fragment() {
 
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
-            if (state[ISGAMESTART.index] == true) viewModel.game.newGame()
 
-            if (state[PTURN.index] == 1) {
+            if (state[CURRENTPLAYERSERVER.index] == 1) {
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -120,7 +118,7 @@ class PlayFragment : Fragment() {
             putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
             putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
             putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
-            putInt(PTURN.name, viewModel.game.currentPlayerServer)
+            putInt(CURRENTPLAYERSERVER.name, viewModel.game.currentPlayerServer)
             apply()
         }
     }
@@ -153,7 +151,7 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
 
         alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.game.newMatch(1)
+            viewModel.newMatch(1)
             alertDialog.cancel()
         }
 
@@ -166,6 +164,7 @@ class PlayFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        soundPlayer.release()
         Log.d("TAG", "onDestroy")
     }
 
@@ -179,8 +178,14 @@ class PlayFragment : Fragment() {
         Log.d("TAG", "onCreate")
     }
 
+    override fun onStop() {
+        soundPlayer.release()
+        super.onStop()
+    }
+
     override fun onPause() {
         Log.d("TAG", "onPause")
+        soundPlayer.release()
         super.onPause()
     }
 
