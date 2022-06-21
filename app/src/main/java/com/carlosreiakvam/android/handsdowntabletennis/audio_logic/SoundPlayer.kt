@@ -40,7 +40,6 @@ class SoundPlayer(context: Context) {
     private fun loadSound(sound: Sound) {
         val fileDescriptor = assetManager.openFd(sound.pathName)
         sound.id = soundPool.load(fileDescriptor, 1)
-        Log.d("TAG", "sound.id: ${sound.id}")
     }
 
     fun playSound(soundId: Int) {

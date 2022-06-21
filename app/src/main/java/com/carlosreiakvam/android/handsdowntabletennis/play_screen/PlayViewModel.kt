@@ -38,6 +38,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     fun registerPoint(playerNumber: Int) {
         game.registerPoint(playerNumber)
         setGameState()
+        undoList.add(_gameState.value ?: mapOf())
     }
 
     fun setGameState() {
@@ -55,6 +56,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     fun performUndo() {
         Log.d("TAG", "undo")
+        Log.d("TAG", "undo-list before undo: ${undoList.peekLast()}")
         undoList.pollLast()
         val peekScores = undoList.peekLast()
         game.player1.gameScore = (peekScores?.get(P1GAMESCORE.index) ?: 0) as Int

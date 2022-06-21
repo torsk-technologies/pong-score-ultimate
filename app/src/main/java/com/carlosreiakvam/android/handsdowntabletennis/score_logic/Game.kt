@@ -1,5 +1,7 @@
 package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
+import android.util.Log
+
 class Game {
 
     var player1 = Player("player one", 1)
@@ -35,6 +37,7 @@ class Game {
         player2.resetGameScore()
         isGameStart = true
         currentPlayerServer = if (player1.isFirstServer && gameNumber % 2 != 0) 1 else 2
+        Log.d("TAG", "current server: $currentPlayerServer")
     }
 
     /**
@@ -49,6 +52,7 @@ class Game {
         player1.resetMatchScore()
         player2.resetGameScore()
         player2.resetMatchScore()
+        currentPlayerServer = 1
     }
 
     /**

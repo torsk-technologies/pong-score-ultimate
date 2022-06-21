@@ -40,7 +40,8 @@ class PlayFragment : Fragment() {
         binding.viewmodel = viewModel
 
         setupOnClickListeners(sharedPref)
-        viewModel.setGameState()
+        loadPref(sharedPref)
+//        viewModel.setGameState()
         observeGameState()
         actOnPreferences()
         setupSoundPlayer()
@@ -121,6 +122,17 @@ class PlayFragment : Fragment() {
             putInt(CURRENTPLAYERSERVER.name, viewModel.game.currentPlayerServer)
             apply()
         }
+    }
+
+    private fun loadPref(sharedPref: SharedPreferences) {
+        viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
+        viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
+        viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
+        viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
+        viewModel.game.currentPlayerServer = sharedPref.getInt(CURRENTPLAYERSERVER.name, 0)
+        viewModel.setGameState(
+        )
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
