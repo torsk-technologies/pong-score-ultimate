@@ -10,6 +10,7 @@ import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import timber.log.Timber
 import java.util.*
 
 class PlayViewModel(application: Application) : AndroidViewModel(application) {
@@ -36,10 +37,11 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        Log.d("slabras", "viewModel")
+        Timber.d("viewModel initiated")
     }
 
     fun registerPoint(player: Player, otherPlayer: Player) {
+        Timber.d("register point ma")
         game.registerPoint(player, otherPlayer)
         setGameState()
         undoList.add(_gameState.value ?: mapOf())
@@ -61,8 +63,6 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun performUndo() {
-        Log.d("slabras", "undo")
-        Log.d("slabras", "undo-list before undo: ${undoList.peekLast()}")
         undoList.pollLast()
         val peekScores = undoList.peekLast()
         game.player1.gameScore = (peekScores?.get(P1GAMESCORE.index) ?: 0) as Int
@@ -77,11 +77,15 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.isMatchStart = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
         game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
         setGameState()
-        Log.d("slabras", "undo-list after undo: ${undoList.peekLast()}")
     }
 
     fun newMatch(playerServer: Player) {
         game.newMatch(playerServer)
         setGameState()
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

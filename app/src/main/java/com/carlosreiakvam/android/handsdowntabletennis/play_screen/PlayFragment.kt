@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.Toast
@@ -22,6 +21,7 @@ import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Defaults.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import timber.log.Timber
 
 
 class PlayFragment : Fragment() {
@@ -29,37 +29,37 @@ class PlayFragment : Fragment() {
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
     private lateinit var soundPlayer: SoundPlayer
+    private lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("slabras", "onCreateView")
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
+        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 
-        setupOnClickListeners(sharedPref)
+        setupOnClickListeners()
         observeGameState()
         actOnPreferences()
         setupSoundPlayer()
-        loadGameStateSharedPrefs(sharedPref)
+        loadSharedPrefsGameState()
 
         return binding.root
     }
 
-    private fun setupOnClickListeners(sharedPref: SharedPreferences) {
+    private fun setupOnClickListeners() {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player1, viewModel.game.player2)
-            saveGameStateSharedPrefs(sharedPref)
+            saveSharedPrefsGameState()
             playDing(viewModel.game.player1)
         }
 
         binding.p2Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player2, viewModel.game.player1)
-            saveGameStateSharedPrefs(sharedPref)
+            saveSharedPrefsGameState()
             playDing(viewModel.game.player2)
         }
     }
@@ -73,7 +73,6 @@ class PlayFragment : Fragment() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
 
             if (state[CURRENTPLAYERSERVER.index] == viewModel.game.player1.playerNumber) {
-                Log.d("slabras", "fragment sier at current server er player 1")
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -85,7 +84,7 @@ class PlayFragment : Fragment() {
             }
 
             if (state[ISMATCHSTART.index] == true) {
-                Toast.makeText(requireContext(), "MATCHSTART", Toast.LENGTH_SHORT).show()
+                alertDialogNewMatch()
             } else if (state[ISGAMESTART.index] == true) {
                 Toast.makeText(requireContext(), "GAMESTART", Toast.LENGTH_SHORT).show()
             }
@@ -112,7 +111,6 @@ class PlayFragment : Fragment() {
 
 
     override fun onConfigurationChanged(newConfig: Configuration) {
-        Log.d("slabras", "onConfigurationChanged")
         super.onConfigurationChanged(newConfig)
         if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
@@ -120,7 +118,7 @@ class PlayFragment : Fragment() {
     }
 
 
-    private fun saveGameStateSharedPrefs(sharedPref: SharedPreferences) {
+    private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
             putInt(P1GAMESCORE.str, viewModel.game.player1.gameScore)
             putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
@@ -132,7 +130,7 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun loadGameStateSharedPrefs(sharedPref: SharedPreferences) {
+    private fun loadSharedPrefsGameState() {
         viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
         viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
         viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
@@ -141,7 +139,6 @@ class PlayFragment : Fragment() {
 
         val currentPlayerServerNumber =
             sharedPref.getInt(CURRENTPLAYERSERVER.str, 2)
-        Log.d("slabras", "currentPLayerServerNumber: $currentPlayerServerNumber")
 
         if (currentPlayerServerNumber == viewModel.game.player1.playerNumber) {
             viewModel.game.currentPlayerServer = viewModel.game.player1
@@ -171,6 +168,15 @@ class PlayFragment : Fragment() {
 
     }
 
+    private fun alertDialogNewMatch() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.new_match_dialog)
+            builder.create()
+        }
+        alertDialog?.show()
+    }
+
     private fun alertInGameOptions() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
@@ -194,28 +200,28 @@ class PlayFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         soundPlayer.release()
-        Log.d("slabras", "onDestroy")
+        saveSharedPrefsGameState()
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("slabras", "onStart")
+        Timber.d("onStart")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("slabras", "onCreate")
     }
 
     override fun onStop() {
         soundPlayer.release()
         super.onStop()
+        Timber.d("onStop")
     }
 
     override fun onPause() {
-        Log.d("slabras", "onPause")
         soundPlayer.release()
         super.onPause()
+        Timber.d("onPause")
     }
 
 }

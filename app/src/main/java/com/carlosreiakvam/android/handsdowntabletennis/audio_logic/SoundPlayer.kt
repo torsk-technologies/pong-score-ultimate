@@ -31,10 +31,8 @@ class SoundPlayer(context: Context) {
                 loadSound(sound)
                 soundList.add(sound)
             } catch (e: IOException) {
-                Log.d("TAG", "Could not load sound $filename")
             }
         }
-        Log.d("TAG", "all sounds loaded")
     }
 
     private fun loadSound(sound: Sound) {
