@@ -54,7 +54,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P2MATCHSCORE.index to game.player2.matchScore,
             CURRENTPLAYERSERVER.index to game.currentPlayerServer,
             ISGAMESTART.index to game.isGameStart,
-            ISMATCHSTART.index to game.isMatchStart,
+            ISMATCHSTART.index to game.isMatchWon,
             FIRSTPLAYERSERVER.index to game.firstServerPlayer,
             BESTOF.index to game.bestOf
         )
@@ -73,16 +73,15 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.firstServerPlayer =
             (peekScores?.get(FIRSTPLAYERSERVER.index) ?: game.player1) as Player
         game.isGameStart = (peekScores?.get(ISGAMESTART.index) ?: false) as Boolean
-        game.isMatchStart = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
+        game.isMatchWon = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
         game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
         setGameState()
     }
 
-    fun newMatch(playerServer: Player) {
-        game.initNewMatch(playerServer)
+    fun onMatchReset(playerServer: Player) {
+        game.onMatchReset(playerServer)
         setGameState()
     }
-
 
     override fun onCleared() {
         super.onCleared()

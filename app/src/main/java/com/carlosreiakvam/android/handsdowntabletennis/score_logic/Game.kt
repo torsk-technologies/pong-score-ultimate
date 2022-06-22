@@ -11,7 +11,8 @@ class Game {
     var firstServerPlayer = player1
     var gameNumber = 1
     var isGameStart = false
-    var isMatchStart = false
+    var isMatchWon = false
+    var isMatchReset = false
     var bestOf = BESTOFDEFAULT.int
     private val matchPool = mapOf(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
@@ -20,13 +21,13 @@ class Game {
 
     fun registerPoint(player: Player, otherPlayer: Player) {
         isGameStart = false
-        isMatchStart = false
+        isMatchWon = false
         player.increaseGameScore()
 
         if (isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
             if (isMatchWon(player)) {
-                initNewMatch(player)
+                onMatchWon(player)
                 return
             } else {
                 initNewGame()
@@ -54,10 +55,19 @@ class Game {
         }
     }
 
-    fun initNewMatch(firstServerPlayer: Player) {
-        Timber.d("new match")
+    fun onMatchReset(firstServerPlayer: Player) {
         this.firstServerPlayer = firstServerPlayer
         gameNumber = 1
+        isMatchReset = true
+        player1.resetGameScore(); player1.resetMatchScore()
+        player2.resetGameScore(); player2.resetMatchScore()
+    }
+
+
+    fun onMatchWon(firstServerPlayer: Player) {
+        this.firstServerPlayer = firstServerPlayer
+        gameNumber = 1
+        isMatchWon = true
         player1.resetGameScore(); player1.resetMatchScore()
         player2.resetGameScore(); player2.resetMatchScore()
     }
@@ -69,7 +79,7 @@ class Game {
 
     private fun isMatchWon(player: Player): Boolean {
         if (matchPool[bestOf] == player.matchScore) {
-            initNewMatch(player1)
+            onMatchWon(player1)
             return true
         }
         return false

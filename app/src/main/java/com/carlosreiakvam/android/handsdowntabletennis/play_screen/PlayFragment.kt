@@ -190,7 +190,7 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
 
         alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.newMatch(viewModel.game.player1)
+            viewModel.onMatchReset(viewModel.game.player1)
             alertDialog.cancel()
         }
 
