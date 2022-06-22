@@ -1,7 +1,6 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,13 +40,13 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun registerPoint(player: Player, otherPlayer: Player) {
-        Timber.d("register point ma")
         game.registerPoint(player, otherPlayer)
         setGameState()
         undoList.add(_gameState.value ?: mapOf())
     }
 
     fun setGameState() {
+        Timber.d("setGameState (Fra game til viewmodel)")
         _gameState.value = mapOf(
             P1GAMESCORE.index to game.player1.gameScore,
             P2GAMESCORE.index to game.player2.gameScore,
@@ -80,7 +79,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun newMatch(playerServer: Player) {
-        game.newMatch(playerServer)
+        game.initNewMatch(playerServer)
         setGameState()
     }
 

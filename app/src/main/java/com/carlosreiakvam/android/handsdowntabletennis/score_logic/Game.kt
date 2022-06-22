@@ -1,6 +1,5 @@
 package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
-import android.util.Log
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Defaults.BESTOFDEFAULT
 import timber.log.Timber
 
@@ -24,18 +23,26 @@ class Game {
         isMatchStart = false
         player.increaseGameScore()
 
-        if (reactIfMatchWon(player)) {
-            Timber.d("react if match won is true")
-            return
-        } else if (reactIfGameWon(player, otherPlayer)) {
-            return
-        } else {
-            switchServeIfNecessary(player, otherPlayer)
-        }
+        if (isGameWon(player, otherPlayer)) {
+            player.increaseMatchScore()
+            if (isMatchWon(player)) {
+                initNewMatch(player)
+                return
+            } else {
+                initNewGame()
+                if (serveSwitchOnGameWon()) serveSwitch()
+                return
+            }
+        } else if (serveSwitchOnPoint(player, otherPlayer)) serveSwitch()
     }
 
+    private fun serveSwitch() {
+        currentPlayerServer = if (currentPlayerServer == player1) player2
+        else player1
+    }
 
-    private fun newGame() {
+    private fun initNewGame() {
+        Timber.d("new game")
         isGameStart = true
         gameNumber += 1
         player1.resetGameScore()
@@ -47,33 +54,33 @@ class Game {
         }
     }
 
-    fun newMatch(firstServerPlayer: Player) {
+    fun initNewMatch(firstServerPlayer: Player) {
+        Timber.d("new match")
         this.firstServerPlayer = firstServerPlayer
         gameNumber = 1
         player1.resetGameScore(); player1.resetMatchScore()
         player2.resetGameScore(); player2.resetMatchScore()
     }
 
-    private fun reactIfGameWon(player: Player, otherPlayer: Player): Boolean {
-        if (player.gameScore == 11 && otherPlayer.gameScore <= 9 ||
-            player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
-        ) {
-            player.increaseMatchScore()
-            newGame()
+    private fun isGameWon(player: Player, otherPlayer: Player): Boolean {
+        return player.gameScore == 11 && otherPlayer.gameScore <= 9 ||
+                player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
+    }
+
+    private fun isMatchWon(player: Player): Boolean {
+        if (matchPool[bestOf] == player.matchScore) {
+            initNewMatch(player1)
             return true
         }
         return false
     }
 
-    private fun reactIfMatchWon(player: Player): Boolean {
-        return matchPool[bestOf] == player.matchScore
+    private fun serveSwitchOnGameWon(): Boolean {
+        return firstServerPlayer == player1 && gameNumber % 2 == 0
     }
 
-    private fun switchServeIfNecessary(player: Player, otherPlayer: Player) {
-        if (player.gameScore >= 10 && otherPlayer.gameScore >= 10 ||
-            (player.gameScore.plus(otherPlayer.gameScore) % 2 == 0)
-        ) {
-            currentPlayerServer = otherPlayer
-        }
+    private fun serveSwitchOnPoint(player: Player, otherPlayer: Player): Boolean {
+        return (player.gameScore >= 10 && otherPlayer.gameScore >= 10 ||
+                (player.gameScore.plus(otherPlayer.gameScore) % 2 == 0))
     }
 }

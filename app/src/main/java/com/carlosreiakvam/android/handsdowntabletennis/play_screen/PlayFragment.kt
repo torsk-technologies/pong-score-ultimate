@@ -71,8 +71,11 @@ class PlayFragment : Fragment() {
 
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
+            Timber.d("Observing game state")
+            val stateCurrentServer: Player = state.get(CURRENTPLAYERSERVER.index) as Player
+            Timber.d("current server by state: ${stateCurrentServer.name}")
 
-            if (state[CURRENTPLAYERSERVER.index] == viewModel.game.player1.playerNumber) {
+            if (stateCurrentServer == viewModel.game.player1) {
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -147,6 +150,7 @@ class PlayFragment : Fragment() {
         }
 
         viewModel.setGameState()
+        Timber.d("sharedPrefs gameState loaded")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -205,17 +209,13 @@ class PlayFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Timber.d("onStart")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        Timber.tag("lifecycle").d("onStart")
     }
 
     override fun onStop() {
         soundPlayer.release()
         super.onStop()
-        Timber.d("onStop")
+        Timber.tag("lifecycle").d("onStop")
     }
 
     override fun onPause() {
