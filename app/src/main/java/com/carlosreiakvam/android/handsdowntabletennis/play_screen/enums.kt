@@ -6,13 +6,14 @@ enum class Scores(val index: Int, val str: String) {
     P1MATCHSCORE(2, "P1MATCHSCORE"),
     P2MATCHSCORE(3, "P2MATCHSCORE"),
     GAMENUMBER(4, "GAMENUMBER"),
+    CURRENTPLAYERSERVER(5, "CURRENTPLAYERSERVER"),
 }
 
 enum class States(val index: Int) {
-    ISGAMESTART(5),
-    ISMATCHSTART(6),
-    CURRENTPLAYERSERVER(7),
-    BESTOF(8)
+    ISGAMESTART(6),
+    ISMATCHSTART(7),
+    FIRSTPLAYERSERVER(8),
+    BESTOF(9)
 }
 
 enum class Defaults(val int: Int) {

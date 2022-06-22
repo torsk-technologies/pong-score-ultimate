@@ -42,41 +42,38 @@ class PlayFragment : Fragment() {
         binding.viewmodel = viewModel
 
         setupOnClickListeners(sharedPref)
-        loadGameStateSharedPrefs(sharedPref)
         observeGameState()
         actOnPreferences()
         setupSoundPlayer()
+        loadGameStateSharedPrefs(sharedPref)
 
         return binding.root
     }
 
     private fun setupOnClickListeners(sharedPref: SharedPreferences) {
         binding.p1Container?.setOnClickListener {
-            viewModel.registerPoint(viewModel.game.player1)
+            viewModel.registerPoint(viewModel.game.player1, viewModel.game.player2)
             saveGameStateSharedPrefs(sharedPref)
             playDing(viewModel.game.player1)
         }
 
         binding.p2Container?.setOnClickListener {
-            viewModel.registerPoint(viewModel.game.player2)
+            viewModel.registerPoint(viewModel.game.player2, viewModel.game.player1)
             saveGameStateSharedPrefs(sharedPref)
             playDing(viewModel.game.player2)
         }
     }
 
     private fun playDing(player: Player) {
-        if (player.gameScore >= 30) {
-            soundPlayer.playSound(30)
-        } else {
-            soundPlayer.playSound(player.gameScore)
-        }
-
+        if (player.gameScore >= 30) soundPlayer.playSound(30)
+        else soundPlayer.playSound(player.gameScore)
     }
 
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
 
-            if (state[CURRENTPLAYERSERVER.index] == 1) {
+            if (state[CURRENTPLAYERSERVER.index] == viewModel.game.player1.playerNumber) {
+                Log.d("slabras", "fragment sier at current server er player 1")
                 binding.tvP1GameScore?.paintFlags =
                     binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP2GameScore?.paintFlags = 0
@@ -85,6 +82,12 @@ class PlayFragment : Fragment() {
                 binding.tvP2GameScore?.paintFlags =
                     binding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP1GameScore?.paintFlags = 0
+            }
+
+            if (state[ISMATCHSTART.index] == true) {
+                Toast.makeText(requireContext(), "MATCHSTART", Toast.LENGTH_SHORT).show()
+            } else if (state[ISGAMESTART.index] == true) {
+                Toast.makeText(requireContext(), "GAMESTART", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -123,7 +126,7 @@ class PlayFragment : Fragment() {
             putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
             putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
             putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
-            putInt(CURRENTPLAYERSERVER.name, viewModel.game.currentPlayerServer.playerNumber)
+            putInt(CURRENTPLAYERSERVER.str, viewModel.game.currentPlayerServer.playerNumber)
             putInt(BESTOF.name, viewModel.game.bestOf)
             apply()
         }
@@ -134,12 +137,19 @@ class PlayFragment : Fragment() {
         viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
         viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
         viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
-        viewModel.game.currentPlayerServer.playerNumber =
-            sharedPref.getInt(CURRENTPLAYERSERVER.name, viewModel.game.player1.playerNumber)
         viewModel.game.bestOf = sharedPref.getInt(BESTOF.name, BESTOFDEFAULT.int)
-        viewModel.setGameState(
-        )
 
+        val currentPlayerServerNumber =
+            sharedPref.getInt(CURRENTPLAYERSERVER.str, 2)
+        Log.d("slabras", "currentPLayerServerNumber: $currentPlayerServerNumber")
+
+        if (currentPlayerServerNumber == viewModel.game.player1.playerNumber) {
+            viewModel.game.currentPlayerServer = viewModel.game.player1
+        } else {
+            viewModel.game.currentPlayerServer = viewModel.game.player2
+        }
+
+        viewModel.setGameState()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

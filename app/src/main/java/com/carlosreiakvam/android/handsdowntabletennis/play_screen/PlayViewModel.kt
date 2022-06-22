@@ -13,6 +13,7 @@ import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import java.util.*
 
 class PlayViewModel(application: Application) : AndroidViewModel(application) {
+    val game = Game()
 
     private val undoList: LinkedList<Map<Int, Any>> = LinkedList<Map<Int, Any>>()
 
@@ -24,6 +25,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P2MATCHSCORE.index to 0,
             GAMENUMBER.index to 1,
             CURRENTPLAYERSERVER.index to 1,
+            FIRSTPLAYERSERVER.index to game.firstServerPlayer.playerNumber,
             ISGAMESTART.index to false,
             ISMATCHSTART.index to false,
             BESTOF.index to BESTOFDEFAULT.int
@@ -32,20 +34,13 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     val gameState: LiveData<Map<Int, Any>>
         get() = _gameState
 
-    val game = Game()
 
     init {
         Log.d("slabras", "viewModel")
     }
 
-    fun registerPoint(player: Player) {
-        game.registerPoint(player)
-        if (game.isMatchWon(player)) {
-            Log.d("slabras", "match won by player$player")
-            setGameState()
-        } else if (game.isGameWon(player)) {
-            Log.d("slabras", "game won by player$player")
-        }
+    fun registerPoint(player: Player, otherPlayer: Player) {
+        game.registerPoint(player, otherPlayer)
         setGameState()
         undoList.add(_gameState.value ?: mapOf())
     }
@@ -59,6 +54,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             CURRENTPLAYERSERVER.index to game.currentPlayerServer,
             ISGAMESTART.index to game.isGameStart,
             ISMATCHSTART.index to game.isMatchStart,
+            FIRSTPLAYERSERVER.index to game.firstServerPlayer,
             BESTOF.index to game.bestOf
         )
     }
@@ -74,7 +70,9 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.player1.matchScore = (peekScores?.get(P1MATCHSCORE.index) ?: 0) as Int
         game.player2.matchScore = (peekScores?.get(P2MATCHSCORE.index) ?: 0) as Int
         game.currentPlayerServer =
-            (peekScores?.get(CURRENTPLAYERSERVER.index) ?: game.player1) as Player
+            (peekScores?.get(CURRENTPLAYERSERVER.index) ?: game.currentPlayerServer) as Player
+        game.firstServerPlayer =
+            (peekScores?.get(FIRSTPLAYERSERVER.index) ?: game.player1) as Player
         game.isGameStart = (peekScores?.get(ISGAMESTART.index) ?: false) as Boolean
         game.isMatchStart = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
         game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int

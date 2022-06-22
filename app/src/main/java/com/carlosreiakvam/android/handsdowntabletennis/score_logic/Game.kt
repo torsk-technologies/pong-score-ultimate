@@ -8,104 +8,73 @@ class Game {
     var player1 = Player("player one", 1)
     var player2 = Player("player two", 2)
     var currentPlayerServer = player1
+    var firstServerPlayer = player1
     var gameNumber = 1
     var isGameStart = false
     var isMatchStart = false
     var bestOf = BESTOFDEFAULT.int
+    val matchPool = arrayListOf(3, 5, 7, 9, 11, 13, 15, 17, 19, 21)
 
 
-    fun registerPoint(player: Player) {
+    fun registerPoint(player: Player, otherPlayer: Player) {
         isGameStart = false
+        isMatchStart = false
+
+        if (reactIfMatchWon(player) || reactIfGameWon(player, otherPlayer)) return
+
         player.increaseGameScore()
-        if (isMatchWon(player)) {
-            newMatch(player)
-            gameNumber += 1
-        } else if (isGameWon(player)) {
-            onGameWon(player)
-            gameNumber += 1
-        }
-        switchServeIfNecessary()
-        Log.d("slabras", "gamenumber: $gameNumber")
+        switchServeIfNecessary(player, otherPlayer)
     }
 
-    private fun onMatchWon() {
-        TODO("Not yet implemented")
-    }
 
     private fun newGame() {
-        gameNumber = 1
+        Log.d("slabras", "isFirstServer: ${firstServerPlayer.name}")
+        isGameStart = true
+        gameNumber += 1
         player1.resetGameScore()
         player2.resetGameScore()
-        isGameStart = true
-        if (player1.isFirstServer && gameNumber % 2 != 0) {
+        if (firstServerPlayer == player1 && gameNumber % 2 != 0) {
             currentPlayerServer = player1
-        } else if (player2.isFirstServer && gameNumber % 2 == 0) {
+        } else if (firstServerPlayer == player2 && gameNumber % 2 == 0) {
             currentPlayerServer = player2
         }
-        Log.d("slabras", "current server: $currentPlayerServer")
+        Log.d("slabras", "current server: ${currentPlayerServer.name}")
     }
 
     fun newMatch(firstServerPlayer: Player) {
-        when (firstServerPlayer) {
-            player1 -> {
-                currentPlayerServer = player1
-                player1.isFirstServer = true
-                player2.isFirstServer = false
-            }
-            player2 -> {
-                currentPlayerServer = player2
-                player2.isFirstServer = true
-                player1.isFirstServer = false
-            }
-        }
+        this.firstServerPlayer = firstServerPlayer
         gameNumber = 1
-        player1.resetGameScore()
-        player1.resetMatchScore()
-        player2.resetGameScore()
-        player2.resetMatchScore()
+        player1.resetGameScore(); player1.resetMatchScore()
+        player2.resetGameScore(); player2.resetMatchScore()
     }
 
-    fun isGameWon(player: Player): Boolean {
-        return when (player) {
-            player1 -> player1.gameScore == 11 && player2.gameScore <= 9 ||
-                    player1.gameScore >= 11 && player1.gameScore >= player2.gameScore + 2
-            player2 -> player2.gameScore == 11 && player1.gameScore <= 9 ||
-                    player2.gameScore >= 11 && player2.gameScore >= player1.gameScore + 2
-            else -> false
-        }
-    }
-
-    fun isMatchWon(player: Player): Boolean {
-        return when (bestOf) {
-            3 -> player.matchScore == 2
-            5 -> player.matchScore == 3
-            7 -> player.matchScore == 4
-            9 -> player.matchScore == 5
-            11 -> player.matchScore == 6
-            13 -> player.matchScore == 7
-            15 -> player.matchScore == 8
-            17 -> player.matchScore == 9
-            19 -> player.matchScore == 10
-            21 -> player.matchScore == 11
-            else -> false
-        }
-    }
-
-    private fun onGameWon(player: Player) {
-        player.increaseMatchScore()
-        newGame()
-    }
-
-    private fun switchServeIfNecessary() {
-        if (player1.gameScore >= 10 && player2.gameScore >= 10 ||
-            (player1.gameScore.plus(player2.gameScore) % 2 == 0)
+    private fun reactIfGameWon(player: Player, otherPlayer: Player): Boolean {
+        if (player.gameScore == 11 && otherPlayer.gameScore <= 9 ||
+            player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
         ) {
-            switchPlayerServer()
+            player.increaseMatchScore()
+            newGame()
+            Log.d("slabras", "gamenumber: $gameNumber")
+            return true
         }
+        return false
     }
 
-    private fun switchPlayerServer() {
-        if (currentPlayerServer == player1) currentPlayerServer = player2
-        else if (currentPlayerServer == player2) currentPlayerServer = player1
+    private fun reactIfMatchWon(player: Player): Boolean {
+        var j = 2
+        for (i in matchPool) {
+            if (bestOf == i && player.matchScore == j) return true
+            j++
+        }
+        return false
+    }
+
+    private fun switchServeIfNecessary(player: Player, otherPlayer: Player) {
+        if (player.gameScore >= 10 && otherPlayer.gameScore >= 10 ||
+            (player.gameScore.plus(otherPlayer.gameScore) % 2 == 0)
+        ) {
+            Log.d("slabras", "switching servers")
+            currentPlayerServer = otherPlayer
+        }
     }
 }
