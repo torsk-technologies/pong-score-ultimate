@@ -72,7 +72,7 @@ class PlayFragment : Fragment() {
     private fun observeGameState() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
             Timber.d("Observing game state")
-            val stateCurrentServer: Player = state.get(CURRENTPLAYERSERVER.index) as Player
+            val stateCurrentServer: Player = state[CURRENTPLAYERSERVER.index] as Player
 
             if (stateCurrentServer == viewModel.game.player1) {
                 binding.tvP1GameScore?.paintFlags =
@@ -155,7 +155,7 @@ class PlayFragment : Fragment() {
             viewModel.game.currentPlayerServer = viewModel.game.player2
         }
 
-        viewModel.setGameState()
+        viewModel.updateGameState()
         Timber.d("sharedPrefs gameState loaded")
     }
 

@@ -20,23 +20,27 @@ class Game {
 
 
     fun registerPoint(player: Player, otherPlayer: Player) {
-        isGameWon = false
-        isMatchWon = false
-        isMatchReset = false
+        resetGameStates()
         player.increaseGameScore()
 
         if (isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
-            Timber.d("matchscore = ${player.matchScore}")
             if (isMatchWon(player)) {
-                Timber.d("ja vi er virkelig her")
-                onMatchWon()
+                onMatchWon(player)
                 return
             } else {
                 onGameWon()
                 return
             }
         } else if (serveSwitchOnPoint(player, otherPlayer)) serveSwitch()
+    }
+
+    fun resetGameStates() {
+        player1.gameWon = false
+        player2.gameWon = false
+        isGameWon = false
+        isMatchWon = false
+        isMatchReset = false
     }
 
     private fun serveSwitch() {
@@ -63,7 +67,8 @@ class Game {
     }
 
 
-    private fun onMatchWon() {
+    private fun onMatchWon(player: Player) {
+        player.gameWon = true
         this.firstServerPlayer = player1
         this.currentPlayerServer = player1
         player1.resetGameScore(); player1.resetMatchScore()

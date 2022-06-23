@@ -17,6 +17,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     private val undoList: LinkedList<Map<Int, Any>> = LinkedList<Map<Int, Any>>()
 
+    // Init gamestate
     private val _gameState: MutableLiveData<Map<Int, Any>> = MutableLiveData(
         mapOf(
             P1GAMESCORE.index to 0,
@@ -42,11 +43,11 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     fun registerPoint(player: Player, otherPlayer: Player) {
         game.registerPoint(player, otherPlayer)
-        setGameState()
+        updateGameState()
         undoList.add(_gameState.value ?: mapOf())
     }
 
-    fun setGameState() {
+    fun updateGameState() {
         Timber.d("setGameState (Fra game til viewmodel)")
         _gameState.value = mapOf(
             P1GAMESCORE.index to game.player1.gameScore,
@@ -78,12 +79,12 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.isMatchWon = (peekScores?.get(ISMATCHWON.index) ?: false) as Boolean
         game.isMatchReset = (peekScores?.get(ISMATCHRESET.index) ?: false) as Boolean
         game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
-        setGameState()
+        updateGameState()
     }
 
     fun onMatchReset(playerServer: Player) {
         game.onMatchReset(playerServer)
-        setGameState()
+        updateGameState()
     }
 
     override fun onCleared() {
