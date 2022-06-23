@@ -26,8 +26,9 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             GAMENUMBER.index to 1,
             CURRENTPLAYERSERVER.index to 1,
             FIRSTPLAYERSERVER.index to game.firstServerPlayer.playerNumber,
-            ISGAMESTART.index to false,
-            ISMATCHSTART.index to false,
+            ISGAMEWON.index to false,
+            ISMATCHWON.index to false,
+            ISMATCHRESET.index to false,
             BESTOF.index to BESTOFDEFAULT.int
         )
     )
@@ -53,8 +54,9 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P1MATCHSCORE.index to game.player1.matchScore,
             P2MATCHSCORE.index to game.player2.matchScore,
             CURRENTPLAYERSERVER.index to game.currentPlayerServer,
-            ISGAMESTART.index to game.isGameStart,
-            ISMATCHSTART.index to game.isMatchWon,
+            ISGAMEWON.index to game.isGameWon,
+            ISMATCHWON.index to game.isMatchWon,
+            ISMATCHRESET.index to game.isMatchReset,
             FIRSTPLAYERSERVER.index to game.firstServerPlayer,
             BESTOF.index to game.bestOf
         )
@@ -72,8 +74,9 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             (peekScores?.get(CURRENTPLAYERSERVER.index) ?: game.currentPlayerServer) as Player
         game.firstServerPlayer =
             (peekScores?.get(FIRSTPLAYERSERVER.index) ?: game.player1) as Player
-        game.isGameStart = (peekScores?.get(ISGAMESTART.index) ?: false) as Boolean
-        game.isMatchWon = (peekScores?.get(ISMATCHSTART.index) ?: false) as Boolean
+        game.isGameWon = (peekScores?.get(ISGAMEWON.index) ?: false) as Boolean
+        game.isMatchWon = (peekScores?.get(ISMATCHWON.index) ?: false) as Boolean
+        game.isMatchReset = (peekScores?.get(ISMATCHRESET.index) ?: false) as Boolean
         game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
         setGameState()
     }
@@ -85,5 +88,6 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
+        Timber.tag("lifecycle").d("Viewmodel cleared")
     }
 }

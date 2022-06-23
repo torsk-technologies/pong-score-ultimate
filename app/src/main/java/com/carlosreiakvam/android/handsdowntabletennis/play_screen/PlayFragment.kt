@@ -73,7 +73,6 @@ class PlayFragment : Fragment() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
             Timber.d("Observing game state")
             val stateCurrentServer: Player = state.get(CURRENTPLAYERSERVER.index) as Player
-            Timber.d("current server by state: ${stateCurrentServer.name}")
 
             if (stateCurrentServer == viewModel.game.player1) {
                 binding.tvP1GameScore?.paintFlags =
@@ -85,11 +84,18 @@ class PlayFragment : Fragment() {
                     binding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 binding.tvP1GameScore?.paintFlags = 0
             }
-
-            if (state[ISMATCHSTART.index] == true) {
-                alertDialogNewMatch()
-            } else if (state[ISGAMESTART.index] == true) {
-                Toast.makeText(requireContext(), "GAMESTART", Toast.LENGTH_SHORT).show()
+            Timber.d("best of: ${state[BESTOF.index]}")
+            Timber.d("is match won: ${state[ISMATCHWON.index]}")
+            if (state[ISMATCHRESET.index] == true) {
+                Timber.d("match is reset")
+            } else if (state[ISMATCHWON.index] == true) {
+                Timber.d("match won ")
+                alertDialogMatchWon()
+            } else if (state[ISGAMEWON.index] == true) {
+                Timber.d("game won ")
+                alertDialogGameWon()
+            } else {
+                Timber.d("No win. Ordinary point")
             }
         }
 
@@ -172,10 +178,19 @@ class PlayFragment : Fragment() {
 
     }
 
-    private fun alertDialogNewMatch() {
+    private fun alertDialogMatchWon() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-            builder.setView(R.layout.new_match_dialog)
+            builder.setView(R.layout.match_won_dialog)
+            builder.create()
+        }
+        alertDialog?.show()
+    }
+
+    private fun alertDialogGameWon() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.game_won_dialog)
             builder.create()
         }
         alertDialog?.show()
