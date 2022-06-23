@@ -11,10 +11,11 @@ enum class Scores(val index: Int, val str: String) {
 
 enum class States(val index: Int) {
     ISGAMEWON(6),
-    ISMATCHWON(7),
-    ISMATCHRESET(8),
-    FIRSTPLAYERSERVER(9),
-    BESTOF(10)
+    WONBYBESTOF(7),
+    ISMATCHWON(8),
+    ISMATCHRESET(9),
+    FIRSTPLAYERSERVER(10),
+    BESTOF(11)
 }
 
 enum class Defaults(val int: Int) {

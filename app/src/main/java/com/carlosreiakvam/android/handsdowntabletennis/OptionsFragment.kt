@@ -9,13 +9,6 @@ import androidx.preference.SeekBarPreference
 class OptionsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.options, rootKey)
-
-        val seekBarPreference: SeekBarPreference =
-            findPreference("best_of") ?: SeekBarPreference(requireContext())
-        seekBarPreference.seekBarIncrement = 3
-        seekBarPreference.min = 3
-        seekBarPreference.max = 21
-        seekBarPreference.setDefaultValue(3)
     }
 
 }

@@ -28,6 +28,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             CURRENTPLAYERSERVER.index to 1,
             FIRSTPLAYERSERVER.index to game.firstServerPlayer.playerNumber,
             ISGAMEWON.index to false,
+            WONBYBESTOF.index to 3,
             ISMATCHWON.index to false,
             ISMATCHRESET.index to false,
             BESTOF.index to BESTOFDEFAULT.int
@@ -49,6 +50,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateGameState() {
         Timber.d("setGameState (Fra game til viewmodel)")
+        Timber.d("wonbybestof: ${game.wonByBestOf}")
         _gameState.value = mapOf(
             P1GAMESCORE.index to game.player1.gameScore,
             P2GAMESCORE.index to game.player2.gameScore,
@@ -56,10 +58,11 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
             P2MATCHSCORE.index to game.player2.matchScore,
             CURRENTPLAYERSERVER.index to game.currentPlayerServer,
             ISGAMEWON.index to game.isGameWon,
+            WONBYBESTOF.index to game.wonByBestOf,
             ISMATCHWON.index to game.isMatchWon,
             ISMATCHRESET.index to game.isMatchReset,
             FIRSTPLAYERSERVER.index to game.firstServerPlayer,
-            BESTOF.index to game.bestOf
+//            BESTOF.index to game.bestOf
         )
     }
 
@@ -78,7 +81,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.isGameWon = (peekScores?.get(ISGAMEWON.index) ?: false) as Boolean
         game.isMatchWon = (peekScores?.get(ISMATCHWON.index) ?: false) as Boolean
         game.isMatchReset = (peekScores?.get(ISMATCHRESET.index) ?: false) as Boolean
-        game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
+//        game.bestOf = (peekScores?.get(BESTOF.index) ?: BESTOFDEFAULT.int) as Int
         updateGameState()
     }
 

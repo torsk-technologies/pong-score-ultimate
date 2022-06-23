@@ -11,9 +11,11 @@ class Game {
     var firstServerPlayer = player1
     var gameNumber = 1
     var isGameWon = false
+    var wonByBestOf = 3
     var isMatchWon = false
     var isMatchReset = false
-    var bestOf = BESTOFDEFAULT.int
+
+    //    var bestOf = BESTOFDEFAULT.int
     private val matchPool = mapOf(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )
@@ -25,19 +27,33 @@ class Game {
 
         if (isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
-            if (isMatchWon(player)) {
-                onMatchWon(player)
+
+            if (matchWonByBestOf(player)) {
+                Timber.d("match won")
+                // return if maximum limit is reached
+                if (wonByBestOf > 21) {
+                    onMatchReset(player)
+                    return
+                }
+                isMatchWon = true
+                player1.resetGameScore()
+                player2.resetGameScore()
+                this.firstServerPlayer = player1
+                this.currentPlayerServer = player1
                 return
             } else {
-                onGameWon()
+                Timber.d("game won")
+                isGameWon = true
+                gameNumber += 1
+                player1.resetGameScore()
+                player2.resetGameScore()
+                if (serveSwitchOnGameWon()) serveSwitch()
                 return
             }
         } else if (serveSwitchOnPoint(player, otherPlayer)) serveSwitch()
     }
 
-    fun resetGameStates() {
-        player1.gameWon = false
-        player2.gameWon = false
+    private fun resetGameStates() {
         isGameWon = false
         isMatchWon = false
         isMatchReset = false
@@ -48,44 +64,25 @@ class Game {
         else player1
     }
 
-    private fun onGameWon() {
-        Timber.d("onGameWon")
-        isGameWon = true
-        gameNumber += 1
-        player1.resetGameScore()
-        player2.resetGameScore()
-        if (serveSwitchOnGameWon()) serveSwitch()
-    }
-
     fun onMatchReset(firstServerPlayer: Player) {
         this.firstServerPlayer = firstServerPlayer
         this.currentPlayerServer = firstServerPlayer
-        gameNumber = 1
         isMatchReset = true
-        player1.resetGameScore(); player1.resetMatchScore()
-        player2.resetGameScore(); player2.resetMatchScore()
-    }
-
-
-    private fun onMatchWon(player: Player) {
-        player.gameWon = true
-        this.firstServerPlayer = player1
-        this.currentPlayerServer = player1
-        player1.resetGameScore(); player1.resetMatchScore()
-        player2.resetGameScore(); player2.resetMatchScore()
+        wonByBestOf = 3
         gameNumber = 1
-        isMatchWon = true
+        player1.resetGameScore(); player1.resetMatchScore()
+        player2.resetGameScore(); player2.resetMatchScore()
     }
+
 
     private fun isGameWon(player: Player, otherPlayer: Player): Boolean {
         return player.gameScore == 11 && otherPlayer.gameScore <= 9 ||
                 player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
     }
 
-    private fun isMatchWon(player: Player): Boolean {
-        Timber.d("matchpool bestof val: ${matchPool[bestOf]}")
-        Timber.d("player matchscore: ${player.matchScore}")
-        if (matchPool[bestOf] == player.matchScore) {
+    private fun matchWonByBestOf(player: Player): Boolean {
+        if (matchPool[wonByBestOf] == player.matchScore) {
+            wonByBestOf += 2
             return true
         }
         return false

@@ -26,7 +26,7 @@ import timber.log.Timber
 
 class PlayFragment : Fragment() {
 
-    private lateinit var binding: PlayFragmentBinding
+    private lateinit var pfBinding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var sharedPref: SharedPreferences
@@ -37,9 +37,9 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
-        binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewmodel = viewModel
+        pfBinding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
+        pfBinding.lifecycleOwner = viewLifecycleOwner
+        pfBinding.viewmodel = viewModel
 
         setupOnClickListeners()
         observeGameState()
@@ -47,17 +47,17 @@ class PlayFragment : Fragment() {
         setupSoundPlayer()
         loadSharedPrefsGameState()
 
-        return binding.root
+        return pfBinding.root
     }
 
     private fun setupOnClickListeners() {
-        binding.p1Container?.setOnClickListener {
+        pfBinding.p1Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player1, viewModel.game.player2)
             saveSharedPrefsGameState()
             playDing(viewModel.game.player1)
         }
 
-        binding.p2Container?.setOnClickListener {
+        pfBinding.p2Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player2, viewModel.game.player1)
             saveSharedPrefsGameState()
             playDing(viewModel.game.player2)
@@ -75,25 +75,28 @@ class PlayFragment : Fragment() {
             val stateCurrentServer: Player = state[CURRENTPLAYERSERVER.index] as Player
 
             if (stateCurrentServer == viewModel.game.player1) {
-                binding.tvP1GameScore?.paintFlags =
-                    binding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
-                binding.tvP2GameScore?.paintFlags = 0
+                pfBinding.tvP1GameScore?.paintFlags =
+                    pfBinding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
+                pfBinding.tvP2GameScore?.paintFlags = 0
 
             } else {
-                binding.tvP2GameScore?.paintFlags =
-                    binding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
-                binding.tvP1GameScore?.paintFlags = 0
+                pfBinding.tvP2GameScore?.paintFlags =
+                    pfBinding.tvP2GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
+                pfBinding.tvP1GameScore?.paintFlags = 0
             }
-            Timber.d("best of: ${state[BESTOF.index]}")
-            Timber.d("is match won: ${state[ISMATCHWON.index]}")
+
             if (state[ISMATCHRESET.index] == true) {
                 Timber.d("match is reset")
             } else if (state[ISMATCHWON.index] == true) {
                 Timber.d("match won ")
-                alertDialogMatchWon()
+                val wonByBestOf: Int = (state[WONBYBESTOF.index]) as Int - 2
+                Toast.makeText(
+                    requireContext(),
+                    "Best of $wonByBestOf won by player",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else if (state[ISGAMEWON.index] == true) {
                 Timber.d("game won ")
-                alertDialogGameWon()
             } else {
                 Timber.d("No win. Ordinary point")
             }
@@ -105,11 +108,11 @@ class PlayFragment : Fragment() {
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext()).all
         if (sharedPreferences["mirrored"] == true) {
-            binding.tvP1GameScore?.rotation = 180f
-            binding.tvP1MatchScore?.rotation = 180f
+            pfBinding.tvP1GameScore?.rotation = 180f
+            pfBinding.tvP1MatchScore?.rotation = 180f
         }
 
-        viewModel.game.bestOf = sharedPreferences["best_of"] as Int
+//        viewModel.game.bestOf = sharedPreferences["best_of"] as Int
     }
 
 
@@ -134,7 +137,7 @@ class PlayFragment : Fragment() {
             putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
             putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
             putInt(CURRENTPLAYERSERVER.str, viewModel.game.currentPlayerServer.playerNumber)
-            putInt(BESTOF.name, viewModel.game.bestOf)
+//            putInt(BESTOF.name, viewModel.game.bestOf)
             apply()
         }
     }
@@ -144,7 +147,7 @@ class PlayFragment : Fragment() {
         viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
         viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
         viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
-        viewModel.game.bestOf = sharedPref.getInt(BESTOF.name, BESTOFDEFAULT.int)
+//        viewModel.game.bestOf = sharedPref.getInt(BESTOF.name, BESTOFDEFAULT.int)
 
         val currentPlayerServerNumber =
             sharedPref.getInt(CURRENTPLAYERSERVER.str, 2)
@@ -162,39 +165,22 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.p1Container?.setOnLongClickListener {
+        pfBinding.p1Container?.setOnLongClickListener {
             alertInGameOptions()
             true
         }
 
-        binding.p2Container?.setOnLongClickListener {
+        pfBinding.p2Container?.setOnLongClickListener {
             alertInGameOptions()
             true
         }
 
-        binding.btnFloatingUndo?.setOnClickListener {
+        pfBinding.btnFloatingUndo?.setOnClickListener {
             viewModel.performUndo()
         }
 
     }
 
-    private fun alertDialogMatchWon() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-            builder.setView(R.layout.match_won_dialog)
-            builder.create()
-        }
-        alertDialog?.show()
-    }
-
-    private fun alertDialogGameWon() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-            builder.setView(R.layout.game_won_dialog)
-            builder.create()
-        }
-        alertDialog?.show()
-    }
 
     private fun alertInGameOptions() {
         val alertDialog: AlertDialog? = activity?.let {
