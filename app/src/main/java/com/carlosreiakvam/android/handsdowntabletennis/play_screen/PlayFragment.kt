@@ -18,8 +18,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Defaults.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import timber.log.Timber
 
@@ -42,7 +40,7 @@ class PlayFragment : Fragment() {
         pfBinding.viewmodel = viewModel
 
         setupOnClickListeners()
-        observeGameState()
+        observeGameState(pfBinding)
         actOnPreferences()
         setupSoundPlayer()
         loadSharedPrefsGameState()
@@ -69,12 +67,16 @@ class PlayFragment : Fragment() {
         else soundPlayer.playSound(player.gameScore)
     }
 
-    private fun observeGameState() {
+    private fun observeGameState(binding: PlayFragmentBinding) {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
             Timber.d("Observing game state")
-            val stateCurrentServer: Player = state[CURRENTPLAYERSERVER.index] as Player
 
-            if (stateCurrentServer == viewModel.game.player1) {
+            binding.tvP1GameScore?.text = state.player1State.gameScore.toString()
+            binding.tvP2GameScore?.text = state.player2State.gameScore.toString()
+            binding.tvP1MatchScore?.text = state.player1State.matchScore.toString()
+            binding.tvP2MatchScore?.text = state.player2State.matchScore.toString()
+
+            if (state.player1State.isCurrentServer) {
                 pfBinding.tvP1GameScore?.paintFlags =
                     pfBinding.tvP1GameScore?.paintFlags?.or(Paint.UNDERLINE_TEXT_FLAG)!!
                 pfBinding.tvP2GameScore?.paintFlags = 0
@@ -85,17 +87,17 @@ class PlayFragment : Fragment() {
                 pfBinding.tvP1GameScore?.paintFlags = 0
             }
 
-            if (state[ISMATCHRESET.index] == true) {
+            if (state.winStates.isMatchReset) {
                 Timber.d("match is reset")
-            } else if (state[ISMATCHWON.index] == true) {
+            } else if (state.winStates.isMatchWon) {
                 Timber.d("match won ")
-                val wonByBestOf: Int = (state[WONBYBESTOF.index]) as Int - 2
+                val wonByBestOf: Int = (state.winStates.gameWonByBestOf) - 2
                 Toast.makeText(
                     requireContext(),
                     "Best of $wonByBestOf won by player",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (state[ISGAMEWON.index] == true) {
+            } else if (state.winStates.isGameWon) {
                 Timber.d("game won ")
             } else {
                 Timber.d("No win. Ordinary point")
@@ -136,8 +138,8 @@ class PlayFragment : Fragment() {
             putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
             putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
             putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
-            putInt(CURRENTPLAYERSERVER.str, viewModel.game.currentPlayerServer.playerNumber)
-//            putInt(BESTOF.name, viewModel.game.bestOf)
+            putBoolean(P1CURRENTSERVER.str, viewModel.game.player1.isCurrentServer)
+            putBoolean(P2CURRENTSERVER.str, viewModel.game.player2.isCurrentServer)
             apply()
         }
     }
@@ -147,15 +149,11 @@ class PlayFragment : Fragment() {
         viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
         viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
         viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
-//        viewModel.game.bestOf = sharedPref.getInt(BESTOF.name, BESTOFDEFAULT.int)
 
-        val currentPlayerServerNumber =
-            sharedPref.getInt(CURRENTPLAYERSERVER.str, 2)
-
-        if (currentPlayerServerNumber == viewModel.game.player1.playerNumber) {
-            viewModel.game.currentPlayerServer = viewModel.game.player1
+        if (sharedPref.getBoolean(P1CURRENTSERVER.str, true)) {
+            viewModel.game.player1.isCurrentServer = true
         } else {
-            viewModel.game.currentPlayerServer = viewModel.game.player2
+            viewModel.game.player2.isCurrentServer = true
         }
 
         viewModel.updateGameState()
@@ -191,7 +189,7 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
 
         alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.onMatchReset(viewModel.game.player1)
+            viewModel.onMatchReset()
             alertDialog.cancel()
         }
 
