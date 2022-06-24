@@ -9,7 +9,7 @@ class Game {
 
     //    var currentPlayerServer = player1
 //    var firstServerPlayer = player1
-    var gameNumber = 1
+    var totalMatchPoints = 0
     var isGameWon = false
     var gameWonByBestOf = 3
     var isMatchWon = false
@@ -49,9 +49,10 @@ class Game {
 
                 return
             } else {
+                // on game won
                 Timber.d("game won")
                 isGameWon = true
-                gameNumber += 1
+                totalMatchPoints += 1
                 player1.resetGameScore()
                 player2.resetGameScore()
                 serveSwitchOnGameWon()
@@ -81,7 +82,7 @@ class Game {
         player1.isCurrentServer = true
         isMatchReset = true
         gameWonByBestOf = 3
-        gameNumber = 1
+        totalMatchPoints = 0
         player1.resetGameScore(); player1.resetMatchScore()
         player2.resetGameScore(); player2.resetMatchScore()
     }
@@ -101,12 +102,12 @@ class Game {
     }
 
     private fun serveSwitchOnGameWon() {
-        if (player1.isFirstServer && gameNumber % 2 == 0) {
+        if (player1.isFirstServer && totalMatchPoints % 2 != 0) {
             player2.isCurrentServer = true
             player1.isCurrentServer = false
         } else {
             player2.isCurrentServer = false
-            player1.isFirstServer = true
+            player1.isCurrentServer = true
         }
     }
 

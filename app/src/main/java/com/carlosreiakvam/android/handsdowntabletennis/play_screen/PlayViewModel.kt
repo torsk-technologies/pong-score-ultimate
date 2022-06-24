@@ -32,7 +32,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateGameState() {
         _gameState.value = GameState(
-            gameNumber = game.gameNumber,
+            gameNumber = game.totalMatchPoints,
             gameToBestOf = game.gameToBestOf,
             player1State = PlayerState(
                 gameScore = game.player1.gameScore,
