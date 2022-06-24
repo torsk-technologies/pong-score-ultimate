@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/tv_p1_game_score"
-                style="@style/text_large"
+                style="@style/score_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,9 +79,10 @@
 
             <TextView
                 android:id="@+id/tv_p2_game_score"
-                style="@style/text_large"
+                style="@style/score_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

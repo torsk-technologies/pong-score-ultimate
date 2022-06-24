@@ -39,6 +39,7 @@ class PlayFragment : Fragment() {
         pfBinding.lifecycleOwner = viewLifecycleOwner
         pfBinding.viewmodel = viewModel
 
+
         setupOnClickListeners()
         observeGameState(pfBinding)
         actOnPreferences()

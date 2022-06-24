@@ -9,12 +9,13 @@ import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import timber.log.Timber
+import java.lang.Error
 import java.util.*
 
 class PlayViewModel(application: Application) : AndroidViewModel(application) {
     val game = Game()
 
-    private val undoList: LinkedList<Map<Int, Any>> = LinkedList<Map<Int, Any>>()
+    private val undoList: LinkedList<GameState> = LinkedList<GameState>()
 
     private val _gameState: MutableLiveData<GameState> = MutableLiveData()
     val gameState: LiveData<GameState>
@@ -28,6 +29,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     fun registerPoint(player: Player, otherPlayer: Player) {
         game.registerPoint(player, otherPlayer)
         updateGameState()
+        undoList.add(_gameState.value ?: GameState())
     }
 
     fun updateGameState() {
@@ -41,7 +43,6 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
                 isFirstServer = game.player1.isFirstServer,
                 isGameWinner = game.player1.isGameWinner,
                 isMatchWinner = game.player1.isMatchWinner
-
             ),
             player2State = PlayerState(
                 gameScore = game.player2.gameScore,
@@ -64,15 +65,15 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     fun performUndo() {
         undoList.pollLast()
         val peekScores = undoList.peekLast()
-        game.player1.gameScore = (peekScores?.get(P1GAMESCORE.index) ?: 0) as Int
-        game.player2.gameScore = (peekScores?.get(P2GAMESCORE.index) ?: 0) as Int
-        game.player1.matchScore = (peekScores?.get(P1MATCHSCORE.index) ?: 0) as Int
-        game.player2.matchScore = (peekScores?.get(P2MATCHSCORE.index) ?: 0) as Int
-        game.player1.isCurrentServer = (peekScores?.get(P1CURRENTSERVER.index)) as Boolean
-        game.player2.isCurrentServer = (peekScores[P2CURRENTSERVER.index]) as Boolean
-        game.isGameWon = (peekScores[ISGAMEWON.index] ?: false) as Boolean
-        game.isMatchWon = (peekScores[ISMATCHWON.index] ?: false) as Boolean
-        game.isMatchReset = (peekScores[ISMATCHRESET.index] ?: false) as Boolean
+        game.player1.gameScore = (peekScores?.player1State?.gameScore ?: 0)
+        game.player2.gameScore = (peekScores?.player2State?.gameScore ?: 0)
+        game.player1.matchScore = (peekScores?.player1State?.matchScore ?: 0)
+        game.player2.matchScore = (peekScores?.player2State?.matchScore ?: 0)
+        game.player1.isCurrentServer = (peekScores?.player1State?.isCurrentServer ?: true)
+        game.player2.isCurrentServer = (peekScores?.player2State?.isCurrentServer ?: false)
+        game.isGameWon = (peekScores?.winStates?.isGameWon ?: false)
+        game.isMatchWon = (peekScores?.winStates?.isMatchWon ?: false)
+        game.isMatchReset = (peekScores?.winStates?.isMatchReset ?: false)
         updateGameState()
     }
 

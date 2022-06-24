@@ -7,8 +7,6 @@ class Game {
     var player1 = Player("player one", 1)
     var player2 = Player("player two", 2)
 
-    //    var currentPlayerServer = player1
-//    var firstServerPlayer = player1
     var totalMatchPoints = 0
     var isGameWon = false
     var gameWonByBestOf = 3
@@ -16,7 +14,6 @@ class Game {
     var isMatchReset = false
     var gameToBestOf = false
 
-    //    var bestOf = BESTOFDEFAULT.int
     private val matchPool = mapOf(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )

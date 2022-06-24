@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="game_tile_space">2.75dp</dimen>
-    <dimen name="match_score_end_margin">30dp</dimen>
+    <dimen name="match_score_end_margin">15dp</dimen>
 </resources>
