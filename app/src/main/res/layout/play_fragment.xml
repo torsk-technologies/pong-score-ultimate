@@ -93,9 +93,39 @@
                 android:id="@+id/btn_floating_undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="104dp"
                 android:contentDescription="@string/undo"
                 android:src="@drawable/ic_baseline_undo_24"
+                android:tooltipText="@string/undo"
+                android:visibility="invisible"
+                app:fabCustomSize="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_layout_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="232dp"
+                android:layout_marginBottom="32dp"
+                android:contentDescription="@string/undo"
+                android:src="@drawable/ic_baseline_loop_24"
+                android:tooltipText="@string/orientation"
+                android:visibility="invisible"
+                app:fabCustomSize="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_popup_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/undo"
+                android:tooltipText="@string/orientation"
                 app:fabCustomSize="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

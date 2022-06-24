@@ -34,15 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_options"-->
-        <!--            style="@style/button_style"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Options"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />-->
+
         <Button
             android:id="@+id/btn_letsplay"
             style="@style/large_button"

@@ -4,12 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.States.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import timber.log.Timber
-import java.lang.Error
 import java.util.*
 
 class PlayViewModel(application: Application) : AndroidViewModel(application) {
@@ -61,6 +58,10 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    fun resetUndo(){
+        undoList.clear()
+    }
+
 
     fun performUndo() {
         undoList.pollLast()
@@ -74,11 +75,13 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.isGameWon = (peekScores?.winStates?.isGameWon ?: false)
         game.isMatchWon = (peekScores?.winStates?.isMatchWon ?: false)
         game.isMatchReset = (peekScores?.winStates?.isMatchReset ?: false)
+        game.gameWonByBestOf = (peekScores?.winStates?.gameWonByBestOf ?: 3)
         updateGameState()
     }
 
     fun onMatchReset() {
         game.onMatchReset()
+        resetUndo()
         updateGameState()
     }
 
