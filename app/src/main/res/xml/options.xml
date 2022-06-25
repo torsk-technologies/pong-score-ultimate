@@ -2,13 +2,19 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="mirrored"
-        app:title="Mirrored mode" />
 
     <Preference
         app:key="feedback"
         app:summary="Report technical issues or suggest new features"
         app:title="Send feedback" />
+    <ListPreference
+        app:key="themes"
+        app:summary="Choose from different themes" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:title="Sound"
+        app:key="sound"
+        app:summary="Toggle sounds" />
 
 </androidx.preference.PreferenceScreen>

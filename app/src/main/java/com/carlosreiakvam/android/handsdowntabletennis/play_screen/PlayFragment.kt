@@ -26,6 +26,7 @@ import timber.log.Timber
 
 class PlayFragment : Fragment() {
 
+    private var isSoundEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
     private val viewModel: PlayViewModel by viewModels()
     private lateinit var soundPlayer: SoundPlayer
@@ -65,17 +66,20 @@ class PlayFragment : Fragment() {
 
     }
 
+
     private fun setupOnClickListeners() {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player1, viewModel.game.player2)
             saveSharedPrefsGameState()
-            playDing(viewModel.game.player1)
+            if (isSoundEnabled) playDing(viewModel.game.player1)
+            viewModel.undoMaintenance()
         }
 
         binding.p2Container?.setOnClickListener {
             viewModel.registerPoint(viewModel.game.player2, viewModel.game.player1)
             saveSharedPrefsGameState()
-            playDing(viewModel.game.player2)
+            if (isSoundEnabled) playDing(viewModel.game.player2)
+            viewModel.undoMaintenance()
         }
 
         binding.p1Container?.setOnLongClickListener {
@@ -90,8 +94,10 @@ class PlayFragment : Fragment() {
 
         binding.btnFloatingUndo?.setOnClickListener {
             viewModel.performUndo()
-            if (viewModel.game.player1.isCurrentServer) playDing(viewModel.game.player1)
-            else playDing(viewModel.game.player2)
+            if (isSoundEnabled) {
+                if (viewModel.game.player1.isCurrentServer) playDing(viewModel.game.player1)
+                else playDing(viewModel.game.player2)
+            }
         }
 
         binding.btnLayoutChange?.setOnClickListener {
@@ -140,10 +146,6 @@ class PlayFragment : Fragment() {
                 this.binding.tvP1GameScore?.paintFlags = 0
             }
 
-            if (state.winStates.isMatchWon) {
-                viewModel.resetUndo()
-            }
-
             if (state.winStates.isMatchReset) {
                 Timber.d("match is reset")
             } else if (state.winStates.isMatchWon) {
@@ -166,9 +168,9 @@ class PlayFragment : Fragment() {
     private fun actOnPreferences() {
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext()).all
-        if (sharedPreferences["mirrored"] == true) {
-            binding.tvP1GameScore?.rotation = 180f
-            binding.tvP1MatchScore?.rotation = 180f
+        if (sharedPreferences["sound"] == true) {
+            isSoundEnabled = false
+
         }
     }
 
@@ -221,11 +223,6 @@ class PlayFragment : Fragment() {
         val orientationLeft = sharedPref.getBoolean(LEFT.name, false)
         val orientationRight = sharedPref.getBoolean(RIGHT.name, false)
 
-        Timber.d("Normal: $orientationNormal")
-        Timber.d("Mirrored: $orientationMirrored")
-        Timber.d("Left: $orientationLeft")
-        Timber.d("Right: $orientationRight")
-
         when {
             orientationNormal -> setOrientation(NORMAL)
             orientationMirrored -> setOrientation(MIRRORED)
@@ -234,9 +231,10 @@ class PlayFragment : Fragment() {
         }
 
 
-
         viewModel.updateGameState()
         Timber.d("sharedPrefs gameState loaded")
+        viewModel.onLoadPrefs()
+
     }
 
 
@@ -319,6 +317,11 @@ class PlayFragment : Fragment() {
         super.onPause()
         Timber.d("onPause")
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
 
 }
 

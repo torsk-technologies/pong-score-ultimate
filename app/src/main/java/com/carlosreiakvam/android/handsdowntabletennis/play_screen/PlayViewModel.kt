@@ -27,6 +27,7 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         game.registerPoint(player, otherPlayer)
         updateGameState()
         undoList.add(_gameState.value ?: GameState())
+        Timber.d(undoList.peekFirst()?.toString())
     }
 
     fun updateGameState() {
@@ -58,25 +59,27 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    fun resetUndo(){
+    private fun resetUndo() {
         undoList.clear()
     }
 
 
     fun performUndo() {
-        undoList.pollLast()
-        val peekScores = undoList.peekLast()
-        game.player1.gameScore = (peekScores?.player1State?.gameScore ?: 0)
-        game.player2.gameScore = (peekScores?.player2State?.gameScore ?: 0)
-        game.player1.matchScore = (peekScores?.player1State?.matchScore ?: 0)
-        game.player2.matchScore = (peekScores?.player2State?.matchScore ?: 0)
-        game.player1.isCurrentServer = (peekScores?.player1State?.isCurrentServer ?: true)
-        game.player2.isCurrentServer = (peekScores?.player2State?.isCurrentServer ?: false)
-        game.isGameWon = (peekScores?.winStates?.isGameWon ?: false)
-        game.isMatchWon = (peekScores?.winStates?.isMatchWon ?: false)
-        game.isMatchReset = (peekScores?.winStates?.isMatchReset ?: false)
-        game.gameWonByBestOf = (peekScores?.winStates?.gameWonByBestOf ?: 3)
-        updateGameState()
+        if (undoList.size > 0) {
+            undoList.pollLast()
+            val peekScores = undoList.peekLast()
+            game.player1.gameScore = (peekScores?.player1State?.gameScore ?: 0)
+            game.player2.gameScore = (peekScores?.player2State?.gameScore ?: 0)
+            game.player1.matchScore = (peekScores?.player1State?.matchScore ?: 0)
+            game.player2.matchScore = (peekScores?.player2State?.matchScore ?: 0)
+            game.player1.isCurrentServer = (peekScores?.player1State?.isCurrentServer ?: true)
+            game.player2.isCurrentServer = (peekScores?.player2State?.isCurrentServer ?: false)
+            game.isGameWon = (peekScores?.winStates?.isGameWon ?: false)
+            game.isMatchWon = (peekScores?.winStates?.isMatchWon ?: false)
+            game.isMatchReset = (peekScores?.winStates?.isMatchReset ?: false)
+            game.gameWonByBestOf = (peekScores?.winStates?.gameWonByBestOf ?: 3)
+            updateGameState()
+        }
     }
 
     fun onMatchReset() {
@@ -88,5 +91,16 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         Timber.tag("lifecycle").d("Viewmodel cleared")
+    }
+
+    fun undoMaintenance() {
+        if (undoList.size > 20) {
+            undoList.pollFirst()
+        }
+    }
+
+    fun onLoadPrefs() {
+        Timber.d(undoList.peekFirst()?.toString())
+        undoList.add(_gameState.value ?: GameState())
     }
 }
