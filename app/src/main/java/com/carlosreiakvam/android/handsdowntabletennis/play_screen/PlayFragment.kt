@@ -30,7 +30,7 @@ class PlayFragment : Fragment() {
     private val viewModel: PlayViewModel by viewModels()
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var sharedPref: SharedPreferences
-    var orientations = mutableMapOf(
+    private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
         NORMAL to true,
         MIRRORED to false,
         LEFT to false,
@@ -40,7 +40,7 @@ class PlayFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
@@ -49,11 +49,20 @@ class PlayFragment : Fragment() {
 
 
         observeGameState(binding)
-        actOnPreferences()
         setupSoundPlayer()
-        loadSharedPrefsGameState()
+
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setOrientation(NORMAL)
+        setupOnClickListeners()
+        actOnPreferences()
+        loadSharedPrefsGameState()
+
     }
 
     private fun setupOnClickListeners() {
@@ -87,27 +96,15 @@ class PlayFragment : Fragment() {
 
         binding.btnLayoutChange?.setOnClickListener {
             when {
-                orientations[NORMAL] == true -> {
-                    setOrientationState(MIRRORED)
-                    orientationFromNormalToMirrored()
-                }
-                orientations[MIRRORED] == true -> {
-                    setOrientationState(LEFT)
-                    orientationFromMirroredToLeft()
-                }
-                orientations[LEFT] == true -> {
-                    setOrientationState(RIGHT)
-                    orientationFromLeftToRight()
-                }
-                orientations[RIGHT] == true -> {
-                    setOrientationState(NORMAL)
-                    orientationFromRightToNormal()
-                }
+                orientations[NORMAL] == true -> setOrientation(RIGHT)
+                orientations[RIGHT] == true -> setOrientation(MIRRORED)
+                orientations[MIRRORED] == true -> setOrientation(LEFT)
+                orientations[LEFT] == true -> setOrientation(NORMAL)
             }
             Timber.d("orientations: $orientations")
         }
 
-        binding.btnPopupMenu?.setOnClickListener() {
+        binding.btnPopupMenu?.setOnClickListener {
             if (binding.btnFloatingUndo?.isVisible == true) {
                 binding.btnFloatingUndo?.isVisible = false
                 binding.btnLayoutChange?.isVisible = false
@@ -192,37 +189,54 @@ class PlayFragment : Fragment() {
 
     private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
-            putInt(P1GAMESCORE.str, viewModel.game.player1.gameScore)
-            putInt(P2GAMESCORE.str, viewModel.game.player2.gameScore)
-            putInt(P1MATCHSCORE.str, viewModel.game.player1.matchScore)
-            putInt(P2MATCHSCORE.str, viewModel.game.player2.matchScore)
-            putBoolean(P1CURRENTSERVER.str, viewModel.game.player1.isCurrentServer)
-            putBoolean(P2CURRENTSERVER.str, viewModel.game.player2.isCurrentServer)
+            //arguments: (key,value)
+            putInt(P1GAMESCORE.name, viewModel.game.player1.gameScore)
+            putInt(P2GAMESCORE.name, viewModel.game.player2.gameScore)
+            putInt(P1MATCHSCORE.name, viewModel.game.player1.matchScore)
+            putInt(P2MATCHSCORE.name, viewModel.game.player2.matchScore)
+            putBoolean(P1CURRENTSERVER.name, viewModel.game.player1.isCurrentServer)
+            putBoolean(P2CURRENTSERVER.name, viewModel.game.player2.isCurrentServer)
+            putBoolean(NORMAL.name, orientations[NORMAL] ?: true)
+            putBoolean(MIRRORED.name, orientations[MIRRORED] ?: false)
+            putBoolean(LEFT.name, orientations[LEFT] ?: false)
+            putBoolean(RIGHT.name, orientations[RIGHT] ?: false)
             apply()
         }
     }
 
     private fun loadSharedPrefsGameState() {
-        viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.str, 0)
-        viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.str, 0)
-        viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.str, 0)
-        viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.str, 0)
+        viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.name, 0)
+        viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.name, 0)
+        viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.name, 0)
+        viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.name, 0)
 
-        if (sharedPref.getBoolean(P1CURRENTSERVER.str, true)) {
+        if (sharedPref.getBoolean(P1CURRENTSERVER.name, true)) {
             viewModel.game.player1.isCurrentServer = true
         } else {
             viewModel.game.player2.isCurrentServer = true
         }
 
+        val orientationNormal = sharedPref.getBoolean(NORMAL.name, true)
+        val orientationMirrored = sharedPref.getBoolean(MIRRORED.name, false)
+        val orientationLeft = sharedPref.getBoolean(LEFT.name, false)
+        val orientationRight = sharedPref.getBoolean(RIGHT.name, false)
+
+        Timber.d("Normal: $orientationNormal")
+        Timber.d("Mirrored: $orientationMirrored")
+        Timber.d("Left: $orientationLeft")
+        Timber.d("Right: $orientationRight")
+
+        when {
+            orientationNormal -> setOrientation(NORMAL)
+            orientationMirrored -> setOrientation(MIRRORED)
+            orientationLeft -> setOrientation(LEFT)
+            orientationRight -> setOrientation(RIGHT)
+        }
+
+
+
         viewModel.updateGameState()
         Timber.d("sharedPrefs gameState loaded")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupOnClickListeners()
-
     }
 
 
@@ -252,31 +266,35 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun orientationFromNormalToMirrored() {
-        binding.tvP1GameScore?.rotation = 180f
-        binding.tvP1MatchScore?.rotation = 180f
-    }
+    private fun setOrientation(orientation: Orientation) {
+        setOrientationState(orientation)
+        when (orientation) {
+            NORMAL -> {
+                binding.tvP1GameScore?.rotation = 0f
+                binding.tvP2GameScore?.rotation = 0f
+                binding.tvP1MatchScore?.rotation = 0f
+                binding.tvP2MatchScore?.rotation = 0f
+            }
+            MIRRORED -> {
+                binding.tvP1GameScore?.rotation = 180f
+                binding.tvP1MatchScore?.rotation = 180f
+                binding.tvP2GameScore?.rotation = 0f
+                binding.tvP2MatchScore?.rotation = 0f
+            }
+            LEFT -> {
+                binding.tvP1GameScore?.rotation = 90f
+                binding.tvP1MatchScore?.rotation = 90f
+                binding.tvP2GameScore?.rotation = 90f
+                binding.tvP2MatchScore?.rotation = 90f
+            }
+            RIGHT -> {
+                binding.tvP1GameScore?.rotation = 270f
+                binding.tvP1MatchScore?.rotation = 270f
+                binding.tvP2GameScore?.rotation = 270f
+                binding.tvP2MatchScore?.rotation = 270f
+            }
+        }
 
-    private fun orientationFromMirroredToLeft() {
-        Timber.d("mirror to left")
-        binding.tvP1GameScore?.rotation = 90f
-        binding.tvP1MatchScore?.rotation = 90f
-        binding.tvP2GameScore?.rotation = 90f
-        binding.tvP2MatchScore?.rotation = 90f
-    }
-
-    private fun orientationFromLeftToRight() {
-        binding.tvP1GameScore?.rotation = 270f
-        binding.tvP1MatchScore?.rotation = 270f
-        binding.tvP2GameScore?.rotation = 270f
-        binding.tvP2MatchScore?.rotation = 270f
-    }
-
-    private fun orientationFromRightToNormal() {
-        binding.tvP1GameScore?.rotation = 0f
-        binding.tvP2GameScore?.rotation = 0f
-        binding.tvP1MatchScore?.rotation = 0f
-        binding.tvP2MatchScore?.rotation = 0f
     }
 
     override fun onDestroy() {
