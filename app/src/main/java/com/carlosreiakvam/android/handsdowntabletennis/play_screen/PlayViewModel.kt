@@ -26,8 +26,11 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     fun registerPoint(player: Player, otherPlayer: Player) {
         game.registerPoint(player, otherPlayer)
         updateGameState()
-        undoList.add(_gameState.value ?: GameState())
+        undoAdd()
         Timber.d(undoList.peekFirst()?.toString())
+    }
+    fun undoAdd(){
+        undoList.add(_gameState.value ?: GameState())
     }
 
     fun updateGameState() {
@@ -100,7 +103,8 @@ class PlayViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onLoadPrefs() {
-        Timber.d(undoList.peekFirst()?.toString())
+        Timber.d("undolist: ${undoList.peekFirst()?.toString()}")
         undoList.add(_gameState.value ?: GameState())
+        Timber.d("undolist: ${undoList.peekFirst()?.toString()}")
     }
 }

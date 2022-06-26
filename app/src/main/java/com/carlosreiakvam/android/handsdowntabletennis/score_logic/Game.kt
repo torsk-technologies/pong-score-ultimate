@@ -19,8 +19,7 @@ class Game {
     )
 
     init {
-        player1.isFirstServer = true
-        player1.isCurrentServer = true
+        Timber.d("game init")
     }
 
 

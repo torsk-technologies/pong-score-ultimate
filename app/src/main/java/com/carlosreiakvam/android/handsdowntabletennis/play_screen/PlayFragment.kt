@@ -2,18 +2,13 @@ package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
@@ -47,7 +42,6 @@ class PlayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
-
 
         observeGameState(binding)
         setupSoundPlayer()
@@ -83,16 +77,16 @@ class PlayFragment : Fragment() {
         }
 
         binding.p1Container?.setOnLongClickListener {
-            alertInGameOptions()
+            menuVisible()
             true
         }
 
         binding.p2Container?.setOnLongClickListener {
-            alertInGameOptions()
+            menuVisible()
             true
         }
 
-        binding.btnFloatingUndo?.setOnClickListener {
+        binding.btnUndo?.setOnClickListener {
             viewModel.performUndo()
             if (isSoundEnabled) {
                 if (viewModel.game.player1.isCurrentServer) playDing(viewModel.game.player1)
@@ -110,20 +104,12 @@ class PlayFragment : Fragment() {
             Timber.d("orientations: $orientations")
         }
 
-        binding.btnPopupMenu?.setOnClickListener {
-            if (binding.btnFloatingUndo?.isVisible == true) {
-                binding.btnFloatingUndo?.isVisible = false
-                binding.btnLayoutChange?.isVisible = false
-            } else {
-                binding.btnFloatingUndo?.isVisible = true
-                binding.btnLayoutChange?.isVisible = true
-            }
-        }
     }
 
-    private fun playDing(player: Player) {
-        if (player.gameScore >= 30) soundPlayer.playSound(30)
-        else soundPlayer.playSound(player.gameScore)
+    private fun menuVisible() {
+//        binding.btnUndo?.isVisible = true
+//        binding.btnLayoutChange?.isVisible = true
+//        binding.btnNewMatch?.isVisible = true
     }
 
     private fun observeGameState(binding: PlayFragmentBinding) {
@@ -174,20 +160,15 @@ class PlayFragment : Fragment() {
         }
     }
 
-
     private fun setupSoundPlayer() {
         soundPlayer = SoundPlayer(requireContext())
         soundPlayer.fetchSounds()
     }
 
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (newConfig.layoutDirection == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(context, "layout portrait", Toast.LENGTH_SHORT).show()
-        }
+    private fun playDing(player: Player) {
+        if (player.gameScore >= 20) soundPlayer.playSound(30)
+        else soundPlayer.playSound(player.gameScore)
     }
-
 
     private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
@@ -231,32 +212,33 @@ class PlayFragment : Fragment() {
         }
 
 
+        viewModel.onLoadPrefs()
+        viewModel.undoAdd()
         viewModel.updateGameState()
         Timber.d("sharedPrefs gameState loaded")
-        viewModel.onLoadPrefs()
 
     }
 
 
-    private fun alertInGameOptions() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-            builder.setView(R.layout.in_game_options)
-            builder.create()
-        }
-        alertDialog?.show()
+//    private fun alertInGameOptions() {
+//        val alertDialog: AlertDialog? = activity?.let {
+//            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+//            builder.setView(R.layout.in_game_options)
+//            builder.create()
+//        }
+//        alertDialog?.show()
+//
+//        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
+//            viewModel.onMatchReset()
+//            alertDialog.cancel()
+//        }
 
-        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-            viewModel.onMatchReset()
-            alertDialog.cancel()
-        }
-
-        alertDialog?.findViewById<Button>(R.id.btn_settings)?.setOnClickListener {
-            alertDialog.cancel()
-            this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
-        }
-    }
+//        alertDialog?.findViewById<Button>(R.id.btn_settings)?.setOnClickListener {
+//            alertDialog.cancel()
+//            this.findNavController()
+//                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
+//        }
+//    }
 
     private fun setOrientationState(orientation: Orientation) {
         for (i in orientations) {
@@ -307,7 +289,7 @@ class PlayFragment : Fragment() {
     }
 
     override fun onStop() {
-        soundPlayer.release()
+//        soundPlayer.release()
         super.onStop()
         Timber.tag("lifecycle").d("onStop")
     }
