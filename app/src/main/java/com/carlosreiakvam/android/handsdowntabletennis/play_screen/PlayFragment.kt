@@ -3,9 +3,11 @@ package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Paint
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -94,6 +96,7 @@ class PlayFragment : Fragment() {
             }
         }
 
+
         binding.btnLayoutChange?.setOnClickListener {
             when {
                 orientations[NORMAL] == true -> setOrientation(RIGHT)
@@ -102,6 +105,39 @@ class PlayFragment : Fragment() {
                 orientations[LEFT] == true -> setOrientation(NORMAL)
             }
             Timber.d("orientations: $orientations")
+        }
+        binding.btnToggleSound?.setOnClickListener() {
+            if (!isSoundEnabled) {
+                isSoundEnabled = true
+                binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_note_24)
+            } else {
+                isSoundEnabled = false
+                binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_off_24)
+            }
+
+
+        }
+
+        binding.btnNewMatch?.setOnClickListener() {
+            viewModel.onMatchReset()
+        }
+
+        binding.btnToggleMenu?.setOnClickListener() {
+            if (binding.btnUndo?.isVisible == true) {
+                binding.btnUndo?.isVisible = false
+                binding.btnLayoutChange?.isVisible = false
+                binding.btnNewMatch?.isVisible = false
+                binding.btnThemes?.isVisible = false
+                binding.btnToggleSound?.isVisible = false
+                binding.btnRules?.isVisible = false
+            } else {
+                binding.btnUndo?.isVisible = true
+                binding.btnThemes?.isVisible = true
+                binding.btnLayoutChange?.isVisible = true
+                binding.btnNewMatch?.isVisible = true
+                binding.btnToggleSound?.isVisible = true
+                binding.btnRules?.isVisible = true
+            }
         }
 
     }
@@ -152,12 +188,11 @@ class PlayFragment : Fragment() {
     }
 
     private fun actOnPreferences() {
-        val sharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(requireContext()).all
-        if (sharedPreferences["sound"] == true) {
-            isSoundEnabled = false
-
-        }
+//        val sharedPreferences =
+//            PreferenceManager.getDefaultSharedPreferences(requireContext()).all
+//        if (sharedPreferences["sound"] == true) {
+//            isSoundEnabled = false
+//        }
     }
 
     private fun setupSoundPlayer() {

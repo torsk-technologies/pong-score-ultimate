@@ -56,17 +56,47 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_undo"
+                style="@style/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="96dp"
+                android:layout_margin="@dimen/margin_option_btn"
                 android:contentDescription="@string/undo"
                 android:src="@drawable/ic_baseline_undo_24"
                 android:tooltipText="@string/undo"
                 android:visibility="invisible"
                 app:fabCustomSize="75dp"
-
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_themes"
+                tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_themes"
+                style="@style/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_option_btn"
+                android:contentDescription="@string/toggle_themes"
+                android:src="@drawable/ic_baseline_theme_24"
+                android:visibility="invisible"
+
+                app:fabCustomSize="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_toggle_sound"
+                style="@style/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_option_btn"
+                android:contentDescription="@string/toggle_sound_on_or_off"
+                android:src="@drawable/ic_baseline_music_note_24"
+                android:visibility="invisible"
+                app:fabCustomSize="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_themes"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -108,33 +138,65 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_layout_change"
+                style="@style/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="200dp"
-                android:layout_marginBottom="272dp"
+                android:layout_margin="@dimen/margin_option_btn"
                 android:contentDescription="@string/undo"
                 android:src="@drawable/ic_baseline_loop_24"
                 android:tooltipText="@string/orientation"
                 android:visibility="invisible"
                 app:fabCustomSize="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_new_match"
+                style="@style/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="104dp"
-                android:layout_marginBottom="272dp"
+                android:layout_margin="@dimen/margin_option_btn"
+                android:layout_marginBottom="288dp"
                 android:contentDescription="@string/undo"
                 android:src="@drawable/ic_baseline_fast_rewind_24"
                 android:tooltipText="@string/orientation"
                 android:visibility="invisible"
                 app:fabCustomSize="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_rules"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_rules"
+                style="@style/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_option_btn"
+                android:layout_marginBottom="288dp"
+                android:contentDescription="@string/undo"
+                android:src="@drawable/ic_baseline_rules_24"
+                android:tooltipText="rules"
+                android:visibility="invisible"
+                app:fabCustomSize="75dp"
+                app:layout_constraintStart_toEndOf="@id/btn_layout_change"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/menu_button"
+                android:id="@+id/btn_toggle_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:contentDescription="@string/toggle_menu"
+                android:src="@drawable/ic_baseline_menu_24"
+                android:tooltipText="@string/orientation"
+                app:fabCustomSize="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

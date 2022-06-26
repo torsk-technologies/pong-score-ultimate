@@ -2,4 +2,5 @@
 <resources>
     <dimen name="game_tile_space">2.75dp</dimen>
     <dimen name="match_score_end_margin">15dp</dimen>
+    <dimen name="margin_option_btn">6dp</dimen>
 </resources>

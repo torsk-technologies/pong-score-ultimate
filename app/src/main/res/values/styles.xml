@@ -8,6 +8,11 @@
         <item name="fontFamily">@font/kaushan_script</item>
     </style>
 
+    <style name="menu_button">
+        <item name="backgroundTint">@color/charcoal</item>
+    </style>
+
+
     <style name="match_score" parent="score_medium">
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
     </style>
