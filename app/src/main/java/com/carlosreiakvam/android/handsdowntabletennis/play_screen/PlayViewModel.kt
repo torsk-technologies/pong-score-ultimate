@@ -1,110 +1,91 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateDAO
+import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateEntity
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
-class PlayViewModel(application: Application) : AndroidViewModel(application) {
-    val game = Game()
+class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
+    private val player1 = Player("player one", 1)
+    private val player2 = Player("player two", 2)
+    private val game = Game(player1, player2, GameRules())
 
-    private val undoList: LinkedList<GameState> = LinkedList<GameState>()
+    private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
+    val winStates: LiveData<WinStates>
+        get() = _winStatesLive
 
-    private val _gameState: MutableLiveData<GameState> = MutableLiveData()
-    val gameState: LiveData<GameState>
-        get() = _gameState
+    private val _currentServerLive: MutableLiveData<Int> = MutableLiveData()
+    val currentServerLive: LiveData<Int>
+        get() = _currentServerLive
+
+    private val _player1Live: MutableLiveData<Player> = MutableLiveData()
+    val player1Live: LiveData<Player>
+        get() = _player1Live
+
+    private val _player2Live: MutableLiveData<Player> = MutableLiveData()
+    val player2Live: LiveData<Player>
+        get() = _player2Live
+
+    private val _gameRulesLive: MutableLiveData<GameRules> = MutableLiveData()
+    val gameRulesLive: LiveData<GameRules>
+        get() = _gameRulesLive
 
 
     init {
         Timber.d("viewModel initiated")
     }
 
-    fun registerPoint(player: Player, otherPlayer: Player) {
-        game.registerPoint(player, otherPlayer)
-        updateGameState()
-        undoAdd()
-        Timber.d(undoList.peekFirst()?.toString())
-    }
-    fun undoAdd(){
-        undoList.add(_gameState.value ?: GameState())
-    }
+    fun getLast(): Flow<GameStateEntity> = gameStateDAO.getLast()
+    fun deleteLast() = gameStateDAO.deleteLast()
+    fun deleteAll() = gameStateDAO.deleteAll()
 
-    fun updateGameState() {
-        _gameState.value = GameState(
-            gameNumber = game.totalMatchPoints,
-            gameToBestOf = game.gameToBestOf,
-            player1State = PlayerState(
-                gameScore = game.player1.gameScore,
-                matchScore = game.player1.matchScore,
-                isCurrentServer = game.player1.isCurrentServer,
-                isFirstServer = game.player1.isFirstServer,
-                isGameWinner = game.player1.isGameWinner,
-                isMatchWinner = game.player1.isMatchWinner
-            ),
-            player2State = PlayerState(
-                gameScore = game.player2.gameScore,
-                matchScore = game.player2.matchScore,
-                isCurrentServer = game.player2.isCurrentServer,
-                isFirstServer = game.player2.isFirstServer,
-                isGameWinner = game.player2.isGameWinner,
-                isMatchWinner = game.player2.isMatchWinner
-            ),
-            winStates = WinStates(
-                isGameWon = game.isGameWon,
-                isMatchWon = game.isMatchWon,
-                isMatchReset = game.isMatchReset,
-                gameWonByBestOf = game.gameWonByBestOf
-            )
-        )
-    }
-
-    private fun resetUndo() {
-        undoList.clear()
+    fun registerPoint(playerNumber: Int) {
+        game.registerPoint(playerNumber) // update Game with new values
+        _currentServerLive.value = game.currentServer
+        _player1Live.value = game.player1
+        _player2Live.value = game.player2
+        _winStatesLive.value = game.winStates
+        insertGameScoresToDB() // insert values from Game to DB
     }
 
 
-    fun performUndo() {
-        if (undoList.size > 0) {
-            undoList.pollLast()
-            val peekScores = undoList.peekLast()
-            game.player1.gameScore = (peekScores?.player1State?.gameScore ?: 0)
-            game.player2.gameScore = (peekScores?.player2State?.gameScore ?: 0)
-            game.player1.matchScore = (peekScores?.player1State?.matchScore ?: 0)
-            game.player2.matchScore = (peekScores?.player2State?.matchScore ?: 0)
-            game.player1.isCurrentServer = (peekScores?.player1State?.isCurrentServer ?: true)
-            game.player2.isCurrentServer = (peekScores?.player2State?.isCurrentServer ?: false)
-            game.isGameWon = (peekScores?.winStates?.isGameWon ?: false)
-            game.isMatchWon = (peekScores?.winStates?.isMatchWon ?: false)
-            game.isMatchReset = (peekScores?.winStates?.isMatchReset ?: false)
-            game.gameWonByBestOf = (peekScores?.winStates?.gameWonByBestOf ?: 3)
-            updateGameState()
+    private fun insertGameScoresToDB() {
+        viewModelScope.launch {
+            gameStateDAO.insertGameState(GameStateEntity(
+                p1GameScore = _player1Live.value?.gameScore ?: 0,
+                p1MatchScore = _player1Live.value?.matchScore ?: 0,
+                p2GameScore = _player2Live.value?.gameScore ?: 0,
+                p2MatchScore = _player2Live.value?.matchScore ?: 0,
+                currentServer = _currentServerLive.value ?: 1,
+                firstServer = _gameRulesLive.value?.firstServer ?: 1,
+                isGameWon = _winStatesLive.value?.isGameWon ?: false,
+                isMatchWon = _winStatesLive.value?.isMatchWon ?: false,
+                isMatchReset = _winStatesLive.value?.isMatchReset ?: false,
+                gameToBestOf = _gameRulesLive.value?.GameToBestOf ?: 3,
+                gameWonByBestOf = _winStatesLive.value?.gameWonByBestOf ?: 3,
+                gameWinner = _winStatesLive.value?.gameWinner ?: 1
+            ))
         }
     }
 
+
     fun onMatchReset() {
         game.onMatchReset()
-        resetUndo()
-        updateGameState()
+        deleteAll()
+        insertGameScoresToDB() // uses init values
     }
 
     override fun onCleared() {
         super.onCleared()
-        Timber.tag("lifecycle").d("Viewmodel cleared")
+        Timber.tag("lifecycle").d("ViewModel cleared")
     }
 
-    fun undoMaintenance() {
-        if (undoList.size > 20) {
-            undoList.pollFirst()
-        }
-    }
 
-    fun onLoadPrefs() {
-        Timber.d("undolist: ${undoList.peekFirst()?.toString()}")
-        undoList.add(_gameState.value ?: GameState())
-        Timber.d("undolist: ${undoList.peekFirst()?.toString()}")
-    }
 }

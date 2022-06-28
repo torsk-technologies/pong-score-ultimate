@@ -5,17 +5,14 @@ import timber.log.Timber
 class Player(var name: String, var playerNumber: Int) {
     var gameScore: Int = 0
     var matchScore: Int = 0
-    var isFirstServer: Boolean = false
-    var isCurrentServer: Boolean = false
-    var isGameWinner: Boolean = false
-    var isMatchWinner: Boolean = false
 
     init {
-        Timber.d("gamescore $name: $gameScore")
+        Timber.d("Player init. gamescore: $name: $gameScore")
     }
 
 
     fun increaseGameScore() {
+        Timber.d("inca")
         gameScore += 1
     }
 

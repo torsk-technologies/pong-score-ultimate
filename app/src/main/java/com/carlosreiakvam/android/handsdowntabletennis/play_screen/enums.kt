@@ -15,7 +15,7 @@ enum class Defaults(val int: Int) {
     BESTOFDEFAULT(3);
 }
 
-enum class Players(val playerNumber: Int) {
+enum class Players(val i: Int) {
     PLAYER1(1),
     PLAYER2(2)
 }
