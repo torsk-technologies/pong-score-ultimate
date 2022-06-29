@@ -12,7 +12,7 @@ class Game(
     var gameRules: GameRules,
 ) {
     var winStates = WinStates()
-    var totalPoints = 0
+    var pointsPlayed = 0
     var currentServer = gameRules.firstServer
 
     private val matchPool = mapOf(
@@ -36,6 +36,7 @@ class Game(
         val otherPlayer = players[1]
 
         player.increaseGameScore()
+        pointsPlayed.plus(1)
 
         if (isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
@@ -83,7 +84,7 @@ class Game(
         currentServer = gameRules.firstServer
         winStates.isMatchReset = true
         winStates.gameWonByBestOf = 3
-        totalPoints = 0
+        pointsPlayed = 0
 
         player1.resetGameScore(); player1.resetMatchScore()
         player2.resetGameScore(); player2.resetMatchScore()
@@ -104,7 +105,7 @@ class Game(
     }
 
     private fun serveSwitchOnGameWon() {
-        currentServer = if (gameRules.firstServer == PLAYER1.i && totalPoints % 2 != 0) PLAYER1.i
+        currentServer = if (gameRules.firstServer == PLAYER1.i && pointsPlayed % 2 != 0) PLAYER1.i
         else PLAYER2.i
     }
 

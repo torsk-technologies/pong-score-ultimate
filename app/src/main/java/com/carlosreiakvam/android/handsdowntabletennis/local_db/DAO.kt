@@ -14,9 +14,9 @@ interface GameStateDAO {
     fun getLast(): Flow<GameStateEntity>
 
     @Query("DELETE FROM game_state WHERE id = (SELECT MAX (id) FROM game_state)")
-    fun deleteLast()
+    suspend fun deleteLast()
 
     @Query("DELETE FROM game_state")
-    fun deleteAll()
+    suspend fun deleteAll()
 
 }

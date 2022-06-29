@@ -9,13 +9,14 @@ import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateEntity
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
-    private val player1 = Player("player one", 1)
-    private val player2 = Player("player two", 2)
-    private val game = Game(player1, player2, GameRules())
+    private var player1 = Player("player one", 1)
+    private var player2 = Player("player two", 2)
+    private var game = Game(player1, player2, GameRules())
 
     private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
     val winStates: LiveData<WinStates>
@@ -39,24 +40,43 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
 
 
     init {
-        Timber.d("viewModel initiated")
+        setGameStateFromDB()
+        updateLiveData()
     }
 
     fun getLast(): Flow<GameStateEntity> = gameStateDAO.getLast()
-    fun deleteLast() = gameStateDAO.deleteLast()
-    fun deleteAll() = gameStateDAO.deleteAll()
+    suspend fun deleteLast() = gameStateDAO.deleteLast()
 
-    fun registerPoint(playerNumber: Int) {
-        game.registerPoint(playerNumber) // update Game with new values
+    fun onUndo() {
+        viewModelScope.launch {
+            deleteLast()
+            setGameStateFromDB()
+        }
+        updateLiveData()
+
+    }
+
+
+    private fun updateLiveData() {
         _currentServerLive.value = game.currentServer
         _player1Live.value = game.player1
         _player2Live.value = game.player2
         _winStatesLive.value = game.winStates
-        insertGameScoresToDB() // insert values from Game to DB
     }
 
+    fun registerPoint(playerNumber: Int) {
+        game.registerPoint(playerNumber) // update Game with new values
+        updateLiveData()
+        insertGameStateToDB() // insert values from Game to DB
+    }
 
-    private fun insertGameScoresToDB() {
+    fun resetDB() {
+        viewModelScope.launch {
+            gameStateDAO.insertGameState(GameStateEntity())
+        }
+    }
+
+    fun insertGameStateToDB() {
         viewModelScope.launch {
             gameStateDAO.insertGameState(GameStateEntity(
                 p1GameScore = _player1Live.value?.gameScore ?: 0,
@@ -70,16 +90,51 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
                 isMatchReset = _winStatesLive.value?.isMatchReset ?: false,
                 gameToBestOf = _gameRulesLive.value?.GameToBestOf ?: 3,
                 gameWonByBestOf = _winStatesLive.value?.gameWonByBestOf ?: 3,
-                gameWinner = _winStatesLive.value?.gameWinner ?: 1
+                gameWinner = _winStatesLive.value?.gameWinner ?: 1,
+                pointsPlayed = game.pointsPlayed
             ))
+        }
+    }
+
+    fun setGameStateFromDB() {
+        viewModelScope.launch {
+            try {
+                getLast().collect { gameStateEntity ->
+                    game.player1.gameScore = gameStateEntity.p1GameScore
+                    game.player1.matchScore = gameStateEntity.p1MatchScore
+                    game.player2.gameScore = gameStateEntity.p2GameScore
+                    game.player2.matchScore = gameStateEntity.p2MatchScore
+                    game.gameRules.GameToBestOf = gameStateEntity.gameToBestOf
+                    game.gameRules.firstServer = gameStateEntity.firstServer
+                    game.currentServer = gameStateEntity.currentServer
+                    game.pointsPlayed = gameStateEntity.pointsPlayed
+                    game.winStates.gameWonByBestOf = gameStateEntity.gameWonByBestOf
+                    game.winStates.isGameWon = gameStateEntity.isGameWon
+                    game.winStates.isMatchWon = gameStateEntity.isMatchWon
+                    game.winStates.isMatchReset = gameStateEntity.isMatchReset
+                    game.winStates.gameWinner = gameStateEntity.gameWinner
+
+                    _player1Live.value = game.player1
+                    _player2Live.value = game.player2
+                    _currentServerLive.value = game.currentServer
+                }
+            } catch (nullp: NullPointerException) {
+                resetDB()
+            }
         }
     }
 
 
     fun onMatchReset() {
-        game.onMatchReset()
-        deleteAll()
-        insertGameScoresToDB() // uses init values
+        viewModelScope.launch {
+            gameStateDAO.deleteAll()
+        }.invokeOnCompletion {
+            player1 = Player("player one", 1)
+            player2 = Player("player two", 2)
+            game = Game(player1, player2, GameRules())
+            resetDB()
+            updateLiveData()
+        }
     }
 
     override fun onCleared() {
@@ -89,3 +144,4 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
 
 
 }
+

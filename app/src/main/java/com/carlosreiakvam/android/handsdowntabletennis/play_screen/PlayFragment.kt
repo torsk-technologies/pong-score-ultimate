@@ -1,7 +1,5 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +9,12 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.coroutineScope
 import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -34,7 +29,8 @@ class PlayFragment : Fragment() {
     }
 
     private lateinit var soundPlayer: SoundPlayer
-    private lateinit var sharedPref: SharedPreferences
+
+    //    private lateinit var sharedPref: SharedPreferences
     private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
         NORMAL to true,
         MIRRORED to false,
@@ -47,42 +43,22 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
+//        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 //        observeGameState(binding)
         observePlayerScores()
         observeCurrentServer()
-        getLastFromDbAndSetToUI()
-
         setupSoundPlayer()
         return binding.root
     }
 
-    private fun getLastFromDbAndSetToUI() {
-        try {
-//            viewModel.viewModelScope.launch { // prøver denne istedet for lifecycle
-            lifecycle.coroutineScope.launch {
-                viewModel.getLast().collect { value ->
-                    binding.tvP1GameScore?.text = value.p1GameScore.toString()
-                    binding.tvP1MatchScore?.text = value.p1MatchScore.toString()
-                    binding.tvP2GameScore?.text = value.p2GameScore.toString()
-                    binding.tvP2MatchScore?.text = value.p2MatchScore.toString()
-                }
-            }
-        } catch (e: Error) {
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setOrientation(NORMAL)
         setupOnClickListeners()
-//        getLastFromDbAndSetToUI()
-
     }
 
 
@@ -98,16 +74,17 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnUndo?.setOnClickListener {
-            try {
-                lifecycle.coroutineScope.launch {
-                    viewModel.deleteLast()
-                    viewModel.getLast().collect { value ->
-                        viewModel.registerPoint(value.p1GameScore)
-                        viewModel.registerPoint(value.p2GameScore)
-                    }
-                }
-            } catch (e: Error) {
-            }
+            viewModel.onUndo()
+//            try {
+//                lifecycle.coroutineScope.launch {
+//                    viewModel.deleteLast()
+//                    viewModel.getLast().collect { value ->
+//                        viewModel.registerPoint(value.p1GameScore)
+//                        viewModel.registerPoint(value.p2GameScore)
+//                    }
+//                }
+//            } catch (e: Error) {
+//            }
 
             // play sound on undo
 //            if (isSoundEnabled) {
@@ -219,50 +196,6 @@ class PlayFragment : Fragment() {
         if (player.gameScore >= 20) soundPlayer.playSound(30)
         else soundPlayer.playSound(player.gameScore)
     }
-
-//    private fun saveSharedPrefsGameState() {
-//        with(sharedPref.edit()) {
-//            //arguments: (key,value)
-//            putInt(P1GAMESCORE.name, viewModel.game.player1.gameScore)
-//            putInt(P2GAMESCORE.name, viewModel.game.player2.gameScore)
-//            putInt(P1MATCHSCORE.name, viewModel.game.player1.matchScore)
-//            putInt(P2MATCHSCORE.name, viewModel.game.player2.matchScore)
-//            putBoolean(P1CURRENTSERVER.name, viewModel.game.player1.isCurrentServer)
-//            putBoolean(P2CURRENTSERVER.name, viewModel.game.player2.isCurrentServer)
-//            putBoolean(NORMAL.name, orientations[NORMAL] ?: true)
-//            putBoolean(MIRRORED.name, orientations[MIRRORED] ?: false)
-//            putBoolean(LEFT.name, orientations[LEFT] ?: false)
-//            putBoolean(RIGHT.name, orientations[RIGHT] ?: false)
-//            apply()
-//        }
-//    }
-
-//    private fun loadSharedPrefsGameState() {
-//        viewModel.game.player1.gameScore = sharedPref.getInt(P1GAMESCORE.name, 0)
-//        viewModel.game.player2.gameScore = sharedPref.getInt(P2GAMESCORE.name, 0)
-//        viewModel.game.player1.matchScore = sharedPref.getInt(P1MATCHSCORE.name, 0)
-//        viewModel.game.player2.matchScore = sharedPref.getInt(P2MATCHSCORE.name, 0)
-//
-//        if (sharedPref.getBoolean(P1CURRENTSERVER.name, true)) {
-//            viewModel.game.player1.isCurrentServer = true
-//        } else {
-//            viewModel.game.player2.isCurrentServer = true
-//        }
-//
-//        val orientationNormal = sharedPref.getBoolean(NORMAL.name, true)
-//        val orientationMirrored = sharedPref.getBoolean(MIRRORED.name, false)
-//        val orientationLeft = sharedPref.getBoolean(LEFT.name, false)
-//        val orientationRight = sharedPref.getBoolean(RIGHT.name, false)
-//
-//        when {
-//            orientationNormal -> setOrientation(NORMAL)
-//            orientationMirrored -> setOrientation(MIRRORED)
-//            orientationLeft -> setOrientation(LEFT)
-//            orientationRight -> setOrientation(RIGHT)
-//        }
-//
-//
-//    }
 
 
 //    private fun alertInGameOptions() {
