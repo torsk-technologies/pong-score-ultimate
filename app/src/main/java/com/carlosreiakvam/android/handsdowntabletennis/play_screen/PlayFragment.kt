@@ -1,10 +1,13 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
+import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -30,7 +33,7 @@ class PlayFragment : Fragment() {
 
     private lateinit var soundPlayer: SoundPlayer
 
-    //    private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPref: SharedPreferences
     private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
         NORMAL to true,
         MIRRORED to false,
@@ -75,21 +78,10 @@ class PlayFragment : Fragment() {
 
         binding.btnUndo?.setOnClickListener {
             viewModel.onUndo()
-//            try {
-//                lifecycle.coroutineScope.launch {
-//                    viewModel.deleteLast()
-//                    viewModel.getLast().collect { value ->
-//                        viewModel.registerPoint(value.p1GameScore)
-//                        viewModel.registerPoint(value.p2GameScore)
-//                    }
-//                }
-//            } catch (e: Error) {
-//            }
-
             // play sound on undo
 //            if (isSoundEnabled) {
-//                if (viewModel.game.player1.isCurrentServer) playDing(viewModel.game.player1)
-//                else playDing(viewModel.game.player2)
+//                if (viewModel.currentServerLive.value == 1) playDing(viewModel.player1Live.value!!)
+//                else playDing(viewModel.player2Live.value!!)
 //            }
         }
 
@@ -116,7 +108,8 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnNewMatch?.setOnClickListener {
-            viewModel.onMatchReset()
+//            viewModel.onMatchReset()
+            alertOnReset()
         }
 
         binding.btnToggleMenu?.setOnClickListener {
@@ -198,25 +191,25 @@ class PlayFragment : Fragment() {
     }
 
 
-//    private fun alertInGameOptions() {
-//        val alertDialog: AlertDialog? = activity?.let {
-//            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-//            builder.setView(R.layout.in_game_options)
-//            builder.create()
-//        }
-//        alertDialog?.show()
-//
-//        alertDialog?.findViewById<Button>(R.id.btn_new_match)?.setOnClickListener {
-//            viewModel.onMatchReset()
-//            alertDialog.cancel()
-//        }
+    private fun alertOnReset() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.in_game_options)
+            builder.create()
+        }
+        alertDialog?.show()
 
-//        alertDialog?.findViewById<Button>(R.id.btn_settings)?.setOnClickListener {
-//            alertDialog.cancel()
+        alertDialog?.findViewById<Button>(R.id.btn_alert_reset)?.setOnClickListener {
+            viewModel.onMatchReset()
+            alertDialog.cancel()
+        }
+
+        alertDialog?.findViewById<Button>(R.id.btn_alert_cancel)?.setOnClickListener {
+            alertDialog.cancel()
 //            this.findNavController()
 //                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
-//        }
-//    }
+        }
+    }
 
     private fun setOrientationState(orientation: Orientation) {
         for (i in orientations) {
