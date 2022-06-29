@@ -2,5 +2,7 @@
 <resources>
     <dimen name="game_tile_space">2.75dp</dimen>
     <dimen name="match_score_end_margin">15dp</dimen>
-    <dimen name="margin_option_btn">6dp</dimen>
+    <dimen name="margin_btn_option_start">6dp</dimen>
+    <dimen name="margin_btn_option_bottom">10dp</dimen>
+    <dimen name="fab_custom_size">75dp</dimen>
 </resources>

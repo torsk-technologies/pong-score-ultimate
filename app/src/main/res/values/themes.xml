@@ -1,19 +1,34 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+
+        <!--        Custom Colors-->
+<!--        <item name="playerOneBgColor">@color/azure</item>-->
+<!--        <item name="playerTwoBgColor">@color/yellow</item>-->
+
+<!--        <item name="playerOneTxtColor">@color/white</item>-->
+<!--        <item name="playerTwoTxtColor">@color/white</item>-->
+
+<!--        <item name="menuBgColor">@color/charcoal</item>-->
+<!--        <item name="menuTxtColor">@color/white</item>-->
+
+<!--        <item name="bgMidBarColor">@color/white</item>-->
+
+        <!--         Primary brand color. -->
         <item name="colorPrimary">@color/azure</item>
         <item name="colorPrimaryVariant">@color/azure</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary brand color. -->
+        <!--        Background-->
+        <item name="colorOnBackground">@color/white</item>
+
+        <!--        Secondary brand color.-->
         <item name="colorSecondary">@color/yellow</item>
         <item name="colorSecondaryVariant">@color/yellow</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
+
 </resources>

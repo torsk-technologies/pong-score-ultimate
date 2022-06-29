@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="playerOneBgColor" format="color" />
+    <attr name="playerTwoBgColor" format="color" />
+    <attr name="playerOneTxtColor" format="color" />
+    <attr name="playerTwoTxtColor" format="color" />
+    <attr name="menuBgColor" format="color" />
+    <attr name="menuTxtColor" format="color" />
+    <attr name="bgMidBarColor" format="color" />
+    <attr name="bgWelcomeScreenColor" format="color" />
+</resources>

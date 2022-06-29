@@ -6,3 +6,7 @@ enum class Orientation() {
     LEFT,
     RIGHT
 }
+
+enum class Preferences() {
+    SOUNDENABLED
+}

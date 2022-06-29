@@ -1,11 +1,13 @@
 package com.carlosreiakvam.android.handsdowntabletennis.opening_screen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.OpeningScreenFragmentBinding
 
 class OpeningScreenFragment : Fragment() {
@@ -16,7 +18,7 @@ class OpeningScreenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
 
@@ -34,6 +36,12 @@ class OpeningScreenFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.azure)
     }
 
 

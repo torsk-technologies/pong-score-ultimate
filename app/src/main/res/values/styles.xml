@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="playerOneScoreLarge" parent="score_large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="playerOneScoreMedium" parent="score_medium">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="playerTwoScoreLarge" parent="score_large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="playerTwoScoreMedium" parent="score_medium">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="large_button">
         <item name="backgroundTint">?colorSecondary</item>
         <item name="android:textColor">@color/white</item>
@@ -10,13 +26,9 @@
 
     <style name="menu_button">
         <item name="backgroundTint">@color/charcoal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
+        <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
     </style>
-
-
-    <style name="match_score" parent="score_medium">
-        <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
-    </style>
-
 
     <style name="main_header">
         <item name="android:textSize">275sp</item>
@@ -38,19 +50,22 @@
     </style>
 
     <style name="score_large">
-        <item name="fontFamily">sans-serif</item>
+<!--        <item name="fontFamily">sans-serif</item>-->
+        <item name="fontFamily">@font/kaushan_script</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">250sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAlignment">center</item>
     </style>
 
+<!--    <item name="fontFamily">sans-serif</item>-->
     <style name="score_medium">
-        <item name="fontFamily">sans-serif</item>
+        <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
         <item name="android:textSize">68sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/kaushan_script</item>
     </style>
 
     <style name="text_medium">
@@ -58,7 +73,7 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/white</item>
-        <!--        <item name="fontFamily">@font/kaushan_script</item>-->
+        <item name="fontFamily">@font/kaushan_script</item>
     </style>
 
     <!--    <style name="btn_in_game_options"></style>-->
