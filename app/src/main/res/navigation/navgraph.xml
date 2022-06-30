@@ -9,7 +9,7 @@
         android:id="@+id/openingScreenFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.opening_screen.OpeningScreenFragment"
         android:label="opening_screen_fragment"
-        tools:layout="@layout/opening_screen_fragment" >
+        tools:layout="@layout/opening_screen_fragment">
         <action
             android:id="@+id/action_openingScreenFragment_to_playFragment"
             app:destination="@id/playFragment"
@@ -17,11 +17,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_openingScreenFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
-        android:label="PlayFragment" >
+        android:label="PlayFragment"
+        tools:layout="@layout/play_fragment">
         <action
             android:id="@+id/action_playFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
@@ -29,5 +33,11 @@
     <fragment
         android:id="@+id/optionsFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.OptionsFragment"
-        android:label="OptionsFragment" />
+        android:label="OptionsFragment"
+        tools:layout="@layout/in_game_options" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/about_fragment" />
 </navigation>

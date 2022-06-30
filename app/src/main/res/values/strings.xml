@@ -14,4 +14,6 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">NEW GAME</string>
+    <string name="made_with_love">Made with love by Carlos Reiakvam</string>
+    <string name="at_torsk_technologies">at Torsk Technologies</string>
 </resources>

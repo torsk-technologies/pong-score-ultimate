@@ -25,10 +25,10 @@ class OpeningScreenFragment : Fragment() {
         // Force portrait orientation
 //        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-//        binding.btnOptions.setOnClickListener() {
-//            this.findNavController()
-//                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToOptionsFragment())
-//        }
+        binding.btnInfo.setOnClickListener() {
+            this.findNavController()
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToAboutFragment())
+        }
 
         binding.btnContinue.setOnClickListener {
             this.findNavController()
