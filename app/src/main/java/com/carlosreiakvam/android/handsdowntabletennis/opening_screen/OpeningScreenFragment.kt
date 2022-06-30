@@ -30,7 +30,7 @@ class OpeningScreenFragment : Fragment() {
 //                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToOptionsFragment())
 //        }
 
-        binding.btnLetsplay.setOnClickListener {
+        binding.btnContinue.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
         }
@@ -38,8 +38,9 @@ class OpeningScreenFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().window.statusBarColor =
             ContextCompat.getColor(requireContext(), R.color.azure)
     }

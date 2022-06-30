@@ -36,15 +36,37 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <Button
-            android:id="@+id/btn_letsplay"
+            android:id="@+id/btn_new_game"
             style="@style/large_button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/main_screen_button_width"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/lets_play"
+            android:text="@string/new_game"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
 
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/large_button"
+            android:layout_width="@dimen/main_screen_button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_str"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_new_game" />
+
+        <!--            style="@style/menu_button"-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/azure"
+            android:contentDescription="@string/undo"
+            android:src="@drawable/ic_baseline_info_24"
+            android:tooltipText="@string/orientation"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

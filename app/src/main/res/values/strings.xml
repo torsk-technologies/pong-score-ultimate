@@ -12,4 +12,6 @@
     <string name="toggle_sound_on_or_off">Toggle sound on or off</string>
     <string name="toggle_themes">Toggle themes</string>
     <string name="toggle_menu">toggle menu</string>
+    <string name="continue_str">CONTINUE</string>
+    <string name="new_game">NEW GAME</string>
 </resources>
