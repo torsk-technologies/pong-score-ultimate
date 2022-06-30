@@ -13,10 +13,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
-    private var player1 = Player("player one", 1)
-    private var player2 = Player("player two", 2)
-    private var game = Game(player1, player2, GameRules())
+class PlayViewModel(
+    private val gameStateDAO: GameStateDAO,
+    bestOfByNewGame: Int,
+    firstServerByNewGame: Int,
+    private var player1: Player = Player("player one", 1),
+    private var player2: Player = Player("player two", 2),
+    private var game: Game = Game(player1, player2, GameRules()),
+) : ViewModel() {
+
 
     private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
     val winStates: LiveData<WinStates>
@@ -40,11 +45,17 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
 
 
     init {
-        setGameStateFromDB()
+        val newGame = bestOfByNewGame != -1
+        if (newGame) {
+            Timber.d("new game")
+            game = Game(player1, player2,
+                GameRules(bestOf = bestOfByNewGame, firstServer = firstServerByNewGame))
+            resetDB()
+        }
         updateLiveData()
     }
 
-    fun getLast(): Flow<GameStateEntity> = gameStateDAO.getLast()
+    private fun getLast(): Flow<GameStateEntity> = gameStateDAO.getLast()
     suspend fun deleteLast() = gameStateDAO.deleteLast()
 
     fun onUndo() {
@@ -88,8 +99,7 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
                 isGameWon = _winStatesLive.value?.isGameWon ?: false,
                 isMatchWon = _winStatesLive.value?.isMatchWon ?: false,
                 isMatchReset = _winStatesLive.value?.isMatchReset ?: false,
-                gameToBestOf = _gameRulesLive.value?.GameToBestOf ?: 3,
-                gameWonByBestOf = _winStatesLive.value?.gameWonByBestOf ?: 3,
+                gameToBestOf = _gameRulesLive.value?.bestOf ?: 3,
                 gameWinner = _winStatesLive.value?.gameWinner ?: 1,
                 pointsPlayed = game.pointsPlayed
             ))
@@ -104,11 +114,10 @@ class PlayViewModel(private val gameStateDAO: GameStateDAO) : ViewModel() {
                     game.player1.matchScore = gameStateEntity.p1MatchScore
                     game.player2.gameScore = gameStateEntity.p2GameScore
                     game.player2.matchScore = gameStateEntity.p2MatchScore
-                    game.gameRules.GameToBestOf = gameStateEntity.gameToBestOf
+                    game.gameRules.bestOf = gameStateEntity.gameToBestOf
                     game.gameRules.firstServer = gameStateEntity.firstServer
                     game.currentServer = gameStateEntity.currentServer
                     game.pointsPlayed = gameStateEntity.pointsPlayed
-                    game.winStates.gameWonByBestOf = gameStateEntity.gameWonByBestOf
                     game.winStates.isGameWon = gameStateEntity.isGameWon
                     game.winStates.isMatchWon = gameStateEntity.isMatchWon
                     game.winStates.isMatchReset = gameStateEntity.isMatchReset

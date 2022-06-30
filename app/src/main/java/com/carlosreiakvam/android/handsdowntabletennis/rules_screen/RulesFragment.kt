@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.RulesFragmentBinding
+import kotlin.random.Random
 
 class RulesFragment : Fragment() {
 
-    lateinit var binding: RulesFragmentBinding
+    private lateinit var binding: RulesFragmentBinding
+    private var firstServer: Int = 1
+    private var bestOf: Int = 21
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,30 +24,40 @@ class RulesFragment : Fragment() {
         binding = RulesFragmentBinding.inflate(layoutInflater, container, false)
         setupFirstServer()
         setupBestOfSlider()
+        setupPlayButton()
 
         return binding.root
     }
 
-    fun setupFirstServer() {
+
+    private fun setupFirstServer() {
         val tableTop = binding.tableTop
         val tableBottom = binding.tableBottom
         val btnRandom = binding.btnRandom
 
-        tableTop.setOnClickListener() {
+        tableTop.text = "X"
+
+        tableTop.setOnClickListener {
+            firstServer = 1
             tableTop.text = "X"
             tableBottom.text = ""
         }
-        tableBottom.setOnClickListener() {
+        tableBottom.setOnClickListener {
+            firstServer = 2
             tableTop.text = ""
             tableBottom.text = "X"
         }
-        btnRandom.setOnClickListener() {
+        btnRandom.setOnClickListener {
+            when (Random.nextInt(1, 2)) {
+                1 -> firstServer = 1
+                2 -> firstServer = 2
+            }
             tableTop.text = "?"
             tableBottom.text = "?"
         }
     }
 
-    fun setupBestOfSlider() {
+    private fun setupBestOfSlider() {
         val bestOfLabel = binding.tvBestOfLabel
         bestOfLabel.text = getString(R.string.best_of, 21)
 
@@ -57,6 +72,18 @@ class RulesFragment : Fragment() {
         sliderBestOf.addOnChangeListener { _, value, _ ->
             val roundedValue = value.toInt()
             bestOfLabel.text = getString(R.string.best_of, roundedValue)
+            bestOf = roundedValue
+        }
+    }
+
+    private fun setupPlayButton() {
+        val btnPlay = binding.btnLetsPlay
+        btnPlay.setOnClickListener {
+            this.findNavController()
+                .navigate(RulesFragmentDirections.actionRulesFragmentToPlayFragment(
+                    bestOf = bestOf,
+                    firstServer = firstServer))
+
         }
     }
 }

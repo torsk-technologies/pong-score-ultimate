@@ -20,7 +20,7 @@ enum class Players(val i: Int) {
     PLAYER2(2)
 }
 
-enum class Themes(){
+enum class Themes() {
     THEMENAME,
     BEACH,
     CONTRAST

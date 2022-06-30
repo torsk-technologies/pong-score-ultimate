@@ -15,20 +15,14 @@ class Game(
     var winStates = WinStates()
     var pointsPlayed = 0
     var currentServer = gameRules.firstServer
-    var winConditions = WinConditions()
+    private var winConditions = WinConditions()
 
     private val matchPool = mapOf(
-        3 to 2, 5 to 3, 7 to 4, 11 to 6, 15 to 8, 21 to 11
+        3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )
 
     init {
         Timber.d("game init")
-    }
-
-
-    private fun numberToPlayer(playerNumber: Int): List<Player> {
-        return if (playerNumber == 1) listOf(player1, player2)
-        else listOf(player2, player1)
     }
 
 
@@ -44,13 +38,9 @@ class Game(
         if (winConditions.isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
 
-            if (winConditions.matchWonByBestOf(matchPool, winStates, player)) {
+            if (winConditions.matchWonByBestOf(matchPool, gameRules, player)) {
                 Timber.d("match won")
                 // return if maximum limit is reached
-                if (winStates.gameWonByBestOf > 21) {
-                    onMatchReset()
-                    return
-                }
                 winStates.isMatchWon = true
                 player1.resetGameScore()
                 player2.resetGameScore()
@@ -63,6 +53,7 @@ class Game(
                 player1.resetGameScore()
                 player2.resetGameScore()
                 serveSwitchOnGameWon()
+                winStates.isGameWon = true
                 return
             }
         } else {
@@ -73,6 +64,11 @@ class Game(
 
         Timber.d("player1 gamescore: ${player1.gameScore}")
         Timber.d("player1 matchScore: ${player1.matchScore}")
+    }
+
+    private fun numberToPlayer(playerNumber: Int): List<Player> {
+        return if (playerNumber == 1) listOf(player1, player2)
+        else listOf(player2, player1)
     }
 
     private fun resetWinAndResetStates() {
@@ -86,30 +82,6 @@ class Game(
     private fun serveSwitch() {
         currentServer = if (currentServer == PLAYER1.i) PLAYER2.i else PLAYER1.i
     }
-
-    fun onMatchReset() {
-        currentServer = gameRules.firstServer
-        winStates.isMatchReset = true
-        winStates.gameWonByBestOf = 3
-        pointsPlayed = 0
-
-        player1.resetGameScore(); player1.resetMatchScore()
-        player2.resetGameScore(); player2.resetMatchScore()
-    }
-
-
-//    private fun isGameWon(player: Player, otherPlayer: Player): Boolean {
-//        return player.gameScore == 11 && otherPlayer.gameScore <= 9 ||
-//                player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
-//    }
-
-//    private fun matchWonByBestOf(player: Player): Boolean {
-//        if (matchPool[winStates.gameWonByBestOf] == player.matchScore) {
-//            winStates.gameWonByBestOf += 2
-//            return true
-//        }
-//        return false
-//    }
 
     private fun serveSwitchOnGameWon() {
         currentServer = if (gameRules.firstServer == PLAYER1.i && pointsPlayed % 2 != 0) PLAYER1.i

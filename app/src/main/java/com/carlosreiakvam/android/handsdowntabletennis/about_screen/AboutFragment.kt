@@ -9,7 +9,7 @@ import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragment
 import timber.log.Timber
 
 class AboutFragment : Fragment() {
-    lateinit var binding: AboutFragmentBinding
+    private lateinit var binding: AboutFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -13,7 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
@@ -26,15 +27,12 @@ import timber.log.Timber
 
 class PlayFragment : Fragment() {
 
+    private val args: PlayFragmentArgs by navArgs()
     private var isSoundEnabled: Boolean = true
+    private var isVoiceEnabled: Boolean = true
     private var chosenTheme: Themes = Themes.BEACH
     private lateinit var binding: PlayFragmentBinding
-    private val viewModel: PlayViewModel by activityViewModels {
-        PlayViewModelFactory(
-            (activity?.application as ApplicationController).database.gameStateDao()
-        )
-    }
-
+    private lateinit var viewModel: PlayViewModel
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var sharedPref: SharedPreferences
     private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
@@ -49,12 +47,25 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+
+        viewModel =
+            PlayViewModelFactory(
+                (requireActivity().application as ApplicationController).database.gameStateDao(),
+                args.bestOf,
+                args.firstServer)
+                .create(PlayViewModel::class.java)
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 //        observeGameState(binding)
 
+        val bestOf = args.bestOf
+        val firstServer = args.firstServer
+        Timber.d("bestOf: $bestOf")
+        Timber.d("firstServer: $firstServer")
+
+        observeWinStates()
         observePlayerScores()
         observeCurrentServer()
         loadSharedPrefsGameState()
@@ -151,14 +162,24 @@ class PlayFragment : Fragment() {
             }
         }
 
+        binding.btnVoices?.setOnClickListener {
+            if (!isVoiceEnabled) {
+                isVoiceEnabled = true
+                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_record_voice_over_24)
+            } else {
+                isVoiceEnabled = false
+                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_voice_over_off_24)
+            }
+        }
+
 
         binding.btnThemes?.setOnClickListener {
-            if (chosenTheme == Themes.BEACH) {
+            chosenTheme = if (chosenTheme == Themes.BEACH) {
                 setTheme(Themes.CONTRAST)
-                chosenTheme = Themes.CONTRAST
+                Themes.CONTRAST
             } else {
                 setTheme(Themes.BEACH)
-                chosenTheme = Themes.BEACH
+                Themes.BEACH
             }
             with(sharedPref.edit()) {
                 //arguments: (key,value)
@@ -167,15 +188,15 @@ class PlayFragment : Fragment() {
             }
         }
 
-        binding.btnNewMatch?.setOnClickListener {
-            alertOnReset()
-        }
+//        binding.btnNewMatch?.setOnClickListener {
+//            alertOnReset()
+//        }
 
         binding.btnToggleMenu?.setOnClickListener {
             if (binding.btnUndo?.isVisible == true) {
                 binding.btnUndo?.isVisible = false
                 binding.btnLayoutChange?.isVisible = false
-                binding.btnNewMatch?.isVisible = false
+                binding.btnVoices?.isVisible = false
                 binding.btnThemes?.isVisible = false
                 binding.btnToggleSound?.isVisible = false
                 binding.btnRules?.isVisible = false
@@ -183,7 +204,7 @@ class PlayFragment : Fragment() {
                 binding.btnUndo?.isVisible = true
                 binding.btnThemes?.isVisible = true
                 binding.btnLayoutChange?.isVisible = true
-                binding.btnNewMatch?.isVisible = true
+                binding.btnVoices?.isVisible = true
                 binding.btnToggleSound?.isVisible = true
                 binding.btnRules?.isVisible = true
             }
@@ -217,26 +238,21 @@ class PlayFragment : Fragment() {
         }
     }
 
-//    private fun observeGameState(binding: PlayFragmentBinding) {
-//        viewModel.gameState.observe(viewLifecycleOwner) { state ->
-//            if (state.isMatchReset) {
-//                Timber.d("match is reset")
-//            } else if (state.isMatchWon) {
-//                Timber.d("match won ")
-//                val wonByBestOf: Int = (state.gameWonByBestOf) - 2
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Best of $wonByBestOf won!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            } else if (state.isGameWon) {
-//                Timber.d("game won ")
-//            } else {
-//                Timber.d("No win. Ordinary point")
-//            }
-//        }
+    private fun observeWinStates() {
+        viewModel.winStates.observe(viewLifecycleOwner) { state ->
+            if (state.isMatchReset) {
+                Timber.d("match is reset")
+            } else if (state.isMatchWon) {
+                Timber.d("match won ")
+                alertOnMatchWon()
+            } else if (state.isGameWon) {
+                Timber.d("game won ")
+            } else {
+                Timber.d("No win. Ordinary point")
+            }
+        }
 
-//}
+    }
 
     private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
@@ -287,26 +303,43 @@ class PlayFragment : Fragment() {
         else soundPlayer.playSound(player.gameScore)
     }
 
-
-    private fun alertOnReset() {
+    private fun alertOnMatchWon() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-            builder.setView(R.layout.in_game_options)
+            builder.setCancelable(false)
+            builder.setView(R.layout.match_won)
             builder.create()
         }
         alertDialog?.show()
 
-        alertDialog?.findViewById<Button>(R.id.btn_alert_reset)?.setOnClickListener {
-            viewModel.onMatchReset()
+        alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
             alertDialog.cancel()
-        }
-
-        alertDialog?.findViewById<Button>(R.id.btn_alert_cancel)?.setOnClickListener {
-            alertDialog.cancel()
-//            this.findNavController()
-//                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
+            viewModel.resetDB()
+            this.findNavController()
+                .navigate(PlayFragmentDirections.actionPlayFragmentToOpeningScreenFragment(true))
         }
     }
+
+
+//    private fun alertOnReset() {
+//        val alertDialog: AlertDialog? = activity?.let {
+//            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+//            builder.setView(R.layout.in_game_options)
+//            builder.create()
+//        }
+//        alertDialog?.show()
+//
+//        alertDialog?.findViewById<Button>(R.id.btn_alert_reset)?.setOnClickListener {
+//            viewModel.onMatchReset()
+//            alertDialog.cancel()
+//        }
+//
+//        alertDialog?.findViewById<Button>(R.id.btn_alert_cancel)?.setOnClickListener {
+//            alertDialog.cancel()
+////            this.findNavController()
+////                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
+//        }
+//    }
 
     private fun setOrientationState(orientation: Orientation) {
         for (i in orientations) {

@@ -13,9 +13,8 @@ class WinConditions {
                 player.gameScore >= 11 && player.gameScore >= otherPlayer.gameScore + 2
     }
 
-    fun matchWonByBestOf(matchPool: Map<Int, Int>, winStates: WinStates, player: Player): Boolean {
-        if (matchPool[winStates.gameWonByBestOf] == player.matchScore) {
-            winStates.gameWonByBestOf += 2
+    fun matchWonByBestOf(matchPool: Map<Int, Int>, gameRules: GameRules, player: Player): Boolean {
+        if (matchPool[gameRules.bestOf] == player.matchScore) {
             return true
         }
         return false

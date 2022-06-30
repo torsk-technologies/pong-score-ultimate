@@ -16,13 +16,24 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            app:popExitAnim="@anim/slide_out_left">
+            <argument
+                android:name="best_of"
+                app:argType="integer" />
+            <argument
+                android:name="first_server"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/action_openingScreenFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
         <action
             android:id="@+id/action_openingScreenFragment_to_rulesFragment"
             app:destination="@id/rulesFragment" />
+        <argument
+            android:name="gameFinished"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
@@ -32,6 +43,15 @@
         <action
             android:id="@+id/action_playFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
+        <argument
+            android:name="best_of"
+            app:argType="integer" />
+        <argument
+            android:name="first_server"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_playFragment_to_openingScreenFragment"
+            app:destination="@id/openingScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"
@@ -46,10 +66,15 @@
     <fragment
         android:id="@+id/rulesFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.rules_screen.RulesFragment"
-        tools:layout="@layout/rules_fragment"
-        android:label="RulesFragment" >
+        android:label="RulesFragment"
+        tools:layout="@layout/rules_fragment">
         <action
             android:id="@+id/action_rulesFragment_to_playFragment"
-            app:destination="@id/playFragment" />
+            app:destination="@id/playFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/openingScreenFragment" />
     </fragment>
 </navigation>

@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.OpeningScreenFragmentBinding
 
 class OpeningScreenFragment : Fragment() {
 
 
+    private val args: OpeningScreenFragmentArgs by navArgs()
     private lateinit var binding: OpeningScreenFragmentBinding
 
     override fun onCreateView(
@@ -22,22 +25,25 @@ class OpeningScreenFragment : Fragment() {
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
 
+        binding.btnContinue.isVisible = !args.gameFinished
 
 
         // Force portrait orientation
 //        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-        binding.btnNewGame.setOnClickListener() {
+        binding.btnNewGame.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToRulesFragment())
         }
 
         binding.btnContinue.setOnClickListener {
             this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(
+                    bestOf = -1,
+                    firstServer = -1))
         }
 
-        binding.btnInfo.setOnClickListener() {
+        binding.btnInfo.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToAboutFragment())
         }
