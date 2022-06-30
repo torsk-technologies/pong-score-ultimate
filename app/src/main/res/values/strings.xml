@@ -7,7 +7,7 @@
     <string name="undo">Undo</string>
     <string name="new_match">New match</string>
     <string name="settings">Settings</string>
-    <string name="best_of_x_won_by_y">Best of %1$s won! %2$s</string>
+    <string name="best_of_x_won_by_y">Best of %1$d won! %2$s</string>
     <string name="orientation">Orientation</string>
     <string name="toggle_sound_on_or_off">Toggle sound on or off</string>
     <string name="toggle_themes">Toggle themes</string>
@@ -16,4 +16,7 @@
     <string name="new_game">NEW GAME</string>
     <string name="made_with_love">Made with love by Carlos Reiakvam</string>
     <string name="at_torsk_technologies">at Torsk Technologies</string>
+    <string name="best_of">Best of %1$s</string>
+    <string name="random">random</string>
+    <string name="first_server">First server</string>
 </resources>

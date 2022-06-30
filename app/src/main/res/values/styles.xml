@@ -93,6 +93,16 @@
         <item name="fontFamily">@font/kaushan_script</item>
     </style>
 
+    <style name="slider">
+        <item name="color">@color/black</item>
+        <item name="backgroundColor">@color/yellow</item>
+    </style>
+
+    <style name="slider_label">
+        <item name="color">@color/black</item>
+        <item name="backgroundColor">@color/yellow</item>
+    </style>
+
     <!--    <style name="btn_in_game_options"></style>-->
 
 </resources>

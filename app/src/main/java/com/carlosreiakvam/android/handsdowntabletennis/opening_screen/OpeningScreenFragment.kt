@@ -22,17 +22,24 @@ class OpeningScreenFragment : Fragment() {
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
 
+
+
         // Force portrait orientation
 //        activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-        binding.btnInfo.setOnClickListener() {
+        binding.btnNewGame.setOnClickListener() {
             this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToAboutFragment())
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToRulesFragment())
         }
 
         binding.btnContinue.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
+        }
+
+        binding.btnInfo.setOnClickListener() {
+            this.findNavController()
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToAboutFragment())
         }
 
         return binding.root

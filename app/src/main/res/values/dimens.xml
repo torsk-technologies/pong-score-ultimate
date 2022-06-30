@@ -7,4 +7,5 @@
     <dimen name="fab_custom_size">75dp</dimen>
     <dimen name="button_width">220dp</dimen>
     <dimen name="main_screen_button_width">320dp</dimen>
+    <dimen name="first_serve_table_width">120dp</dimen>
 </resources>

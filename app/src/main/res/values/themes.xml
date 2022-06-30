@@ -15,20 +15,20 @@
 <!--        <item name="bgMidBarColor">@color/white</item>-->
 
         <!--         Primary brand color. -->
-        <item name="colorPrimary">@color/azure</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/azure</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!--        Background-->
-        <item name="colorOnBackground">@color/white</item>
+        <item name="colorOnBackground">@color/azure</item>
 
         <!--        Secondary brand color.-->
         <item name="colorSecondary">@color/yellow</item>
         <item name="colorSecondaryVariant">@color/yellow</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+<!--         Status bar color.-->
+<!--        <item name="android:statusBarColor">@color/black</item>-->
     </style>
 
 </resources>

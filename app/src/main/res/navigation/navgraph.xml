@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_openingScreenFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_openingScreenFragment_to_rulesFragment"
+            app:destination="@id/rulesFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
@@ -40,4 +43,13 @@
         android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/about_fragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.rules_screen.RulesFragment"
+        tools:layout="@layout/rules_fragment"
+        android:label="RulesFragment" >
+        <action
+            android:id="@+id/action_rulesFragment_to_playFragment"
+            app:destination="@id/playFragment" />
+    </fragment>
 </navigation>
