@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Hands Down Table Tennis</string>
-    <string name="lets_play">Let\'s play!</string>
+    <string name="hands_down">hands down Table TEnnis</string>
+    <string name="table_tennis">Score</string>
+
+    <string name="lets_play">GO</string>
     <string name="player_one">player one</string>
     <string name="player_two">player two</string>
     <string name="p1score">p1Score</string>
@@ -14,13 +17,15 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Made with 🖤</string>
-    <string name="at_torsk_technologies">at Torsk Technologies</string>
+    <string name="made_with_love">Created by</string>
+    <string name="at_torsk_technologies">Torsk Technologies</string>
     <string name="best_of">Best of %1$d</string>
-    <string name="random">Random</string>
+    <string name="random">\?</string>
     <string name="first_server">First server</string>
     <string name="layout_change">layout change</string>
     <string name="best_of_no_content">best of</string>
     <string name="by_carlos_reiakvam">by Carlos Reiakvam</string>
     <string name="next">NEXT</string>
+    <string name="rules">rules</string>
+    <string name="match_won">match won</string>
 </resources>

@@ -3,16 +3,18 @@
     <dimen name="game_tile_space">2.75dp</dimen>
     <dimen name="margin_btn_option_start">6dp</dimen>
     <dimen name="margin_btn_option_bottom">10dp</dimen>
-    <dimen name="fab_custom_size">75dp</dimen>
+    <dimen name="fab_custom_size">60</dimen>
     <dimen name="button_width">220dp</dimen>
-    <dimen name="main_screen_button_width">230dp</dimen>
+    <dimen name="main_screen_button_width">300dp</dimen>
+    <dimen name="button_height">70dp</dimen>
 
+    <dimen name="first_serve_button_width">110dp</dimen>
     <dimen name="first_serve_table_width">230dp</dimen>
     <dimen name="first_serve_table_height">200dp</dimen>
 
-    <dimen name="score_small_width">120dp</dimen>
     <dimen name="match_score_end_margin">5dp</dimen>
 
+    <dimen name="score_small_width">60dp</dimen>
     <dimen name="score_large_width">300dp</dimen>
 
     <dimen name="score_offset">20dp</dimen>

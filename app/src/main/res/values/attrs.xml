@@ -2,8 +2,9 @@
 <resources>
     <!--    Fonts-->
     <attr name="headerFont" format="reference" />
-    <attr name="scoreFont" format="reference" />
-    <attr name="normalFont" format="reference" />
+    <attr name="mukta_bold" format="reference" />
+    <attr name="mukta_normal" format="reference" />
+    <attr name="roboto" format="reference" />
 
     <!--    Colors-->
     <attr name="playerOneBgColor" format="color" />

@@ -4,31 +4,31 @@
     <style name="small_button">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">40sp</item>
-        <item name="fontFamily">?attr/scoreFont</item>
+        <item name="fontFamily">?attr/mukta_bold</item>
     </style>
 
     <style name="random_button">
         <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">@color/dark_blue</item>
-        <item name="android:textSize">40sp</item>
-        <item name="fontFamily">?attr/scoreFont</item>
+        <item name="backgroundTint">@color/bt_dark_blue</item>
+        <item name="android:textSize">30sp</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
     </style>
 
     <style name="large_button">
-        <item name="android:textSize">20sp</item>
+<!--        <item name="android:textSize">10sp</item>-->
         <item name="backgroundTint">?attr/buttonBgColor</item>
         <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">?attr/headerFont</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
     </style>
 
     <style name="menu_button">
-        <item name="backgroundTint">@color/dark_blue</item>
+        <item name="backgroundTint">@color/bt_black</item>
         <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
         <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
     </style>
 
     <style name="main_header">
-        <item name="android:textSize">68sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
@@ -43,25 +43,23 @@
         <item name="android:textSize">40sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:backgroundTint">@color/bt_pink</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
     </style>
 
     <!--    <item name="fontFamily">@font/kaushan_script</item>-->
     <style name="score_large">
-        <item name="android:layout_marginEnd">@dimen/score_offset</item>
-        <item name="fontFamily">?attr/scoreFont</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">150sp</item>
+        <item name="android:textSize">140sp</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="score_medium" >
-        <item name="fontFamily">?attr/scoreFont</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
-        <item name="android:textSize">68sp</item>
+        <item name="android:textSize">32sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
@@ -69,18 +67,17 @@
 
 
     <style name="text_medium">
-        <item name="android:textSize">68sp</item>
+        <item name="android:textSize">38sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
-        <item name="fontFamily">?attr/normalFont</item>
+        <item name="fontFamily">?attr/mukta_bold</item>
     </style>
 
     <style name="text_small">
-        <item name="fontFamily">?attr/headerFont</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">10dp</item>
-        <item name="autoSizeTextType">uniform</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
@@ -91,7 +88,7 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
-        <item name="fontFamily">?attr/normalFont</item>
+        <item name="fontFamily">?attr/mukta_normal</item>
     </style>
 
     <style name="slider">

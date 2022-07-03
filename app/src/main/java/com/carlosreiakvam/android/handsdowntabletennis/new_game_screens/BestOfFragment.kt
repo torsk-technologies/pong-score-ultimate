@@ -29,12 +29,11 @@ class BestOfFragment : Fragment() {
 
     private fun setupBestOfSlider() {
         val bestOfLabel = binding.tvBestOfLabel
-        bestOfLabel.text = getString(R.string.best_of, 21)
+        bestOfLabel.text = getString(R.string.best_of, 9)
 
 
         val sliderBestOf = binding.sliderBestOf
         sliderBestOf.value = 9f
-        sliderBestOf.thumbRadius = 60
 
 
         sliderBestOf.addOnChangeListener { _, value, _ ->

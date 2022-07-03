@@ -71,7 +71,8 @@
         android:label="FirstServerFragment" >
         <action
             android:id="@+id/action_firstServerFragment_to_playFragment"
-            app:destination="@id/playFragment" />
+            app:destination="@id/playFragment"
+            app:popUpTo="@id/openingScreenFragment" />
         <argument
             android:name="best_of"
             app:argType="integer"

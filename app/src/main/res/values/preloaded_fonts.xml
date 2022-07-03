@@ -6,6 +6,9 @@
         <item>@font/kaushan_script</item>
         <item>@font/lato</item>
         <item>@font/margarine</item>
+        <item>@font/mukta</item>
+        <item>@font/mukta_bold</item>
+        <item>@font/mukta_extrabold</item>
         <item>@font/rubik_mono_one</item>
     </array>
 </resources>

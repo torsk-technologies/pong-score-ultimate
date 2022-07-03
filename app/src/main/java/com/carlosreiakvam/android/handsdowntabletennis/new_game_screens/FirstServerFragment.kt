@@ -37,7 +37,7 @@ class FirstServerFragment : Fragment() {
         val bgTableBottom = binding.tableBottom
         val tvTableTop = binding.tvTableTop
         val tvTableBottom = binding.tvTableBottom
-        val btnRandom = binding.btnRandom
+//        val btnRandom = binding.btnRandom
 
         tvTableTop.text = "X"
 
@@ -51,11 +51,19 @@ class FirstServerFragment : Fragment() {
             tvTableTop.text = ""
             tvTableBottom.text = "X"
         }
-        btnRandom.setOnClickListener {
+        bgTableBottom.setOnLongClickListener() {
             firstServer = Random.nextInt(1, 3)
             Timber.d("random: $firstServer")
             tvTableTop.text = "?"
             tvTableBottom.text = "?"
+            true
+        }
+        bgTableTop.setOnLongClickListener() {
+            firstServer = Random.nextInt(1, 3)
+            Timber.d("random: $firstServer")
+            tvTableTop.text = "?"
+            tvTableBottom.text = "?"
+            true
         }
     }
 

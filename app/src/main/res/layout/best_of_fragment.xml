@@ -19,8 +19,10 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="2.5dp"
             android:src="@color/white"
+            android:translationZ="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,22 +48,22 @@
 
         <TextView
             android:id="@+id/tv_best_of_label"
-            style="@style/text_small"
+            style="@style/main_header"
+            android:textAllCaps="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:text="@string/best_of"
-            app:layout_constraintBottom_toTopOf="@id/slider_best_of"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="TextContrastCheck"
-            tools:layout_editor_absoluteY="420dp" />
+            tools:ignore="TextContrastCheck" />
 
 
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_best_of"
-            android:layout_width="200dp"
-            android:layout_height="1dp"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
             android:backgroundTint="@color/transparent"
             android:contentDescription="@string/best_of_no_content"
             android:stepSize="2"
@@ -82,12 +84,12 @@
             android:id="@+id/btn_next"
             style="@style/large_button"
             android:layout_width="@dimen/main_screen_button_width"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="40dp"
             android:text="@string/next"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

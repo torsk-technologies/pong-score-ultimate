@@ -1,12 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="headerFont">@font/rubik_mono_one</item>
-        <item name="scoreFont">@font/rubik_mono_one</item>
-        <item name="normalFont">@font/rubik_mono_one</item>
+        <item name="mukta_bold">@font/rubik_mono_one</item>
+        <item name="mukta_normal">@font/rubik_mono_one</item>
 
-        <item name="buttonBgColor">@color/dark_blue</item>
+        <item name="buttonBgColor">@color/bt_dark_blue</item>
         <item name="mainTxtColor">@color/white</item>
 
         <!--         Primary brand color. -->

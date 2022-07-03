@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_snack_like"
-        android:backgroundTint="@color/bt_pink"
+        android:backgroundTint="@color/bt_dark_blue"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:paddingStart="35dp"
