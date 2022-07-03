@@ -51,14 +51,14 @@ class FirstServerFragment : Fragment() {
             tvTableTop.text = ""
             tvTableBottom.text = "X"
         }
-        bgTableBottom.setOnLongClickListener() {
+        bgTableBottom.setOnLongClickListener {
             firstServer = Random.nextInt(1, 3)
             Timber.d("random: $firstServer")
             tvTableTop.text = "?"
             tvTableBottom.text = "?"
             true
         }
-        bgTableTop.setOnLongClickListener() {
+        bgTableTop.setOnLongClickListener {
             firstServer = Random.nextInt(1, 3)
             Timber.d("random: $firstServer")
             tvTableTop.text = "?"

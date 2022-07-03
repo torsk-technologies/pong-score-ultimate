@@ -1,12 +1,12 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
-enum class Orientation() {
+enum class Orientation {
     NORMAL,
     MIRRORED,
     LEFT,
     RIGHT
 }
 
-enum class Preferences() {
+enum class Preferences {
     SOUNDENABLED
 }

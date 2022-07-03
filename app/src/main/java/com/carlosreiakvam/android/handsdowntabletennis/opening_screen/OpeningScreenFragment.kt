@@ -51,9 +51,4 @@ class OpeningScreenFragment : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        requireActivity().window.statusBarColor =
-//            ContextCompat.getColor(requireContext(), R.color.azure)
-    }
 }
