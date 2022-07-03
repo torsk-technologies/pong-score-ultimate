@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Fonts-->
+    <attr name="headerFont" format="reference" />
+    <attr name="scoreFont" format="reference" />
+    <attr name="normalFont" format="reference" />
+
+    <!--    Colors-->
     <attr name="playerOneBgColor" format="color" />
     <attr name="playerTwoBgColor" format="color" />
+    <attr name="buttonBgColor" format="color" />
+
+    <attr name="mainBgColor" format="color" />
+    <attr name="mainTxtColor" format="color" />
+    <attr name="secondaryTxtColor" format="color" />
+
     <attr name="playerOneTxtColor" format="color" />
     <attr name="playerTwoTxtColor" format="color" />
     <attr name="menuBgColor" format="color" />

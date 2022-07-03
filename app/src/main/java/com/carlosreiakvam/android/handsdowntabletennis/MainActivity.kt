@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+//        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         return super.onCreateView(name, context, attrs)
     }
 }

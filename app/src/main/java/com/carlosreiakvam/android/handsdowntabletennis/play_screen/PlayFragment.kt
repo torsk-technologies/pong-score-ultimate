@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -28,9 +28,10 @@ import timber.log.Timber
 class PlayFragment : Fragment() {
 
     private val args: PlayFragmentArgs by navArgs()
+    private var bestOf: Int = 21
+    private var firstServer: Int = 1
     private var isSoundEnabled: Boolean = true
     private var isVoiceEnabled: Boolean = true
-    private var chosenTheme: Themes = Themes.BEACH
     private lateinit var binding: PlayFragmentBinding
     private lateinit var viewModel: PlayViewModel
     private lateinit var soundPlayer: SoundPlayer
@@ -47,27 +48,25 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        bestOf = args.bestOf
+        firstServer = args.firstServer
 
         viewModel =
             PlayViewModelFactory(
                 (requireActivity().application as ApplicationController).database.gameStateDao(),
-                args.bestOf,
-                args.firstServer)
+                bestOf,
+                firstServer)
                 .create(PlayViewModel::class.java)
+
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewmodel = viewModel
-//        observeGameState(binding)
 
-        val bestOf = args.bestOf
-        val firstServer = args.firstServer
-        Timber.d("bestOf: $bestOf")
-        Timber.d("firstServer: $firstServer")
 
-        observeWinStates()
-        observePlayerScores()
+
         observeCurrentServer()
+        observePlayerScores()
+        observeWinStates()
         loadSharedPrefsGameState()
         setupSoundPlayer()
         return binding.root
@@ -77,61 +76,11 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOrientation(NORMAL)
-        setupOnClickListeners()
+        setupGameClickListeners()
+        setupMenuClickListeners()
     }
 
-    private fun setTheme(themeName: Themes) {
-        if (themeName == Themes.CONTRAST) {
-            val scoreColor = R.color.white
-            binding.tvP1GameScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP2GameScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP1MatchScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP2MatchScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-
-            binding.p2Container?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.black))
-            binding.p1Container?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.black))
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireContext(), R.color.black)
-
-        } else if (themeName == Themes.BEACH) {
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireContext(), R.color.azure)
-            val scoreColor = R.color.white
-            binding.tvP1GameScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP2GameScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP1MatchScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.tvP2MatchScore?.setTextColor(ContextCompat.getColor(requireContext(),
-                scoreColor))
-            binding.p2Container?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.yellow))
-            binding.p1Container?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.azure))
-            binding.playFragmentLinear?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.white))
-        }
-    }
-
-
-    private fun setupOnClickListeners() {
-        binding.p1Container?.setOnClickListener {
-            viewModel.registerPoint(Players.PLAYER1.i)
-            if (isSoundEnabled) playDing(viewModel.player1Live.value ?: Player("", 1))
-        }
-
-        binding.p2Container?.setOnClickListener {
-            viewModel.registerPoint(Players.PLAYER2.i)
-            if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player("", 1))
-        }
-
+    private fun setupMenuClickListeners() {
         binding.btnUndo?.setOnClickListener {
             viewModel.onUndo()
             // play sound on undo
@@ -140,7 +89,6 @@ class PlayFragment : Fragment() {
 //                else playDing(viewModel.player2Live.value!!)
 //            }
         }
-
 
         binding.btnLayoutChange?.setOnClickListener {
             when {
@@ -172,25 +120,11 @@ class PlayFragment : Fragment() {
             }
         }
 
+        binding.btnRules?.setOnClickListener {
+            alertBestOf()
 
-        binding.btnThemes?.setOnClickListener {
-            chosenTheme = if (chosenTheme == Themes.BEACH) {
-                setTheme(Themes.CONTRAST)
-                Themes.CONTRAST
-            } else {
-                setTheme(Themes.BEACH)
-                Themes.BEACH
-            }
-            with(sharedPref.edit()) {
-                //arguments: (key,value)
-                putString(Themes.THEMENAME.name, chosenTheme.name)
-                apply()
-            }
         }
 
-//        binding.btnNewMatch?.setOnClickListener {
-//            alertOnReset()
-//        }
 
         binding.btnToggleMenu?.setOnClickListener {
             if (binding.btnUndo?.isVisible == true) {
@@ -209,11 +143,26 @@ class PlayFragment : Fragment() {
                 binding.btnRules?.isVisible = true
             }
         }
+
+    }
+
+    private fun setupGameClickListeners() {
+        binding.p1Container?.setOnClickListener {
+            viewModel.registerPoint(Players.PLAYER1.i)
+            if (isSoundEnabled) playDing(viewModel.player1Live.value ?: Player("", 1))
+        }
+
+        binding.p2Container?.setOnClickListener {
+            viewModel.registerPoint(Players.PLAYER2.i)
+            if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player("", 1))
+        }
+
     }
 
 
     private fun observePlayerScores() {
         viewModel.player1Live.observe(viewLifecycleOwner) {
+            Timber.d("p1 gamescore: ${it.gameScore}")
             this.binding.tvP1GameScore?.text = it.gameScore.toString()
             this.binding.tvP1MatchScore?.text = it.matchScore.toString()
         }
@@ -270,14 +219,6 @@ class PlayFragment : Fragment() {
         isSoundEnabled = sharedPref.getBoolean(SOUNDENABLED.name, true)
         if (isSoundEnabled) binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_note_24)
         else binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_off_24)
-        val loadedTheme = sharedPref.getString(Themes.THEMENAME.name, Themes.BEACH.name)
-        if (loadedTheme == Themes.BEACH.name) {
-            setTheme(Themes.BEACH)
-            chosenTheme = Themes.BEACH
-        } else if (loadedTheme == Themes.CONTRAST.name) {
-            setTheme(Themes.CONTRAST)
-            chosenTheme = Themes.CONTRAST
-        }
 
         val orientationNormal = sharedPref.getBoolean(NORMAL.name, true)
         val orientationMirrored = sharedPref.getBoolean(MIRRORED.name, false)
@@ -299,7 +240,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun playDing(player: Player) {
-        if (player.gameScore >= 20) soundPlayer.playSound(30)
+        if (player.gameScore >= 20) soundPlayer.playSound(20)
         else soundPlayer.playSound(player.gameScore)
     }
 
@@ -314,9 +255,24 @@ class PlayFragment : Fragment() {
 
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
             alertDialog.cancel()
-            viewModel.resetDB()
+            viewModel.resetDBForNewGame()
             this.findNavController()
                 .navigate(PlayFragmentDirections.actionPlayFragmentToOpeningScreenFragment(true))
+        }
+    }
+
+    private fun alertBestOf() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.alert_best_of)
+            builder.create()
+        }
+        alertDialog?.show()
+        alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.text =
+            getString(R.string.best_of, bestOf)
+
+        alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
+            alertDialog.cancel()
         }
     }
 

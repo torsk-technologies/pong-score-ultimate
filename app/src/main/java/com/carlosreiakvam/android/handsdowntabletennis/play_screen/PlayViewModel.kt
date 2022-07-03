@@ -50,7 +50,9 @@ class PlayViewModel(
             Timber.d("new game")
             game = Game(player1, player2,
                 GameRules(bestOf = bestOfByNewGame, firstServer = firstServerByNewGame))
-            resetDB()
+            resetDBForNewGame()
+        } else {
+            setGameStateFromDB()
         }
         updateLiveData()
     }
@@ -81,8 +83,10 @@ class PlayViewModel(
         insertGameStateToDB() // insert values from Game to DB
     }
 
-    fun resetDB() {
+    fun resetDBForNewGame() {
         viewModelScope.launch {
+            gameStateDAO.deleteAll()
+            updateLiveData()
             gameStateDAO.insertGameState(GameStateEntity())
         }
     }
@@ -128,7 +132,7 @@ class PlayViewModel(
                     _currentServerLive.value = game.currentServer
                 }
             } catch (nullp: NullPointerException) {
-                resetDB()
+                resetDBForNewGame()
             }
         }
     }
@@ -141,7 +145,7 @@ class PlayViewModel(
             player1 = Player("player one", 1)
             player2 = Player("player two", 2)
             game = Game(player1, player2, GameRules())
-            resetDB()
+            resetDBForNewGame()
             updateLiveData()
         }
     }

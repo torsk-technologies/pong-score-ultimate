@@ -2,33 +2,28 @@
     <!-- Base application theme. -->
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!--        Custom Colors-->
-<!--        <item name="playerOneBgColor">@color/azure</item>-->
-<!--        <item name="playerTwoBgColor">@color/yellow</item>-->
 
-<!--        <item name="playerOneTxtColor">@color/white</item>-->
-<!--        <item name="playerTwoTxtColor">@color/white</item>-->
+        <item name="headerFont">@font/rubik_mono_one</item>
+        <item name="scoreFont">@font/rubik_mono_one</item>
+        <item name="normalFont">@font/rubik_mono_one</item>
 
-<!--        <item name="menuBgColor">@color/charcoal</item>-->
-<!--        <item name="menuTxtColor">@color/white</item>-->
-
-<!--        <item name="bgMidBarColor">@color/white</item>-->
+        <item name="buttonBgColor">@color/dark_blue</item>
+        <item name="mainTxtColor">@color/white</item>
 
         <!--         Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/azure</item>
+        <item name="colorPrimary">@color/bt_red</item>
+        <item name="colorPrimaryVariant">@color/bt_red</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!--        Background-->
-        <item name="colorOnBackground">@color/azure</item>
 
         <!--        Secondary brand color.-->
-        <item name="colorSecondary">@color/yellow</item>
-        <item name="colorSecondaryVariant">@color/yellow</item>
+        <item name="colorSecondary">@color/bt_black</item>
+        <item name="colorSecondaryVariant">@color/bt_black</item>
         <item name="colorOnSecondary">@color/white</item>
 
-<!--         Status bar color.-->
-<!--        <item name="android:statusBarColor">@color/black</item>-->
+        <!--         Status bar color.-->
+        <item name="android:statusBarColor">@color/bt_red</item>
     </style>
 
 </resources>

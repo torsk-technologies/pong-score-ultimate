@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/azure">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_top"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
-
-        <TextView
-            android:id="@+id/tv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/kaushan_script"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="68sp"
+            android:layout_height="0dp"
+            android:src="@color/bt_red"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:src="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@color/bt_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            tools:ignore="ContentDescription" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_mid"
             android:layout_width="match_parent"
@@ -35,12 +44,27 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
+        <TextView
+            android:id="@+id/tv_logo"
+            style="@style/main_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
         <Button
             android:id="@+id/btn_new_game"
             style="@style/large_button"
             android:layout_width="@dimen/main_screen_button_width"
             android:layout_height="wrap_content"
             android:text="@string/new_game"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
@@ -50,6 +74,7 @@
             style="@style/large_button"
             android:layout_width="@dimen/main_screen_button_width"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/continue_str"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/azure"
+            android:backgroundTint="@color/dark_blue"
             android:contentDescription="@string/undo"
             android:src="@drawable/ic_baseline_info_24"
             android:tooltipText="@string/orientation"

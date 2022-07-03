@@ -27,22 +27,19 @@
         <action
             android:id="@+id/action_openingScreenFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
-        <action
-            android:id="@+id/action_openingScreenFragment_to_rulesFragment"
-            app:destination="@id/rulesFragment" />
         <argument
             android:name="gameFinished"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_openingScreenFragment_to_bestOfFragment"
+            app:destination="@id/bestOfFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
         android:label="PlayFragment"
         tools:layout="@layout/play_fragment">
-        <action
-            android:id="@+id/action_playFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
         <argument
             android:name="best_of"
             app:argType="integer" />
@@ -54,27 +51,30 @@
             app:destination="@id/openingScreenFragment" />
     </fragment>
     <fragment
-        android:id="@+id/optionsFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.OptionsFragment"
-        android:label="OptionsFragment"
-        tools:layout="@layout/in_game_options" />
-    <fragment
         android:id="@+id/aboutFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/about_fragment" />
     <fragment
-        android:id="@+id/rulesFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.rules_screen.RulesFragment"
-        android:label="RulesFragment"
-        tools:layout="@layout/rules_fragment">
+        android:id="@+id/bestOfFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.BestOfFragment"
+        tools:layout="@layout/best_of_fragment"
+        android:label="BestOfFragment" >
         <action
-            android:id="@+id/action_rulesFragment_to_playFragment"
-            app:destination="@id/playFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/openingScreenFragment" />
+            android:id="@+id/action_bestOfFragment_to_firstServerFragment"
+            app:destination="@id/firstServerFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/first_server_fragment"
+        android:id="@+id/firstServerFragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.FirstServerFragment"
+        android:label="FirstServerFragment" >
+        <action
+            android:id="@+id/action_firstServerFragment_to_playFragment"
+            app:destination="@id/playFragment" />
+        <argument
+            android:name="best_of"
+            app:argType="integer"
+            android:defaultValue="21" />
     </fragment>
 </navigation>

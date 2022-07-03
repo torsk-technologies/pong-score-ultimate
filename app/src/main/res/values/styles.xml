@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-    <style name="playerOneScoreLarge" parent="score_large">
+    <style name="small_button">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">40sp</item>
+        <item name="fontFamily">?attr/scoreFont</item>
     </style>
 
-    <style name="playerOneScoreMedium" parent="score_medium">
+    <style name="random_button">
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="playerTwoScoreLarge" parent="score_large">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="playerTwoScoreMedium" parent="score_medium">
-        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/bt_pink</item>
+        <item name="android:textSize">40sp</item>
+        <item name="fontFamily">?attr/scoreFont</item>
     </style>
 
     <style name="large_button">
-        <item name="backgroundTint">?colorSecondary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="backgroundTint">?attr/buttonBgColor</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">30sp</item>
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="fontFamily">?attr/headerFont</item>
     </style>
 
     <style name="menu_button">
-        <item name="backgroundTint">@color/charcoal</item>
+        <item name="backgroundTint">@color/dark_blue</item>
         <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
         <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
     </style>
 
     <style name="main_header">
-        <item name="android:textSize">275sp</item>
+        <item name="android:textSize">68sp</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">?attr/headerFont</item>
         <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/kaushan_script</item>
-        <item name="android:shadowDx">10</item>
-        <item name="android:shadowColor">@color/black</item>
+        <item name="android:translationZ">90dp</item>
     </style>
+    <!--        <item name="android:textColor">?attr/mainTxtColor</item>-->
 
     <style name="in_game_options_style" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -46,63 +43,64 @@
         <item name="android:textSize">40sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:backgroundTint">@color/azure</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/bt_pink</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
     </style>
 
+    <!--    <item name="fontFamily">@font/kaushan_script</item>-->
     <style name="score_large">
-        <!--        <item name="fontFamily">sans-serif</item>-->
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="android:layout_marginEnd">@dimen/score_offset</item>
+        <item name="fontFamily">?attr/scoreFont</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">250sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <!--    <item name="fontFamily">sans-serif</item>-->
-    <style name="score_medium">
+    <style name="score_medium" >
+        <item name="fontFamily">?attr/scoreFont</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
         <item name="android:textSize">68sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
     </style>
+
 
     <style name="text_medium">
         <item name="android:textSize">68sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="fontFamily">?attr/normalFont</item>
     </style>
 
     <style name="text_small">
-        <item name="android:textSize">22sp</item>
+        <item name="fontFamily">?attr/headerFont</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
         <item name="autoSizeTextType">uniform</item>
+        <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
     </style>
 
     <style name="text_large">
         <item name="android:textSize">250sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">@font/kaushan_script</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="fontFamily">?attr/normalFont</item>
     </style>
 
     <style name="slider">
-        <item name="color">@color/black</item>
-        <item name="backgroundColor">@color/yellow</item>
+        <item name="color">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
     </style>
 
     <style name="slider_label">
-        <item name="color">@color/black</item>
-        <item name="backgroundColor">@color/yellow</item>
+        <item name="color">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
     </style>
-
-    <!--    <style name="btn_in_game_options"></style>-->
-
 </resources>

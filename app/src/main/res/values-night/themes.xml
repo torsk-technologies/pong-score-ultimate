@@ -1,17 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/azure</item>
-        <item name="colorPrimaryVariant">@color/azure</item>
+
+        <item name="headerFont">@font/rubik_mono_one</item>
+        <item name="scoreFont">@font/rubik_mono_one</item>
+        <item name="normalFont">@font/rubik_mono_one</item>
+
+        <item name="buttonBgColor">@color/dark_blue</item>
+        <item name="mainTxtColor">@color/white</item>
+
+        <!--         Primary brand color. -->
+        <item name="colorPrimary">@color/bt_red</item>
+        <item name="colorPrimaryVariant">@color/bt_red</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/yellow</item>
-        <item name="colorSecondaryVariant">@color/yellow</item>
+        <!--        Background-->
+
+        <!--        Secondary brand color.-->
+        <item name="colorSecondary">@color/bt_black</item>
+        <item name="colorSecondaryVariant">@color/bt_black</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <!--         Status bar color.-->
+        <item name="android:statusBarColor">@color/bt_red</item>
     </style>
 </resources>

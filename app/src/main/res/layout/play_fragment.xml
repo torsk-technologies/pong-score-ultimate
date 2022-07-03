@@ -3,191 +3,187 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewmodel"
-            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayViewModel" />
-
-        <variable
-            name="constants"
-            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.Scores" />
-    </data>
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/play_fragment_linear"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
             android:id="@+id/p1_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/game_tile_space"
-            android:layout_weight="1"
-            android:background="@color/azure"
+            android:src="@color/bt_red"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tv_p1_match_score"
-                style="@style/playerTwoScoreMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="3" />
-
-
-            <TextView
-                android:id="@+id/tv_p1_game_score"
-                style="@style/playerOneScoreLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="1" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!--                    android:background="@color/yellow"-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
             android:id="@+id/p2_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/game_tile_space"
-            android:layout_weight="1"
-            android:background="@color/yellow"
+            android:src="@color/bt_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tv_p2_match_score"
-                style="@style/playerTwoScoreMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="5" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_mid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
-
-            <TextView
-                android:id="@+id/tv_p2_game_score"
-                style="@style/playerTwoScoreLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="0" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_mid_vert"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_layout_change"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/undo"
-                android:src="@drawable/ic_baseline_loop_24"
-                android:tooltipText="@string/orientation"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_undo"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:visibility="visible" />
+        <TextView
+            android:id="@+id/tv_p1_game_score"
+            style="@style/score_large"
+            android:layout_width="@dimen/score_large_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_rules"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/undo"
-                android:src="@drawable/ic_baseline_rules_24"
-                android:tooltipText="rules"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_layout_change"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:visibility="visible" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_undo"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/undo"
-                android:src="@drawable/ic_baseline_undo_24"
-                android:tooltipText="@string/undo"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:visibility="visible" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_themes"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/toggle_themes"
-                android:src="@drawable/ic_baseline_theme_24"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_toggle_sound"
-                app:layout_constraintStart_toEndOf="@id/btn_rules"
-                tools:visibility="visible" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_toggle_sound"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/toggle_sound_on_or_off"
-                android:src="@drawable/ic_baseline_music_note_24"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_voices"
-                app:layout_constraintStart_toEndOf="@id/btn_layout_change"
-                tools:visibility="visible" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_voices"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/undo"
-                android:src="@drawable/ic_baseline_record_voice_over_24"
-                android:tooltipText="rules"
-                android:visibility="invisible"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
-                app:layout_constraintStart_toEndOf="@id/btn_undo"
-                tools:visibility="visible" />
+        <TextView
+            android:id="@+id/tv_p1_match_score"
+            style="@style/score_medium"
+            android:layout_width="@dimen/score_small_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="13" />
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_toggle_menu"
-                style="@style/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:contentDescription="@string/toggle_menu"
-                android:src="@drawable/ic_baseline_menu_24"
-                android:tooltipText="@string/orientation"
-                app:fabCustomSize="@dimen/fab_custom_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/tv_p2_game_score"
+            style="@style/score_large"
+            android:layout_width="@dimen/score_large_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/tv_p2_match_score"
+            style="@style/score_medium"
+            android:layout_width="@dimen/score_small_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            tools:text="10" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_layout_change"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/layout_change"
+            android:src="@drawable/ic_baseline_loop_24"
+            android:tooltipText="@string/orientation"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_undo"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_rules"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="rules"
+            android:src="@drawable/ic_baseline_rules_24"
+            android:tooltipText="rules"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_layout_change"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_undo"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/undo"
+            android:src="@drawable/ic_baseline_undo_24"
+            android:tooltipText="@string/undo"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_themes"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/toggle_themes"
+            android:src="@drawable/ic_baseline_theme_24"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_toggle_sound"
+            app:layout_constraintStart_toEndOf="@id/btn_rules"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_toggle_sound"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/toggle_sound_on_or_off"
+            android:src="@drawable/ic_baseline_music_note_24"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_voices"
+            app:layout_constraintStart_toEndOf="@id/btn_layout_change"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_voices"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/undo"
+            android:src="@drawable/ic_baseline_record_voice_over_24"
+            android:tooltipText="rules"
+            android:visibility="invisible"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
+            app:layout_constraintStart_toEndOf="@id/btn_undo"
+            tools:visibility="visible" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_toggle_menu"
+            style="@style/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:contentDescription="@string/toggle_menu"
+            android:src="@drawable/ic_baseline_menu_24"
+            android:tooltipText="@string/orientation"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

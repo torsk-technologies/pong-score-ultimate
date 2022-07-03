@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
-import android.util.Log
 import java.io.IOException
 
 class SoundPlayer(context: Context) {
     private var soundPool: SoundPool
     private lateinit var assetManager: AssetManager
-    private val SOUND_FOLDER = "sounds"
+    private val SOUNDFOLDER = "sounds"
     private var soundList: ArrayList<Sound> = arrayListOf()
 
     init {
@@ -22,11 +21,11 @@ class SoundPlayer(context: Context) {
     }
 
     fun fetchSounds() {
-        val soundFiles: Array<String> = assetManager.list(SOUND_FOLDER) as Array<String>
+        val soundFiles: Array<String> = assetManager.list(SOUNDFOLDER) as Array<String>
 
         for (filename in soundFiles) {
             try {
-                val path: String = SOUND_FOLDER + "/" + filename
+                val path: String = SOUNDFOLDER + "/" + filename
                 val sound = Sound(path)
                 loadSound(sound)
                 soundList.add(sound)
