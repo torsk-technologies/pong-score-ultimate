@@ -31,9 +31,6 @@
             android:name="gameFinished"
             app:argType="boolean"
             android:defaultValue="false" />
-        <action
-            android:id="@+id/action_openingScreenFragment_to_bestOfFragment"
-            app:destination="@id/bestOfFragment" />
     </fragment>
     <fragment
         android:id="@+id/playFragment"
@@ -47,8 +44,8 @@
             android:name="first_server"
             app:argType="integer" />
         <action
-            android:id="@+id/action_playFragment_to_openingScreenFragment"
-            app:destination="@id/openingScreenFragment" />
+            android:id="@+id/action_playFragment_to_bestOfFragment"
+            app:destination="@id/bestOfFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"

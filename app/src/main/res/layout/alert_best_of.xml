@@ -5,21 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/alert_tv_best_of"
-        style="@style/text_small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_snack_like"
-        android:backgroundTint="@color/bt_dark_blue"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingStart="35dp"
-        android:paddingEnd="35dp"
+    <!--    <TextView-->
+    <!--        android:id="@+id/alert_tv_best_of"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/square_shape"-->
+    <!--        android:fontFamily="?attr/headerFont"-->
+    <!--        android:gravity="center"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:textAllCaps="true"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="31sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:text="Best of 3" />-->
+
+    <ImageView
+        android:id="@+id/btn_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/square_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Best of 3" />
+        tools:ignore="ContentDescription"/>
 
+    <TextView
+        style="@style/rules"
+        android:id="@+id/alert_tv_best_of"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:padding="10dp"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="@id/btn_bg"
+        app:layout_constraintEnd_toEndOf="@id/btn_bg"
+        app:layout_constraintStart_toStartOf="@id/btn_bg"
+        app:layout_constraintTop_toTopOf="@id/btn_bg"
+        tools:text="Best of 3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

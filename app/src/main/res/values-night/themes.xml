@@ -6,7 +6,6 @@
         <item name="mukta_bold">@font/rubik_mono_one</item>
         <item name="mukta_normal">@font/rubik_mono_one</item>
 
-        <item name="buttonBgColor">@color/bt_dark_blue</item>
         <item name="mainTxtColor">@color/white</item>
 
         <!--         Primary brand color. -->

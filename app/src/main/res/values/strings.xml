@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hands Down Table Tennis</string>
-    <string name="hands_down">hands down Table TEnnis</string>
-    <string name="table_tennis">Score</string>
+    <string name="hands_down">hands\ndown</string>
+    <string name="table_tennis">table\ntennis</string>
 
     <string name="lets_play">GO</string>
     <string name="player_one">player one</string>
@@ -17,11 +17,17 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Created by</string>
+    <string name="made_with_love">Created with 🖤 at</string>
     <string name="at_torsk_technologies">Torsk Technologies</string>
-    <string name="best_of">Best of %1$d</string>
+    <string name="best_of_complete">best of %1$d</string>
+    <string name="best_of">best of</string>
+    <string name="best">best</string>
+    <string name="of">of</string>
+    <string name="best_of_number">%1$d</string>
     <string name="random">\?</string>
-    <string name="first_server">First server</string>
+    <string name="first_server">First\nserver</string>
+    <string name="first">First</string>
+    <string name="server">senrver</string>
     <string name="layout_change">layout change</string>
     <string name="best_of_no_content">best of</string>
     <string name="by_carlos_reiakvam">by Carlos Reiakvam</string>

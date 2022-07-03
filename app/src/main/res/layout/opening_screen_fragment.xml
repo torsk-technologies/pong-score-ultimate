@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/upper_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/bt_red"
@@ -31,6 +32,7 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/lower_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/bt_black"
@@ -63,51 +65,51 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
-        <LinearLayout
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                style="@style/large_button"
-                android:id="@+id/btn_new_game"
-                android:layout_width="@dimen/main_screen_button_width"
-                android:layout_height="@dimen/button_height"
-                android:text="@string/new_game"
-                app:layout_constraintBottom_toTopOf="@id/btn_continue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
-
-            <Button
-                style="@style/large_button"
-                android:id="@+id/btn_continue"
-                android:layout_width="@dimen/main_screen_button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginTop="10dp"
-                android:text="@string/continue_str"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_new_game" />
-        </LinearLayout>
-        <!--        <TextView-->
-        <!--            android:id="@+id/tv_logo_lower"-->
-        <!--            style="@style/main_header"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/table_tennis"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textAllCaps="true"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        <LinearLayout-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/guideline_mid"-->
         <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />-->
-        <!--            style="@style/menu_button"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical">-->
+
+        <!--            <Button-->
+        <!--                style="@style/large_button"-->
+        <!--                android:id="@+id/btn_new_game"-->
+        <!--                android:layout_width="@dimen/main_screen_button_width"-->
+        <!--                android:layout_height="@dimen/button_height"-->
+        <!--                android:text="@string/new_game"-->
+        <!--                app:layout_constraintBottom_toTopOf="@id/btn_continue"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@id/guideline_mid" />-->
+
+        <!--            <Button-->
+        <!--                style="@style/large_button"-->
+        <!--                android:id="@+id/btn_continue"-->
+        <!--                android:layout_width="@dimen/main_screen_button_width"-->
+        <!--                android:layout_height="@dimen/button_height"-->
+        <!--                android:layout_marginTop="10dp"-->
+        <!--                android:text="@string/continue_str"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@id/btn_new_game" />-->
+        <!--        </LinearLayout>-->
+        <TextView
+            android:id="@+id/tv_logo_lower"
+            style="@style/main_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/table_tennis"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_info"
             android:layout_width="wrap_content"

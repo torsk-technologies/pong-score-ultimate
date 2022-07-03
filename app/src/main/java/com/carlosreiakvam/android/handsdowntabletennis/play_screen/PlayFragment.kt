@@ -121,8 +121,11 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnRules?.setOnClickListener {
-            alertBestOf()
+            alertRules()
+        }
 
+        binding.btnNewGame?.setOnClickListener {
+            alertNewGame()
         }
 
 
@@ -131,12 +134,12 @@ class PlayFragment : Fragment() {
                 binding.btnUndo?.isVisible = false
                 binding.btnLayoutChange?.isVisible = false
                 binding.btnVoices?.isVisible = false
-                binding.btnThemes?.isVisible = false
+                binding.btnNewGame?.isVisible = false
                 binding.btnToggleSound?.isVisible = false
                 binding.btnRules?.isVisible = false
             } else {
                 binding.btnUndo?.isVisible = true
-                binding.btnThemes?.isVisible = true
+                binding.btnNewGame?.isVisible = true
                 binding.btnLayoutChange?.isVisible = true
                 binding.btnVoices?.isVisible = true
                 binding.btnToggleSound?.isVisible = true
@@ -162,7 +165,6 @@ class PlayFragment : Fragment() {
 
     private fun observePlayerScores() {
         viewModel.player1Live.observe(viewLifecycleOwner) {
-            Timber.d("p1 gamescore: ${it.gameScore}")
             this.binding.tvP1GameScore?.text = it.gameScore.toString()
             this.binding.tvP1MatchScore?.text = it.matchScore.toString()
         }
@@ -244,6 +246,22 @@ class PlayFragment : Fragment() {
         else soundPlayer.playSound(player.gameScore)
     }
 
+    private fun alertNewGame() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            builder.setView(R.layout.alert_new_game)
+            builder.create()
+        }
+        alertDialog?.show()
+
+        alertDialog?.findViewById<TextView>(R.id.alert_btn_new_game)?.setOnClickListener {
+            alertDialog.cancel()
+            viewModel.resetDBForNewGame()
+            this.findNavController()
+                .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
+        }
+    }
+
     private fun alertOnMatchWon() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
@@ -257,45 +275,24 @@ class PlayFragment : Fragment() {
             alertDialog.cancel()
             viewModel.resetDBForNewGame()
             this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragmentToOpeningScreenFragment(true))
+                .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
         }
     }
 
-    private fun alertBestOf() {
+    private fun alertRules() {
         val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            val builder = AlertDialog.Builder(it)
             builder.setView(R.layout.alert_best_of)
             builder.create()
         }
         alertDialog?.show()
         alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.text =
-            getString(R.string.best_of, bestOf)
+            getString(R.string.best_of_complete, bestOf)
 
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
             alertDialog.cancel()
         }
     }
-
-
-//    private fun alertOnReset() {
-//        val alertDialog: AlertDialog? = activity?.let {
-//            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
-//            builder.setView(R.layout.in_game_options)
-//            builder.create()
-//        }
-//        alertDialog?.show()
-//
-//        alertDialog?.findViewById<Button>(R.id.btn_alert_reset)?.setOnClickListener {
-//            viewModel.onMatchReset()
-//            alertDialog.cancel()
-//        }
-//
-//        alertDialog?.findViewById<Button>(R.id.btn_alert_cancel)?.setOnClickListener {
-//            alertDialog.cancel()
-////            this.findNavController()
-////                .navigate(PlayFragmentDirections.actionPlayFragmentToOptionsFragment())
-//        }
-//    }
 
     private fun setOrientationState(orientation: Orientation) {
         for (i in orientations) {

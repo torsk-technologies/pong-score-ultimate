@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,7 +21,7 @@ class OpeningScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
-        binding.btnContinue.isVisible = !args.gameFinished
+//        binding.btnContinue.isVisible = !args.gameFinished
         setupClickListeners()
 
         // Force portrait orientation
@@ -32,17 +31,21 @@ class OpeningScreenFragment : Fragment() {
 
     private fun setupClickListeners() {
         // New game button
-        binding.btnNewGame.setOnClickListener {
+        binding.upperTable.setOnClickListener {
             this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToBestOfFragment())
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(bestOf = 3, firstServer = 1))
+        }
+        binding.lowerTable.setOnClickListener {
+            this.findNavController()
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(bestOf = 3, firstServer = 1))
         }
         // Continue button
-        binding.btnContinue.setOnClickListener {
-            this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(
-                    bestOf = -1,
-                    firstServer = -1))
-        }
+//        binding.btnContinue.setOnClickListener {
+//            this.findNavController()
+//                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(
+//                    bestOf = -1,
+//                    firstServer = -1))
+//        }
         // Info button
         binding.btnInfo.setOnClickListener {
             this.findNavController()

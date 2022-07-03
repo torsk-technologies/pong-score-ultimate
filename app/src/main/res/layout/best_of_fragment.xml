@@ -8,6 +8,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/upper_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/bt_red"
@@ -30,6 +31,7 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/lower_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/bt_black"
@@ -46,17 +48,34 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
+
+            <TextView
+                android:id="@+id/tv_best_of"
+                style="@style/score_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_of"
+                android:textAllCaps="true"
+                android:lineSpacingExtra="10dp"
+                app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
+
+
         <TextView
-            android:id="@+id/tv_best_of_label"
-            style="@style/main_header"
-            android:textAllCaps="true"
+            android:id="@+id/tv_best_of_number"
+            style="@style/score_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/best_of"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            android:text="@string/best_of_number"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            tools:text="9"
             tools:ignore="TextContrastCheck" />
 
 
@@ -80,16 +99,16 @@
             app:trackColorActive="@color/transparent"
             app:trackColorInactive="@color/transparent" />
 
-        <Button
-            android:id="@+id/btn_next"
-            style="@style/large_button"
-            android:layout_width="@dimen/main_screen_button_width"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginTop="40dp"
-            android:text="@string/next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_next"-->
+        <!--            style="@style/large_button"-->
+        <!--            android:layout_width="@dimen/main_screen_button_width"-->
+        <!--            android:layout_height="@dimen/button_height"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:text="@string/next"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

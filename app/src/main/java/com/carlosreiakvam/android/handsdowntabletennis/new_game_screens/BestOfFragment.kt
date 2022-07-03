@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.BestOfFragmentBinding
 
 class BestOfFragment : Fragment() {
@@ -21,15 +20,15 @@ class BestOfFragment : Fragment() {
     ): View {
         binding = BestOfFragmentBinding.inflate(layoutInflater, container, false)
         setupBestOfSlider()
-        setupPlayButton()
+        setupNextButtons()
 
         return binding.root
     }
 
 
     private fun setupBestOfSlider() {
-        val bestOfLabel = binding.tvBestOfLabel
-        bestOfLabel.text = getString(R.string.best_of, 9)
+        val bestOfNumber = binding.tvBestOfNumber
+        bestOfNumber.text = "9"
 
 
         val sliderBestOf = binding.sliderBestOf
@@ -38,16 +37,25 @@ class BestOfFragment : Fragment() {
 
         sliderBestOf.addOnChangeListener { _, value, _ ->
             val roundedValue = value.toInt()
-            bestOfLabel.text = getString(R.string.best_of, roundedValue)
+            bestOfNumber.text = roundedValue.toString()
             bestOf = roundedValue
         }
     }
 
-    private fun setupPlayButton() {
-        val btnPlay = binding.btnNext
-        btnPlay.setOnClickListener {
+    private fun setupNextButtons() {
+
+        binding.upperTable.setOnClickListener {
             this.findNavController()
-                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf = bestOf))
+                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf))
         }
+        binding.lowerTable.setOnClickListener {
+            this.findNavController()
+                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf))
+        }
+//        val btnPlay = binding.btnNext
+//        btnPlay.setOnClickListener {
+//            this.findNavController()
+//                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf = bestOf))
+//        }
     }
 }

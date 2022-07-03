@@ -125,7 +125,7 @@
             android:visibility="invisible"
             app:fabCustomSize="@dimen/fab_custom_size"
             app:layout_constraintBottom_toTopOf="@id/btn_layout_change"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_layout_change"
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -143,16 +143,16 @@
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_themes"
+            android:id="@+id/btn_new_game"
             style="@style/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/toggle_themes"
-            android:src="@drawable/ic_baseline_theme_24"
+            android:src="@drawable/ic_baseline_fast_rewind_24"
             android:visibility="invisible"
             app:fabCustomSize="@dimen/fab_custom_size"
-            app:layout_constraintBottom_toTopOf="@id/btn_toggle_sound"
-            app:layout_constraintStart_toEndOf="@id/btn_rules"
+            app:layout_constraintBottom_toTopOf="@id/btn_layout_change"
+            app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

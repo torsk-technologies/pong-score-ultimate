@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.FirstServerFragmentBinding
-import timber.log.Timber
 import kotlin.random.Random
 
 class FirstServerFragment : Fragment() {
@@ -35,34 +36,37 @@ class FirstServerFragment : Fragment() {
     private fun setupFirstServer() {
         val bgTableTop = binding.tableTop
         val bgTableBottom = binding.tableBottom
-        val tvTableTop = binding.tvTableTop
-        val tvTableBottom = binding.tvTableBottom
-//        val btnRandom = binding.btnRandom
+        val tvFirstTop = binding.tvFirstTop
+        val tvFirstBottom = binding.tvFirstBottom
 
-        tvTableTop.text = "X"
+        tvFirstTop.text = getString(R.string.first_server)
 
         bgTableTop.setOnClickListener {
             firstServer = 1
-            tvTableTop.text = "X"
-            tvTableBottom.text = ""
+            tvFirstTop.isVisible = true
+            tvFirstBottom.isVisible = false
+            tvFirstTop.text = getString(R.string.first_server)
         }
         bgTableBottom.setOnClickListener {
             firstServer = 2
-            tvTableTop.text = ""
-            tvTableBottom.text = "X"
+            tvFirstTop.isVisible = false
+            tvFirstBottom.isVisible = true
+            tvFirstBottom.text = getString(R.string.first_server)
         }
         bgTableBottom.setOnLongClickListener {
             firstServer = Random.nextInt(1, 3)
-            Timber.d("random: $firstServer")
-            tvTableTop.text = "?"
-            tvTableBottom.text = "?"
+            tvFirstTop.isVisible = true
+            tvFirstBottom.isVisible = true
+            tvFirstBottom.text = ""
+            tvFirstTop.text = ""
             true
         }
         bgTableTop.setOnLongClickListener {
             firstServer = Random.nextInt(1, 3)
-            Timber.d("random: $firstServer")
-            tvTableTop.text = "?"
-            tvTableBottom.text = "?"
+            tvFirstTop.isVisible = true
+            tvFirstBottom.isVisible = true
+            tvFirstBottom.text = getString(R.string.random)
+            tvFirstTop.text = getString(R.string.random)
             true
         }
     }

@@ -138,7 +138,7 @@ class PlayViewModel(
     }
 
 
-    fun onMatchReset() {
+    fun newGame() {
         viewModelScope.launch {
             gameStateDAO.deleteAll()
         }.invokeOnCompletion {

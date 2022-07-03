@@ -7,18 +7,11 @@
         <item name="fontFamily">?attr/mukta_bold</item>
     </style>
 
-    <style name="random_button">
-        <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">@color/bt_dark_blue</item>
-        <item name="android:textSize">30sp</item>
-        <item name="fontFamily">?attr/mukta_normal</item>
-    </style>
-
     <style name="large_button">
-<!--        <item name="android:textSize">10sp</item>-->
+        <!--        <item name="android:textSize">10sp</item>-->
         <item name="backgroundTint">?attr/buttonBgColor</item>
         <item name="android:textColor">@color/white</item>
-        <item name="fontFamily">?attr/mukta_normal</item>
+        <item name="fontFamily">?attr/headerFont</item>
     </style>
 
     <style name="menu_button">
@@ -28,14 +21,24 @@
     </style>
 
     <style name="main_header">
-        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textSize">50sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:translationZ">90dp</item>
     </style>
-    <!--        <item name="android:textColor">?attr/mainTxtColor</item>-->
+
+    <style name="rules">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+        <item name="android:textSize">30sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="backgroundTint">?attr/buttonBgColor</item>
+        <item name="fontFamily">?attr/headerFont</item>
+    </style>
 
     <style name="in_game_options_style" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -46,20 +49,29 @@
         <item name="android:textColor">?attr/mainTxtColor</item>
     </style>
 
-    <!--    <item name="fontFamily">@font/kaushan_script</item>-->
-    <style name="score_large">
-        <item name="fontFamily">?attr/mukta_normal</item>
+    <style name="first_server">
+        <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">140sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textSize">50sp</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="score_medium" >
-        <item name="fontFamily">?attr/mukta_normal</item>
+    <style name="score_large">
+        <item name="fontFamily">?attr/headerFont</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">90sp</item>
+        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="score_medium">
+        <item name="fontFamily">?attr/headerFont</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
@@ -71,11 +83,11 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
-        <item name="fontFamily">?attr/mukta_bold</item>
+        <item name="fontFamily">?attr/headerFont</item>
     </style>
 
     <style name="text_small">
-        <item name="fontFamily">?attr/mukta_normal</item>
+        <item name="fontFamily">?attr/headerFont</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>

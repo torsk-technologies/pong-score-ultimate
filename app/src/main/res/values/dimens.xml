@@ -3,7 +3,7 @@
     <dimen name="game_tile_space">2.75dp</dimen>
     <dimen name="margin_btn_option_start">6dp</dimen>
     <dimen name="margin_btn_option_bottom">10dp</dimen>
-    <dimen name="fab_custom_size">60</dimen>
+    <dimen name="fab_custom_size">60dp</dimen>
     <dimen name="button_width">220dp</dimen>
     <dimen name="main_screen_button_width">300dp</dimen>
     <dimen name="button_height">70dp</dimen>
