@@ -66,8 +66,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_random"
             style="@style/random_button"
-            android:background="@color/bt_pink"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="70dp"
             android:text="@string/random"
             app:layout_constraintBottom_toBottomOf="parent"

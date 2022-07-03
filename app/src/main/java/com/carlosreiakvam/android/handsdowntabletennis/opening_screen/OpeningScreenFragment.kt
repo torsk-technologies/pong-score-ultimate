@@ -34,7 +34,7 @@ class OpeningScreenFragment : Fragment() {
         // New game button
         binding.btnNewGame.setOnClickListener {
             this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToRulesFragment())
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToBestOfFragment())
         }
         // Continue button
         binding.btnContinue.setOnClickListener {

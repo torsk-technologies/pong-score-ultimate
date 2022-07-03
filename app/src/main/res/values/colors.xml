@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    <color name="azure_old">#00EDED</color>-->
-<!--    <color name="azure_transparent">#6000EDED</color>-->
-<!--    <color name="yellow">#FCEC0D</color>-->
-<!--    <color name="yellow_old">#FFE6E100</color>-->
-<!--    <color name="black">#000000</color>-->
-<!--    <color name="charcoal">#36454f</color>-->
-<!--    <color name="orange">#FFAB40</color>-->
-<!--    <color name="azure_sykehus">#00F7F7</color>-->
-<!--    <color name="azure">#00EDED</color>-->
-<!--    <color name="azure_bright">#4BF9F9</color>-->
-<!--    <color name="azure_on_main">#4BF9F9</color>-->
-<!--    <color name="palm_green">#00F700</color>-->
-<!--    <color name="grey">#9A9A9A</color>-->
+    <!--    <color name="azure_old">#00EDED</color>-->
+    <!--    <color name="azure_transparent">#6000EDED</color>-->
+    <!--    <color name="yellow">#FCEC0D</color>-->
+    <!--    <color name="yellow_old">#FFE6E100</color>-->
+    <!--    <color name="black">#000000</color>-->
+    <!--    <color name="charcoal">#36454f</color>-->
+    <!--    <color name="orange">#FFAB40</color>-->
+    <!--    <color name="azure_sykehus">#00F7F7</color>-->
+    <!--    <color name="azure">#00EDED</color>-->
+    <!--    <color name="azure_bright">#4BF9F9</color>-->
+    <!--    <color name="azure_on_main">#4BF9F9</color>-->
+    <!--    <color name="palm_green">#00F700</color>-->
+    <!--    <color name="grey">#9A9A9A</color>-->
 
+    <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#024059</color>
     <color name="bt_black">#171B1E</color>

@@ -34,8 +34,8 @@ class FirstServerFragment : Fragment() {
 
     private fun setupFirstServer() {
         val bgTableTop = binding.tableTop
+        val bgTableBottom = binding.tableBottom
         val tvTableTop = binding.tvTableTop
-        val bgTableBottom = binding.tableTop
         val tvTableBottom = binding.tvTableBottom
         val btnRandom = binding.btnRandom
 

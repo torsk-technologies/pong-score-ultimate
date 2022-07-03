@@ -33,8 +33,8 @@ class BestOfFragment : Fragment() {
 
 
         val sliderBestOf = binding.sliderBestOf
-        sliderBestOf.value = 21f
-        sliderBestOf.thumbRadius = 40
+        sliderBestOf.value = 9f
+        sliderBestOf.thumbRadius = 60
 
 
         sliderBestOf.addOnChangeListener { _, value, _ ->
