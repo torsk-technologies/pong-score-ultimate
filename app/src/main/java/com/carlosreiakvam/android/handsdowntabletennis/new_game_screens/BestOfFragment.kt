@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.BestOfFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.InitialValues
 
 class BestOfFragment : Fragment() {
 
     private lateinit var binding: BestOfFragmentBinding
-    private var bestOf: Int = 21
+    private var bestOf: Int = InitialValues.BESTOF.i
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,8 +27,9 @@ class BestOfFragment : Fragment() {
         return binding.root
     }
 
+
     private fun setupBackButton() {
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
     }
@@ -35,11 +37,11 @@ class BestOfFragment : Fragment() {
 
     private fun setupBestOfSlider() {
         val bestOfNumber = binding.tvBestOfNumber
-        bestOfNumber.text = "9"
+        bestOfNumber.text = InitialValues.BESTOF.i.toString()
 
 
         val sliderBestOf = binding.sliderBestOf
-        sliderBestOf.value = 9f
+        sliderBestOf.value = InitialValues.BESTOF.i.toFloat()
 
 
         sliderBestOf.addOnChangeListener { _, value, _ ->
@@ -51,18 +53,9 @@ class BestOfFragment : Fragment() {
 
     private fun setupNextButtons() {
 
-        binding.upperTable.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             this.findNavController()
                 .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf))
         }
-        binding.lowerTable.setOnClickListener {
-            this.findNavController()
-                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf))
-        }
-//        val btnPlay = binding.btnNext
-//        btnPlay.setOnClickListener {
-//            this.findNavController()
-//                .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf = bestOf))
-//        }
     }
 }

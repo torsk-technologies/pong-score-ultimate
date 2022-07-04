@@ -15,12 +15,14 @@ import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
-    bestOfByNewGame: Int,
-    firstServerByNewGame: Int,
-    private var player1: Player = Player("player one", 1),
-    private var player2: Player = Player("player two", 2),
-    private var game: Game = Game(player1, player2, GameRules()),
+    private val gameRulesFromArgs: GameRules, // either -1 or val from bestOfScreen
 ) : ViewModel() {
+    private var player1: Player = Player("player one", 1)
+    private var player2: Player = Player("player two", 2)
+    private var game: Game
+//    private var game = Game(player1, player2, GameRules(
+//        bestOf = gameRulesFromArgs.bestOf, // either -1 or val from bestOfScreen
+//        firstServer = gameRulesFromArgs.firstServer))
 
 
     private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
@@ -45,16 +47,26 @@ class PlayViewModel(
 
 
     init {
-        val newGame = bestOfByNewGame != -1
-        if (newGame) {
-            Timber.d("new game")
-            game = Game(player1, player2,
-                GameRules(bestOf = bestOfByNewGame, firstServer = firstServerByNewGame))
-            resetDBForNewGame()
-        } else {
+        Timber.d("init viewmodel")
+        // Check if init comes from opening screen or best of screen
+        if (gameRulesFromArgs.bestOf == -1) { // either -1 or val from bestOfScreen
+            Timber.d("game not setup from bestOf screen")
+            game = Game(player1, player2, GameRules(9, 1))
             setGameStateFromDB()
+            updateLiveDataFromGame()
+        } else {
+            // game setup from best of screen
+            game = Game(player1, player2, GameRules(
+                bestOf = gameRulesFromArgs.bestOf,
+                firstServer = gameRulesFromArgs.firstServer))
+            viewModelScope.launch {
+                gameStateDAO.deleteAll()
+                gameStateDAO.insertGameState(GameStateEntity( // Insert new gamestate
+                    gameToBestOf = gameRulesFromArgs.bestOf,
+                    firstServer = gameRulesFromArgs.firstServer))
+            }
         }
-        updateLiveData()
+        updateLiveDataFromGame()
     }
 
     private fun getLast(): Flow<GameStateEntity> = gameStateDAO.getLast()
@@ -65,33 +77,27 @@ class PlayViewModel(
             deleteLast()
             setGameStateFromDB()
         }
-        updateLiveData()
-
+        updateLiveDataFromGame()
     }
 
-
-    private fun updateLiveData() {
+    private fun updateLiveDataFromGame() {
         _currentServerLive.value = game.currentServer
         _player1Live.value = game.player1
         _player2Live.value = game.player2
         _winStatesLive.value = game.winStates
+        _gameRulesLive.value = game.gameRules
     }
 
     fun registerPoint(playerNumber: Int) {
+        Timber.d("registerPoint")
         game.registerPoint(playerNumber) // update Game with new values
-        updateLiveData()
+        updateLiveDataFromGame()
         insertGameStateToDB() // insert values from Game to DB
     }
 
-    fun resetDBForNewGame() {
-        viewModelScope.launch {
-            gameStateDAO.deleteAll()
-            updateLiveData()
-            gameStateDAO.insertGameState(GameStateEntity())
-        }
-    }
 
-    fun insertGameStateToDB() {
+    private fun insertGameStateToDB() {
+        Timber.d("insertGameStateToDB")
         viewModelScope.launch {
             gameStateDAO.insertGameState(GameStateEntity(
                 p1GameScore = _player1Live.value?.gameScore ?: 0,
@@ -99,21 +105,23 @@ class PlayViewModel(
                 p2GameScore = _player2Live.value?.gameScore ?: 0,
                 p2MatchScore = _player2Live.value?.matchScore ?: 0,
                 currentServer = _currentServerLive.value ?: 1,
-                firstServer = _gameRulesLive.value?.firstServer ?: 1,
+                firstServer = _gameRulesLive.value?.firstServer ?: InitialValues.FIRSTSERVER.i,
                 isGameWon = _winStatesLive.value?.isGameWon ?: false,
                 isMatchWon = _winStatesLive.value?.isMatchWon ?: false,
                 isMatchReset = _winStatesLive.value?.isMatchReset ?: false,
-                gameToBestOf = _gameRulesLive.value?.bestOf ?: 3,
+                gameToBestOf = _gameRulesLive.value?.bestOf ?: InitialValues.BESTOF.i,
                 gameWinner = _winStatesLive.value?.gameWinner ?: 1,
                 pointsPlayed = game.pointsPlayed
             ))
         }
     }
 
-    fun setGameStateFromDB() {
+    private fun setGameStateFromDB() {
         viewModelScope.launch {
             try {
+                Timber.d("DB does indeed exist")
                 getLast().collect { gameStateEntity ->
+                    // All values have init values
                     game.player1.gameScore = gameStateEntity.p1GameScore
                     game.player1.matchScore = gameStateEntity.p1MatchScore
                     game.player2.gameScore = gameStateEntity.p2GameScore
@@ -126,27 +134,31 @@ class PlayViewModel(
                     game.winStates.isMatchWon = gameStateEntity.isMatchWon
                     game.winStates.isMatchReset = gameStateEntity.isMatchReset
                     game.winStates.gameWinner = gameStateEntity.gameWinner
-
                     _player1Live.value = game.player1
                     _player2Live.value = game.player2
                     _currentServerLive.value = game.currentServer
                 }
             } catch (nullp: NullPointerException) {
-                resetDBForNewGame()
+                Timber.d("DB does not exist")
+                // if no db exists
+                insertGameStateToDB()
             }
         }
     }
 
 
-    fun newGame() {
+    fun newGameOnMatchWon() {
         viewModelScope.launch {
             gameStateDAO.deleteAll()
         }.invokeOnCompletion {
             player1 = Player("player one", 1)
             player2 = Player("player two", 2)
-            game = Game(player1, player2, GameRules())
-            resetDBForNewGame()
-            updateLiveData()
+            game = Game(player1, player2, gameRulesFromArgs)
+            viewModelScope.launch {
+                gameStateDAO.insertGameState(GameStateEntity(gameToBestOf = gameRulesFromArgs.bestOf,
+                    firstServer = gameRulesFromArgs.firstServer))
+            }
+            updateLiveDataFromGame()
         }
     }
 

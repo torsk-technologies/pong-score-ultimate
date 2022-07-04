@@ -6,4 +6,9 @@ enum class Players(val i: Int) {
     PLAYER2(2)
 }
 
+enum class InitialValues(val i: Int) {
+    BESTOF(3),
+    FIRSTSERVER(1)
+}
+
 

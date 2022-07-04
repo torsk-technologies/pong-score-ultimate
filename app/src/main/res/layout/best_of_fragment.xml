@@ -12,18 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/bt_red"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            app:layout_constraintBottom_toTopOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/solid_midline"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginTop="2.5dp"
+            android:layout_height="10dp"
             android:src="@color/white"
-            android:translationZ="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            app:layout_constraintTop_toBottomOf="@id/solid_midline"
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -49,19 +48,19 @@
             app:layout_constraintGuide_percent="0.5" />
 
 
-            <TextView
-                android:id="@+id/tv_best_of"
-                style="@style/best_of_fragment_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/best_of"
-                android:textAllCaps="true"
-                android:lineSpacingExtra="10dp"
-                app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+        <TextView
+            android:id="@+id/tv_best_of"
+            style="@style/best_of_fragment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/best_of"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
 
 
         <TextView
@@ -75,8 +74,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline_mid"
-            tools:text="9"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck"
+            tools:text="9" />
 
 
         <com.google.android.material.slider.Slider
@@ -88,28 +87,38 @@
             android:stepSize="2"
             android:valueFrom="3"
             android:valueTo="21"
-            app:thumbRadius="20dp"
             app:labelBehavior="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_best_of_number"
+            app:thumbColor="@color/white"
+            app:thumbRadius="20dp"
+            app:tickColorActive="@color/white"
+            app:tickColorInactive="@color/white"
+            app:trackColorActive="@color/white"
+            app:trackColorInactive="@color/white" />
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/large_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:thumbColor="@color/white"
-            app:tickColorActive="@color/transparent"
-            app:tickColorInactive="@color/transparent"
-            app:trackColorActive="@color/transparent"
-            app:trackColorInactive="@color/transparent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            style="@style/back_button"
             android:id="@+id/btn_back"
+            style="@style/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:contentDescription="@string/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24"/>
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_next"-->

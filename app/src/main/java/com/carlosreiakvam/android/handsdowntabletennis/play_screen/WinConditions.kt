@@ -3,10 +3,6 @@ package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 
 class WinConditions {
-    fun isGamePoint(player: Player, otherPlayer: Player): Boolean {
-//        if(player.gameScore == 10)
-        return false
-    }
 
     fun isGameWon(player: Player, otherPlayer: Player): Boolean {
         return player.gameScore == 11 && otherPlayer.gameScore <= 9 ||

@@ -28,8 +28,7 @@ import timber.log.Timber
 class PlayFragment : Fragment() {
 
     private val args: PlayFragmentArgs by navArgs()
-    private var bestOf: Int = 21
-    private var firstServer: Int = 1
+    private lateinit var gameRulesFromArgs: GameRules
     private var isSoundEnabled: Boolean = true
     private var isVoiceEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
@@ -48,37 +47,29 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        bestOf = args.bestOf
-        firstServer = args.firstServer
-
+        setupSoundPlayer()
+        // args defaults to -1, -1 from action
+        // best of screen sends different values
+        Timber.d("args best of: ${args.bestOf}")
+        gameRulesFromArgs = GameRules(args.bestOf,args.firstServer)
         viewModel =
             PlayViewModelFactory(
                 (requireActivity().application as ApplicationController).database.gameStateDao(),
-                bestOf,
-                firstServer)
+                gameRulesFromArgs)
                 .create(PlayViewModel::class.java)
 
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
         binding = DataBindingUtil.inflate(inflater, R.layout.play_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-
-
         observeCurrentServer()
         observePlayerScores()
         observeWinStates()
         loadSharedPrefsGameState()
-        setupSoundPlayer()
-        setupBackButton()
-        return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setOrientation(NORMAL)
+//        setOrientation(NORMAL)
         setupGameClickListeners()
         setupMenuClickListeners()
+        return binding.root
     }
 
     private fun setupMenuClickListeners() {
@@ -122,7 +113,7 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnRules?.setOnClickListener {
-            alertRules()
+            alertBestOf()
         }
 
         binding.btnNewGame?.setOnClickListener {
@@ -161,8 +152,11 @@ class PlayFragment : Fragment() {
             if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player("", 1))
         }
 
-    }
+        binding.btnBack?.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
+    }
 
     private fun observePlayerScores() {
         viewModel.player1Live.observe(viewLifecycleOwner) {
@@ -236,7 +230,6 @@ class PlayFragment : Fragment() {
         }
     }
 
-
     private fun setupSoundPlayer() {
         soundPlayer = SoundPlayer(requireContext())
         soundPlayer.fetchSounds()
@@ -249,7 +242,7 @@ class PlayFragment : Fragment() {
 
     private fun alertNewGame() {
         val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.in_game_options_style)
+            val builder = AlertDialog.Builder(it)
             builder.setView(R.layout.alert_new_game)
             builder.create()
         }
@@ -257,7 +250,8 @@ class PlayFragment : Fragment() {
 
         alertDialog?.findViewById<TextView>(R.id.alert_btn_new_game)?.setOnClickListener {
             alertDialog.cancel()
-            viewModel.resetDBForNewGame()
+//            viewModel.newGameOnMatchReset()
+
             this.findNavController()
                 .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
         }
@@ -271,14 +265,16 @@ class PlayFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
-
+        val prevGameRules = viewModel.gameRulesLive.value
+        // new game button
+        Timber.d("on match won, using following gamerules\nbestof: ${prevGameRules?.bestOf}")
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
-            viewModel.newGame()
+            viewModel.newGameOnMatchWon()
             alertDialog.cancel()
         }
     }
 
-    private fun alertRules() {
+    private fun alertBestOf() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setView(R.layout.alert_best_of)
@@ -286,7 +282,7 @@ class PlayFragment : Fragment() {
         }
         alertDialog?.show()
         alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.text =
-            getString(R.string.best_of_complete, bestOf)
+            getString(R.string.best_of_complete, viewModel.gameRulesLive.value?.bestOf)
         alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.setOnClickListener {
             alertDialog.cancel()
         }
@@ -351,12 +347,5 @@ class PlayFragment : Fragment() {
         super.onPause()
         Timber.d("onPause")
     }
-
-    private fun setupBackButton() {
-        binding.btnBack?.setOnClickListener {
-            activity?.onBackPressed()
-        }
-    }
-
 }
 

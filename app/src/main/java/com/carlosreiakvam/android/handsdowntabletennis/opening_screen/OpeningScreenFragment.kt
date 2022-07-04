@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.OpeningScreenFragmentBinding
 
 class OpeningScreenFragment : Fragment() {
 
 
-    private val args: OpeningScreenFragmentArgs by navArgs()
+//    private val args: OpeningScreenFragmentArgs by navArgs()
     private lateinit var binding: OpeningScreenFragmentBinding
 
     override fun onCreateView(
@@ -29,7 +28,7 @@ class OpeningScreenFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.root.setOnClickListener {
+        binding.btnLetsGo.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
         }

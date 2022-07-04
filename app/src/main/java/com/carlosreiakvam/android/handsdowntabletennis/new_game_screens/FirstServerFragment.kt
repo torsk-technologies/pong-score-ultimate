@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.FirstServerFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.InitialValues
 import kotlin.random.Random
 
 class FirstServerFragment : Fragment() {
@@ -17,7 +18,7 @@ class FirstServerFragment : Fragment() {
     private val args: FirstServerFragmentArgs by navArgs()
     private lateinit var binding: FirstServerFragmentBinding
     private var firstServer: Int = 1
-    private var bestOf: Int = 21
+    private var bestOf: Int = InitialValues.BESTOF.i
 
     override fun onCreateView(
         inflater: LayoutInflater,

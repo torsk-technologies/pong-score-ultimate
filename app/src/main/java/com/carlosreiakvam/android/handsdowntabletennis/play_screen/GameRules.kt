@@ -1,7 +1,7 @@
 package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 data class GameRules(
-    var bestOf: Int = 21,
+    var bestOf: Int = InitialValues.BESTOF.i,
     var firstServer: Int = 1,
 )
 

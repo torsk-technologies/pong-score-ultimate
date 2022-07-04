@@ -6,14 +6,13 @@ import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateDAO
 
 class PlayViewModelFactory(
     private val gameStateDAO: GameStateDAO,
-    private val bestOf: Int,
-    private val firstServer: Int,
+    private val gameRules: GameRules,
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PlayViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return PlayViewModel(gameStateDAO, bestOf, firstServer) as T
+            return PlayViewModel(gameStateDAO, gameRules) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

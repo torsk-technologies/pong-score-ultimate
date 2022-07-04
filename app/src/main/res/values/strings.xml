@@ -3,7 +3,7 @@
     <string name="hands_down">hands\ndown</string>
     <string name="table_tennis">table\ntennis</string>
 
-    <string name="lets_play">GO</string>
+    <string name="lets_play">Start match</string>
     <string name="player_one">player one</string>
     <string name="player_two">player two</string>
     <string name="p1score">p1Score</string>
@@ -33,7 +33,9 @@
     <string name="by_carlos_reiakvam">by Carlos Reiakvam</string>
     <string name="next">NEXT</string>
     <string name="rules">rules</string>
-    <string name="match_won">match won</string>
+    <string name="match_won">match won!</string>
     <string name="back">back</string>
     <string name="chekout_my_linktree">Chekout my\nlinktree</string>
+    <string name="lets_go">let\'s go</string>
+    <string name="buy_me_a_coffe">Buy me a coffe</string>
 </resources>

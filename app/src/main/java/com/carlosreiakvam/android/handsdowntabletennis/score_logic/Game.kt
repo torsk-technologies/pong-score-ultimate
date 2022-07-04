@@ -16,13 +16,14 @@ class Game(
     var pointsPlayed = 0
     var currentServer = gameRules.firstServer
     private var winConditions = WinConditions()
-
     private val matchPool = mapOf(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )
 
     init {
         Timber.d("game init")
+        Timber.d("first server: ${gameRules.firstServer}")
+        Timber.d("best of: ${gameRules.bestOf}")
     }
 
 
