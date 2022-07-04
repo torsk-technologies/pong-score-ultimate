@@ -79,7 +79,6 @@ class FirstServerFragment : Fragment() {
                 .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment(
                     bestOf = bestOf,
                     firstServer = firstServer))
-
         }
     }
 
