@@ -21,7 +21,6 @@ class OpeningScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = OpeningScreenFragmentBinding.inflate(inflater)
-//        binding.btnContinue.isVisible = !args.gameFinished
         setupClickListeners()
 
         // Force portrait orientation
@@ -30,23 +29,11 @@ class OpeningScreenFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        // New game button
-        binding.upperTable.setOnClickListener {
+        binding.root.setOnClickListener {
             this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(bestOf = 3, firstServer = 1))
+                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment())
         }
-        binding.lowerTable.setOnClickListener {
-            this.findNavController()
-                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(bestOf = 3, firstServer = 1))
-        }
-        // Continue button
-//        binding.btnContinue.setOnClickListener {
-//            this.findNavController()
-//                .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToPlayFragment(
-//                    bestOf = -1,
-//                    firstServer = -1))
-//        }
-        // Info button
+
         binding.btnInfo.setOnClickListener {
             this.findNavController()
                 .navigate(OpeningScreenFragmentDirections.actionOpeningScreenFragmentToAboutFragment())

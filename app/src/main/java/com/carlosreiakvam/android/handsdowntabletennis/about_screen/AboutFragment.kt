@@ -1,5 +1,7 @@
 package com.carlosreiakvam.android.handsdowntabletennis.about_screen
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +20,10 @@ class AboutFragment : Fragment() {
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.btnBack.setOnClickListener{
             activity?.onBackPressed()
-
+        }
+        binding.btnLinktree.setOnClickListener{
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://linktr.ee/carlosreiakvam"))
+            startActivity(browserIntent)
         }
         return binding.root
     }

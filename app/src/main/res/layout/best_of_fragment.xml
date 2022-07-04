@@ -81,13 +81,14 @@
 
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_best_of"
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="100dp"
             android:backgroundTint="@color/transparent"
             android:contentDescription="@string/best_of_no_content"
             android:stepSize="2"
             android:valueFrom="3"
             android:valueTo="21"
+            app:thumbRadius="20dp"
             app:labelBehavior="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

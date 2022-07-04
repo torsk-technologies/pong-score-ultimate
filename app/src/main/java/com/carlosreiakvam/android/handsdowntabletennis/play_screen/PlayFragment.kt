@@ -273,10 +273,8 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
 
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
+            viewModel.newGame()
             alertDialog.cancel()
-            viewModel.resetDBForNewGame()
-            this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
         }
     }
 
@@ -355,7 +353,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun setupBackButton() {
-        binding.btnBack?.setOnClickListener{
+        binding.btnBack?.setOnClickListener {
             activity?.onBackPressed()
         }
     }

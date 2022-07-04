@@ -33,7 +33,7 @@ class Game(
         val otherPlayer = players[1]
 
         player.increaseGameScore()
-        pointsPlayed.plus(1)
+        pointsPlayed += 1
 
         if (winConditions.isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
@@ -57,7 +57,7 @@ class Game(
                 return
             }
         } else {
-            winStates.isGamePoint = winConditions.isGamePoint(player, otherPlayer)
+            winStates.isGameWon = winConditions.isGameWon(player, otherPlayer)
 
             if (serveSwitchOnPoint(player, otherPlayer)) serveSwitch()
         }

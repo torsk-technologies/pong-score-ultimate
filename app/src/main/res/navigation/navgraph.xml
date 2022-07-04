@@ -19,9 +19,11 @@
             app:popExitAnim="@anim/slide_out_left">
             <argument
                 android:name="best_of"
+                android:defaultValue="-1"
                 app:argType="integer" />
             <argument
                 android:name="first_server"
+                android:defaultValue="-1"
                 app:argType="integer" />
         </action>
         <action
