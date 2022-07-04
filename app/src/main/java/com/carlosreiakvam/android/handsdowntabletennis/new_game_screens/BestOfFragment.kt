@@ -21,8 +21,15 @@ class BestOfFragment : Fragment() {
         binding = BestOfFragmentBinding.inflate(layoutInflater, container, false)
         setupBestOfSlider()
         setupNextButtons()
+        setupBackButton()
 
         return binding.root
+    }
+
+    private fun setupBackButton() {
+        binding.btnBack.setOnClickListener{
+            activity?.onBackPressed()
+        }
     }
 
 

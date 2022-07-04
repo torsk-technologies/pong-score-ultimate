@@ -27,6 +27,7 @@ class FirstServerFragment : Fragment() {
         binding = FirstServerFragmentBinding.inflate(layoutInflater, container, false)
         setupFirstServer()
         setupPlayButton()
+        setupBackButton()
         bestOf = args.bestOf
 
         return binding.root
@@ -57,8 +58,8 @@ class FirstServerFragment : Fragment() {
             firstServer = Random.nextInt(1, 3)
             tvFirstTop.isVisible = true
             tvFirstBottom.isVisible = true
-            tvFirstBottom.text = ""
-            tvFirstTop.text = ""
+            tvFirstBottom.text = getString(R.string.random)
+            tvFirstTop.text = getString(R.string.random)
             true
         }
         bgTableTop.setOnLongClickListener {
@@ -79,6 +80,12 @@ class FirstServerFragment : Fragment() {
                     bestOf = bestOf,
                     firstServer = firstServer))
 
+        }
+    }
+
+    private fun setupBackButton() {
+        binding.btnBack.setOnClickListener{
+            activity?.onBackPressed()
         }
     }
 }

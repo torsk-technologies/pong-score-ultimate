@@ -44,7 +44,7 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@id/guideline_mid"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!--            <TextView-->
         <!--                android:id="@+id/tv_by_carlos_reiakvam"-->
@@ -68,13 +68,27 @@
             android:id="@+id/tv_at_torsk"
             style="@style/text_small"
             android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/at_torsk_technologies"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="1dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,6 +69,7 @@ class PlayFragment : Fragment() {
         observeWinStates()
         loadSharedPrefsGameState()
         setupSoundPlayer()
+        setupBackButton()
         return binding.root
     }
 
@@ -288,8 +289,7 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
         alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.text =
             getString(R.string.best_of_complete, bestOf)
-
-        alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
+        alertDialog?.findViewById<TextView>(R.id.alert_tv_best_of)?.setOnClickListener {
             alertDialog.cancel()
         }
     }
@@ -354,6 +354,11 @@ class PlayFragment : Fragment() {
         Timber.d("onPause")
     }
 
+    private fun setupBackButton() {
+        binding.btnBack?.setOnClickListener{
+            activity?.onBackPressed()
+        }
+    }
 
 }
 
