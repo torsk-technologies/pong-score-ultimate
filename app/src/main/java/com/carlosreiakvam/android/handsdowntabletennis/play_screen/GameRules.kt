@@ -11,6 +11,7 @@ data class WinStates(
     var isMatchWon: Boolean = false,
     var isMatchReset: Boolean = false,
     var isGamePoint: Boolean = false,
+    var isMatchPoint: Boolean = false,
 )
 
 

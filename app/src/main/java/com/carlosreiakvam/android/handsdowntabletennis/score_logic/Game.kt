@@ -26,6 +26,28 @@ class Game(
         Timber.d("best of: ${gameRules.bestOf}")
     }
 
+    fun checkIfGamePoint(player: Player, otherPlayer: Player): Boolean {
+        return player.gameScore >= 10 && otherPlayer.gameScore <= player.gameScore - 1
+    }
+
+    fun checkIfMatchPoint(player: Player): Boolean {
+        return player.matchScore == matchPool[gameRules.bestOf]?.minus(1)
+
+    }
+
+    fun playVoiceOverOnSpecialPoints(player: Player, otherPlayer: Player) {
+        if (checkIfGamePoint(player, otherPlayer)) {
+            if (checkIfMatchPoint(player)) {
+                winStates.isMatchPoint = true
+                //play matchpoint
+            }
+            winStates.isGamePoint = true
+            //play gamepoint
+
+        }
+
+    }
+
 
     fun registerPoint(playerNumber: Int) {
         resetWinAndResetStates()
@@ -34,6 +56,7 @@ class Game(
         val otherPlayer = players[1]
 
         player.increaseGameScore()
+        playVoiceOverOnSpecialPoints(player, otherPlayer)
 
         if (winConditions.isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
@@ -73,10 +96,12 @@ class Game(
     }
 
     private fun resetWinAndResetStates() {
-        if (winStates.isGameWon || winStates.isMatchWon || winStates.isMatchReset) {
+        if (winStates.isGameWon || winStates.isMatchWon || winStates.isMatchReset || winStates.isGamePoint || winStates.isMatchPoint) {
             winStates.isGameWon = false
             winStates.isMatchWon = false
             winStates.isMatchReset = false
+            winStates.isGamePoint = false
+            winStates.isMatchPoint = false
         }
     }
 

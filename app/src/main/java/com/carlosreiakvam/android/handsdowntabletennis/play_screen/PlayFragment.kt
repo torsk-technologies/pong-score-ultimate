@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
 import com.carlosreiakvam.android.handsdowntabletennis.BuildConfig
 import com.carlosreiakvam.android.handsdowntabletennis.R
+import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundEnums
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
@@ -206,7 +209,17 @@ class PlayFragment : Fragment() {
 
     private fun observeWinStates() {
         viewModel.winStates.observe(viewLifecycleOwner) { state ->
-            if (state.isMatchReset) {
+            if (state.isGamePoint) {
+                Timber.d("gamepoint")
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        playVoiceOver(21)
+                    },500
+                )
+            } else if (state.isMatchPoint) {
+
+                playVoiceOver(SoundEnums.MATCHPOINT.ordinal)
+            } else if (state.isMatchReset) {
                 Timber.d("match is reset")
             } else if (state.isMatchWon) {
                 Timber.d("match won ")
@@ -253,6 +266,14 @@ class PlayFragment : Fragment() {
     private fun setupSoundPlayer() {
         soundPlayer = SoundPlayer(requireContext())
         soundPlayer.fetchSounds()
+    }
+
+    private fun playVoiceOver(voiceOver: Int) {
+        when (voiceOver) {
+            21 -> soundPlayer.playSound(21)
+            SoundEnums.MATCHPOINT.ordinal -> soundPlayer.playSound(SoundEnums.MATCHPOINT.ordinal)
+        }
+
     }
 
     private fun playDing(player: Player) {
@@ -355,15 +376,9 @@ class PlayFragment : Fragment() {
         Timber.tag("lifecycle").d("onStart")
     }
 
-    override fun onStop() {
-//        soundPlayer.release()
-        super.onStop()
-        Timber.tag("lifecycle").d("onStop")
-    }
-
     override fun onPause() {
-        soundPlayer.release()
         super.onPause()
+        soundPlayer.release()
         Timber.d("onPause")
     }
 
