@@ -19,4 +19,5 @@ interface GameStateDAO {
     @Query("DELETE FROM game_state")
     suspend fun deleteAll()
 
+
 }

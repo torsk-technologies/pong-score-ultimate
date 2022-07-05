@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
+import com.carlosreiakvam.android.handsdowntabletennis.BuildConfig
 import com.carlosreiakvam.android.handsdowntabletennis.R
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
@@ -51,7 +52,7 @@ class PlayFragment : Fragment() {
         // args defaults to -1, -1 from action
         // best of screen sends different values
         Timber.d("args best of: ${args.bestOf}")
-        gameRulesFromArgs = GameRules(args.bestOf,args.firstServer)
+        gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =
             PlayViewModelFactory(
                 (requireActivity().application as ApplicationController).database.gameStateDao(),
@@ -69,7 +70,26 @@ class PlayFragment : Fragment() {
 //        setOrientation(NORMAL)
         setupGameClickListeners()
         setupMenuClickListeners()
+        checkFirstRun()
         return binding.root
+    }
+
+    private fun checkFirstRun() {
+        val DOESNTEXIST = -1
+        val currentVersionCode = BuildConfig.VERSION_CODE
+        val savedVersionCode = sharedPref.getInt("version_code", DOESNTEXIST)
+
+        if (currentVersionCode == savedVersionCode) {
+            // just a normal run
+            return
+        } else if (savedVersionCode == DOESNTEXIST) {
+            // New install
+            viewModel.onFirstRun()
+        } else if (currentVersionCode > savedVersionCode) {
+            Timber.d("new version")
+            // This is an upgrade
+        }
+        sharedPref.edit().putInt("version_code", currentVersionCode).apply()
     }
 
     private fun setupMenuClickListeners() {
@@ -346,5 +366,6 @@ class PlayFragment : Fragment() {
         super.onPause()
         Timber.d("onPause")
     }
+
 }
 
