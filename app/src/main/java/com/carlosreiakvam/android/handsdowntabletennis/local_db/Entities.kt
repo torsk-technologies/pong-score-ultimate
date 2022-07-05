@@ -16,7 +16,7 @@ data class GameStateEntity(
     @NonNull @ColumnInfo(name = "first_server") val firstServer: Int = InitialValues.FIRSTSERVER.i,
     @NonNull @ColumnInfo(name = "current_server") val currentServer: Int = 1,
     @NonNull @ColumnInfo(name = "game_won_by_best_of") val gameWonByBestOf: Int = 9,
-    @NonNull @ColumnInfo(name = "points_played") val pointsPlayed: Int = 0,
+    @NonNull @ColumnInfo(name = "points_played") val nGamesPlayed: Int = 0,
     @NonNull @ColumnInfo(name = "game_winner") val gameWinner: Int = 1,
     @NonNull @ColumnInfo(name = "game_to_best_of") val gameToBestOf: Int = InitialValues.BESTOF.i,
     @NonNull @ColumnInfo(name = "is_game_won") val isGameWon: Boolean = false,

@@ -17,7 +17,7 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Created with 🖤 by\nCarlos Reiakvam</string>
+    <string name="made_with_love"><![CDATA[Created with <3 by\nCarlos Reiakvam\nat Torsk Technologies]]></string>
     <string name="at_torsk_technologies">\@Torsk_Technologies</string>
     <string name="best_of_complete">best of %1$d</string>
     <string name="best_of">best of</string>
@@ -36,6 +36,7 @@
     <string name="match_won">match won!</string>
     <string name="back">back</string>
     <string name="chekout_my_linktree">Chekout my\nlinktree</string>
-    <string name="lets_go">let\'s go</string>
-    <string name="buy_me_a_coffe">Buy me a coffe</string>
+    <string name="lets_go">let\'s go!</string>
+    <string name="buy_me_a_coffe">check me out :)</string>
+    <string name="this_is_a_heart_3"><![CDATA[this is a heart: <3]]></string>
 </resources>

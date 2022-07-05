@@ -250,7 +250,6 @@ class PlayFragment : Fragment() {
 
         alertDialog?.findViewById<TextView>(R.id.alert_btn_new_game)?.setOnClickListener {
             alertDialog.cancel()
-//            viewModel.newGameOnMatchReset()
 
             this.findNavController()
                 .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())

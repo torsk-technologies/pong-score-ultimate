@@ -13,6 +13,19 @@
         <item name="fontFamily">?attr/mukta_bold</item>
     </style>
 
+    <style name="check_me_button">
+        <item name="android:textSize">15sp</item>
+
+        <item name="backgroundTint">@color/white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/bt_black</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="fontFamily">?attr/headerFont</item>
+    </style>
+
     <style name="large_button">
         <item name="android:textSize">20sp</item>
         <item name="backgroundTint">@color/white</item>
@@ -90,7 +103,7 @@
     <style name="score_medium">
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">60sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
@@ -108,7 +121,7 @@
 
     <style name="text_small">
         <item name="fontFamily">?attr/headerFont</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>

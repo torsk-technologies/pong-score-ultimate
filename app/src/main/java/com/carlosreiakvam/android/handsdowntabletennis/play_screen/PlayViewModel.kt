@@ -20,10 +20,6 @@ class PlayViewModel(
     private var player1: Player = Player("player one", 1)
     private var player2: Player = Player("player two", 2)
     private var game: Game
-//    private var game = Game(player1, player2, GameRules(
-//        bestOf = gameRulesFromArgs.bestOf, // either -1 or val from bestOfScreen
-//        firstServer = gameRulesFromArgs.firstServer))
-
 
     private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
     val winStates: LiveData<WinStates>
@@ -111,7 +107,7 @@ class PlayViewModel(
                 isMatchReset = _winStatesLive.value?.isMatchReset ?: false,
                 gameToBestOf = _gameRulesLive.value?.bestOf ?: InitialValues.BESTOF.i,
                 gameWinner = _winStatesLive.value?.gameWinner ?: 1,
-                pointsPlayed = game.pointsPlayed
+                nGamesPlayed = game.nGamesPlayed
             ))
         }
     }
@@ -129,7 +125,7 @@ class PlayViewModel(
                     game.gameRules.bestOf = gameStateEntity.gameToBestOf
                     game.gameRules.firstServer = gameStateEntity.firstServer
                     game.currentServer = gameStateEntity.currentServer
-                    game.pointsPlayed = gameStateEntity.pointsPlayed
+                    game.nGamesPlayed = gameStateEntity.nGamesPlayed
                     game.winStates.isGameWon = gameStateEntity.isGameWon
                     game.winStates.isMatchWon = gameStateEntity.isMatchWon
                     game.winStates.isMatchReset = gameStateEntity.isMatchReset

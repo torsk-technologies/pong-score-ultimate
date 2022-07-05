@@ -13,7 +13,7 @@ class Game(
     var gameRules: GameRules,
 ) {
     var winStates = WinStates()
-    var pointsPlayed = 0
+    var nGamesPlayed = 0
     var currentServer = gameRules.firstServer
     private var winConditions = WinConditions()
     private val matchPool = mapOf(
@@ -34,7 +34,6 @@ class Game(
         val otherPlayer = players[1]
 
         player.increaseGameScore()
-        pointsPlayed += 1
 
         if (winConditions.isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()
@@ -50,6 +49,7 @@ class Game(
             } else {
                 // on game won
                 Timber.d("game won")
+                nGamesPlayed += 1
                 winStates.isGameWon = true
                 player1.resetGameScore()
                 player2.resetGameScore()
@@ -85,8 +85,14 @@ class Game(
     }
 
     private fun serveSwitchOnGameWon() {
-        currentServer = if (gameRules.firstServer == PLAYER1.i && pointsPlayed % 2 != 0) PLAYER1.i
-        else PLAYER2.i
+        Timber.d("game points played: $nGamesPlayed")
+        Timber.d("game points played mod 2: ${nGamesPlayed % 2}")
+
+        if (gameRules.firstServer == PLAYER1.i) {
+            currentServer = if (nGamesPlayed % 2 == 0) PLAYER1.i else PLAYER2.i
+        } else if (gameRules.firstServer == PLAYER2.i)
+            currentServer = if (nGamesPlayed % 2 == 0) PLAYER2.i else PLAYER1.i
+        Timber.d("current server: $currentServer")
     }
 
     private fun serveSwitchOnPoint(player: Player, otherPlayer: Player): Boolean {

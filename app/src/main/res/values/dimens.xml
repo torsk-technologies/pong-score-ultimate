@@ -18,4 +18,5 @@
     <dimen name="score_large_width">300dp</dimen>
 
     <dimen name="score_offset">20dp</dimen>
+    <dimen name="match_score_height">80dp</dimen>
 </resources>
