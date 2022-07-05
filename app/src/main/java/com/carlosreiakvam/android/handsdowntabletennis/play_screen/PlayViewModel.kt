@@ -17,8 +17,8 @@ class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
     private val gameRulesFromArgs: GameRules, // either -1 or val from bestOfScreen
 ) : ViewModel() {
-    private var player1: Player = Player("player one", 1)
-    private var player2: Player = Player("player two", 2)
+    private var player1: Player = Player("player one")
+    private var player2: Player = Player("player two")
     private var game: Game
 
     private val _winStatesLive: MutableLiveData<WinStates> = MutableLiveData()
@@ -152,8 +152,8 @@ class PlayViewModel(
         viewModelScope.launch {
             gameStateDAO.deleteAll()
         }.invokeOnCompletion {
-            player1 = Player("player one", 1)
-            player2 = Player("player two", 2)
+            player1 = Player("player one")
+            player2 = Player("player two")
             game = Game(player1, player2, gameRulesFromArgs)
             viewModelScope.launch {
                 gameStateDAO.insertGameState(GameStateEntity(gameToBestOf = gameRulesFromArgs.bestOf,
@@ -163,7 +163,7 @@ class PlayViewModel(
         }
     }
 
-    fun onFirstRun(){
+    fun onFirstRun() {
         Timber.d("onFirstRun")
         viewModelScope.launch { gameStateDAO.insertGameState(GameStateEntity()) }
 

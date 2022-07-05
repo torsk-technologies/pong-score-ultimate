@@ -2,7 +2,7 @@ package com.carlosreiakvam.android.handsdowntabletennis.audio_logic
 
 class Sound(var pathName: String) {
 
-    var fileName: String
+    private var fileName: String
     var id: Int = 0
 
     init {

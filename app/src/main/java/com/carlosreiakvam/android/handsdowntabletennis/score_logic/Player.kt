@@ -2,7 +2,7 @@ package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
 import timber.log.Timber
 
-class Player(var name: String, var playerNumber: Int) {
+class Player(var name: String) {
     var gameScore: Int = 0
     var matchScore: Int = 0
 

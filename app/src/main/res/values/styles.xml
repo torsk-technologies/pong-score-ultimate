@@ -30,6 +30,7 @@
         <item name="android:textSize">20sp</item>
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/bt_black</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingTop">20dp</item>
@@ -44,8 +45,8 @@
     </style>
 
     <style name="main_header">
-        <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:textSize">50sp</item>
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:textSize">100sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
@@ -73,9 +74,10 @@
     </style>
 
     <style name="first_server">
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:textSize">50sp</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
@@ -83,6 +85,8 @@
     </style>
 
     <style name="best_of_fragment_text">
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">70sp</item>
@@ -94,13 +98,15 @@
     <style name="score_large">
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">120sp</item>
+        <item name="android:textSize">180sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="score_medium">
+        <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
         <item name="android:textSize">60sp</item>

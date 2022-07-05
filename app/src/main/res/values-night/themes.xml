@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="headerFont">@font/rubik_mono_one</item>
-        <item name="mukta_bold">@font/rubik_mono_one</item>
-        <item name="mukta_normal">@font/rubik_mono_one</item>
+        <item name="headerFont">@font/main_sans_serif</item>
+        <item name="mukta_bold">@font/main_sans_serif</item>
+        <item name="mukta_normal">@font/main_sans_serif</item>
 
         <item name="mainTxtColor">@color/white</item>
 

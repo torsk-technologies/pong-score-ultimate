@@ -25,7 +25,7 @@ class SoundPlayer(context: Context) {
 
         for (filename in soundFiles) {
             try {
-                val path: String = SOUNDFOLDER + "/" + filename
+                val path = "$SOUNDFOLDER/$filename"
                 val sound = Sound(path)
                 loadSound(sound)
                 soundList.add(sound)

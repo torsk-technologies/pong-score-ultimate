@@ -164,12 +164,12 @@ class PlayFragment : Fragment() {
     private fun setupGameClickListeners() {
         binding.p1Container?.setOnClickListener {
             viewModel.registerPoint(Players.PLAYER1.i)
-            if (isSoundEnabled) playDing(viewModel.player1Live.value ?: Player("", 1))
+            if (isSoundEnabled) playDing(viewModel.player1Live.value ?: Player(""))
         }
 
         binding.p2Container?.setOnClickListener {
             viewModel.registerPoint(Players.PLAYER2.i)
-            if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player("", 1))
+            if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player(""))
         }
 
         binding.btnBack?.setOnClickListener {

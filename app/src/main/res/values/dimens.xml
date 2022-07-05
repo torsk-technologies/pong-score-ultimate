@@ -12,7 +12,7 @@
     <dimen name="first_serve_table_width">230dp</dimen>
     <dimen name="first_serve_table_height">200dp</dimen>
 
-    <dimen name="match_score_end_margin">10dp</dimen>
+    <dimen name="match_score_end_margin">20dp</dimen>
 
     <dimen name="score_small_width">80dp</dimen>
     <dimen name="score_large_width">300dp</dimen>

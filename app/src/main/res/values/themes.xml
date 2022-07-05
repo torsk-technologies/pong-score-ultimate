@@ -3,10 +3,10 @@
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
 
-        <item name="headerFont">@font/press_start_2p</item>
-        <item name="mukta_bold">@font/mukta_bold</item>
-        <item name="mukta_normal">@font/mukta</item>
-        <item name="roboto">@font/menu_sans_serif</item>
+        <item name="headerFont">@font/main_sans_serif</item>
+        <item name="mukta_bold">@font/main_sans_serif</item>
+        <item name="mukta_normal">@font/main_sans_serif</item>
+        <item name="roboto">@font/main_sans_serif</item>
 
         <item name="buttonBgColor">@color/bt_red</item>
         <item name="mainTxtColor">@color/white</item>

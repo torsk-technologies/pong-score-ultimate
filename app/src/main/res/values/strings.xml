@@ -20,7 +20,7 @@
     <string name="made_with_love"><![CDATA[Created with <3 by\nCarlos Reiakvam\nat Torsk Technologies]]></string>
     <string name="at_torsk_technologies">\@Torsk_Technologies</string>
     <string name="best_of_complete">best of %1$d</string>
-    <string name="best_of">best of</string>
+    <string name="best_of">best\nof</string>
     <string name="best">best</string>
     <string name="of">of</string>
     <string name="best_of_number">%1$d</string>
