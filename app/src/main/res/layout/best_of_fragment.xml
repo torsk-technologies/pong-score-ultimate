@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/tv_best_of_number"
-            style="@style/best_of_fragment_text"
+            style="@style/score_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/best_of_number"
@@ -90,7 +90,8 @@
             app:labelBehavior="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_best_of_number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="30dp"
             app:thumbColor="@color/white"
             app:thumbRadius="20dp"
             app:tickColorActive="@color/white"

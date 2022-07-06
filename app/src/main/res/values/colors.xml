@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="bt_black">#171B1E</color>
     <color name="bt_red">#CB4500</color>
-
-
 </resources>

@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import androidx.navigation.fragment.navArgs
 import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
 import com.carlosreiakvam.android.handsdowntabletennis.BuildConfig
 import com.carlosreiakvam.android.handsdowntabletennis.R
-import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundEnums
 import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
@@ -34,7 +31,6 @@ class PlayFragment : Fragment() {
     private val args: PlayFragmentArgs by navArgs()
     private lateinit var gameRulesFromArgs: GameRules
     private var isSoundEnabled: Boolean = true
-    private var isVoiceEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
     private lateinit var viewModel: PlayViewModel
     private lateinit var soundPlayer: SoundPlayer
@@ -125,15 +121,15 @@ class PlayFragment : Fragment() {
             }
         }
 
-        binding.btnVoices?.setOnClickListener {
-            if (!isVoiceEnabled) {
-                isVoiceEnabled = true
-                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_record_voice_over_24)
-            } else {
-                isVoiceEnabled = false
-                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_voice_over_off_24)
-            }
-        }
+//        binding.btnVoices?.setOnClickListener {
+//            if (!isVoiceEnabled) {
+//                isVoiceEnabled = true
+//                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_record_voice_over_24)
+//            } else {
+//                isVoiceEnabled = false
+//                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_voice_over_off_24)
+//            }
+//        }
 
         binding.btnRules?.setOnClickListener {
             alertBestOf()
@@ -148,7 +144,6 @@ class PlayFragment : Fragment() {
             if (binding.btnUndo?.isVisible == true) {
                 binding.btnUndo?.isVisible = false
                 binding.btnLayoutChange?.isVisible = false
-                binding.btnVoices?.isVisible = false
                 binding.btnNewGame?.isVisible = false
                 binding.btnToggleSound?.isVisible = false
                 binding.btnRules?.isVisible = false
@@ -156,7 +151,6 @@ class PlayFragment : Fragment() {
                 binding.btnUndo?.isVisible = true
                 binding.btnNewGame?.isVisible = true
                 binding.btnLayoutChange?.isVisible = true
-                binding.btnVoices?.isVisible = true
                 binding.btnToggleSound?.isVisible = true
                 binding.btnRules?.isVisible = true
             }
@@ -209,17 +203,7 @@ class PlayFragment : Fragment() {
 
     private fun observeWinStates() {
         viewModel.winStates.observe(viewLifecycleOwner) { state ->
-            if (state.isGamePoint) {
-                Timber.d("gamepoint")
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        playVoiceOver(21)
-                    },500
-                )
-            } else if (state.isMatchPoint) {
-
-                playVoiceOver(SoundEnums.MATCHPOINT.ordinal)
-            } else if (state.isMatchReset) {
+            if (state.isMatchReset) {
                 Timber.d("match is reset")
             } else if (state.isMatchWon) {
                 Timber.d("match won ")
@@ -268,13 +252,6 @@ class PlayFragment : Fragment() {
         soundPlayer.fetchSounds()
     }
 
-    private fun playVoiceOver(voiceOver: Int) {
-        when (voiceOver) {
-            21 -> soundPlayer.playSound(21)
-            SoundEnums.MATCHPOINT.ordinal -> soundPlayer.playSound(SoundEnums.MATCHPOINT.ordinal)
-        }
-
-    }
 
     private fun playDing(player: Player) {
         if (player.gameScore >= 20) soundPlayer.playSound(20)

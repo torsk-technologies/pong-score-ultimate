@@ -2,9 +2,17 @@
 <resources>
 
     <style name="back_button">
+<!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
+        <item name="backgroundTint">@color/bt_black</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
+    </style>
 
+    <style name="menu_button">
+<!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
+        <item name="backgroundTint">@color/bt_red</item>
+        <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
+        <item name="android:layout_marginEnd">@dimen/margin_btn_option_start</item>
     </style>
 
     <style name="small_button">
@@ -14,7 +22,7 @@
     </style>
 
     <style name="check_me_button">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">35sp</item>
 
         <item name="backgroundTint">@color/white</item>
         <item name="textAllCaps">false</item>
@@ -22,27 +30,22 @@
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">20dp</item>
         <item name="fontFamily">?attr/headerFont</item>
     </style>
 
     <style name="large_button">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/bt_black</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="fontFamily">?attr/headerFont</item>
     </style>
 
-    <style name="menu_button">
-        <item name="backgroundTint">@color/bt_red</item>
-        <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
-        <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
-    </style>
 
     <style name="main_header">
         <item name="android:lineSpacingMultiplier">0.7</item>
@@ -55,12 +58,11 @@
 
     <style name="rules">
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowMinWidthMinor">85%</item>
         <item name="android:textSize">30sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">?attr/mainTxtColor</item>
-        <item name="backgroundTint">?attr/buttonBgColor</item>
+        <item name="android:textColor">@color/bt_black</item>
+<!--        <item name="backgroundTint">?attr/buttonBgColor</item>-->
         <item name="fontFamily">?attr/headerFont</item>
     </style>
 
@@ -78,7 +80,7 @@
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">50sp</item>
+        <item name="android:textSize">100sp</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
@@ -89,7 +91,7 @@
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">70sp</item>
+        <item name="android:textSize">100sp</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
@@ -98,11 +100,9 @@
     <style name="score_large">
         <item name="fontFamily">?attr/headerFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">180sp</item>
+        <item name="android:textSize">250sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="score_medium">
@@ -125,9 +125,9 @@
         <item name="fontFamily">?attr/headerFont</item>
     </style>
 
-    <style name="text_small">
+    <style name="text_about">
         <item name="fontFamily">?attr/headerFont</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>

@@ -37,15 +37,15 @@
 
         <TextView
             android:id="@+id/tv_made_with_love"
-            style="@style/text_small"
+            style="@style/text_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/made_with_love"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--            <TextView-->
         <!--                android:id="@+id/tv_by_carlos_reiakvam"-->
@@ -67,26 +67,26 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            style="@style/back_button"
             android:id="@+id/btn_back"
+            style="@style/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:contentDescription="@string/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24"/>
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <Button
             android:id="@+id/btn_linktree"
             style="@style/check_me_button"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/buy_me_a_coffe"/>
+            android:text="@string/buy_me_a_coffe"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
