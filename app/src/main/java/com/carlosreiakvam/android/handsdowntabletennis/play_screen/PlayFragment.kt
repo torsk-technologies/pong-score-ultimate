@@ -23,6 +23,7 @@ import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentB
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Preferences.SOUNDENABLED
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import timber.log.Timber
 
 
 class PlayFragment : Fragment() {
@@ -47,8 +48,6 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         setupSoundPlayer()
-        // args defaults to -1, -1 from action
-        // best of screen sends different values
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =
             PlayViewModelFactory(
@@ -64,7 +63,6 @@ class PlayFragment : Fragment() {
         observePlayerScores()
         observeWinStates()
         loadSharedPrefsGameState()
-//        setOrientation(NORMAL)
         setupGameClickListeners()
         setupMenuClickListeners()
         checkFirstRun()
@@ -91,11 +89,6 @@ class PlayFragment : Fragment() {
     private fun setupMenuClickListeners() {
         binding.btnUndo?.setOnClickListener {
             viewModel.onUndo()
-            // play sound on undo
-//            if (isSoundEnabled) {
-//                if (viewModel.currentServerLive.value == 1) playDing(viewModel.player1Live.value!!)
-//                else playDing(viewModel.player2Live.value!!)
-//            }
         }
 
         binding.btnLayoutChange?.setOnClickListener {
@@ -117,16 +110,6 @@ class PlayFragment : Fragment() {
             }
         }
 
-//        binding.btnVoices?.setOnClickListener {
-//            if (!isVoiceEnabled) {
-//                isVoiceEnabled = true
-//                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_record_voice_over_24)
-//            } else {
-//                isVoiceEnabled = false
-//                binding.btnVoices?.setImageResource(R.drawable.ic_baseline_voice_over_off_24)
-//            }
-//        }
-
         binding.btnRules?.setOnClickListener {
             alertBestOf()
         }
@@ -135,15 +118,23 @@ class PlayFragment : Fragment() {
             alertNewGame()
         }
 
+        binding.btnInfo?.setOnClickListener {
+            this.findNavController()
+                .navigate(PlayFragmentDirections.actionPlayFragment2ToAboutFragment())
+
+        }
+
 
         binding.btnToggleMenu?.setOnClickListener {
             if (binding.btnUndo?.isVisible == true) {
                 binding.btnUndo?.isVisible = false
                 binding.btnLayoutChange?.isVisible = false
+                binding.btnInfo?.isVisible = false
                 binding.btnNewGame?.isVisible = false
                 binding.btnToggleSound?.isVisible = false
                 binding.btnRules?.isVisible = false
             } else {
+                binding.btnInfo?.isVisible = true
                 binding.btnUndo?.isVisible = true
                 binding.btnNewGame?.isVisible = true
                 binding.btnLayoutChange?.isVisible = true
@@ -151,7 +142,6 @@ class PlayFragment : Fragment() {
                 binding.btnRules?.isVisible = true
             }
         }
-
     }
 
     private fun setupGameClickListeners() {
@@ -164,11 +154,6 @@ class PlayFragment : Fragment() {
             viewModel.registerPoint(Players.PLAYER2.i)
             if (isSoundEnabled) playDing(viewModel.player2Live.value ?: Player(""))
         }
-
-        binding.btnBack?.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
     }
 
     private fun observePlayerScores() {
@@ -199,20 +184,15 @@ class PlayFragment : Fragment() {
 
     private fun observeWinStates() {
         viewModel.winStates.observe(viewLifecycleOwner) { state ->
-            if (state.isMatchReset) {
-            } else if (state.isMatchWon) {
+            if (state.isMatchWon)
                 alertOnMatchWon()
-            } else if (state.isGameWon) {
-            } else {
-            }
         }
 
     }
 
     private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
-            //arguments: (key,value)
-            putBoolean(NORMAL.name, orientations[NORMAL] ?: true)
+            putBoolean(NORMAL.name, orientations[NORMAL] ?: false)
             putBoolean(MIRRORED.name, orientations[MIRRORED] ?: false)
             putBoolean(LEFT.name, orientations[LEFT] ?: false)
             putBoolean(RIGHT.name, orientations[RIGHT] ?: false)
@@ -222,14 +202,18 @@ class PlayFragment : Fragment() {
     }
 
     private fun loadSharedPrefsGameState() {
+        Timber.d("orientation normal:  ${orientations[NORMAL]}")
+        Timber.d("orientation mirrored:  ${orientations[MIRRORED]}")
         isSoundEnabled = sharedPref.getBoolean(SOUNDENABLED.name, true)
         if (isSoundEnabled) binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_note_24)
         else binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_off_24)
 
-        val orientationNormal = sharedPref.getBoolean(NORMAL.name, true)
+        val orientationNormal = sharedPref.getBoolean(NORMAL.name, false)
         val orientationMirrored = sharedPref.getBoolean(MIRRORED.name, false)
         val orientationLeft = sharedPref.getBoolean(LEFT.name, false)
         val orientationRight = sharedPref.getBoolean(RIGHT.name, false)
+        Timber.d("orientation normal etter sharedpref:  ${orientations[NORMAL]}")
+        Timber.d("orientation mirrored ettersharedpref:  ${orientations[MIRRORED]}")
 
         when {
             orientationNormal -> setOrientation(NORMAL)
@@ -262,7 +246,7 @@ class PlayFragment : Fragment() {
             alertDialog.cancel()
 
             this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
+                .navigate(PlayFragmentDirections.actionPlayFragment2ToBestOfFragment())
         }
     }
 
@@ -274,7 +258,6 @@ class PlayFragment : Fragment() {
             builder.create()
         }
         alertDialog?.show()
-        val prevGameRules = viewModel.gameRulesLive.value
         // new game button
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
             viewModel.newGameOnMatchWon()
@@ -303,6 +286,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun setOrientation(orientation: Orientation) {
+        Timber.d("set orientation: ${orientation.name}")
         setOrientationState(orientation)
         when (orientation) {
             NORMAL -> {
@@ -339,13 +323,14 @@ class PlayFragment : Fragment() {
         saveSharedPrefsGameState()
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onPause() {
         super.onPause()
         soundPlayer.release()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        loadSharedPrefsGameState()
     }
 
 }

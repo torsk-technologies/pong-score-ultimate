@@ -52,7 +52,6 @@ class BestOfFragment : Fragment() {
     }
 
     private fun setupNextButtons() {
-
         binding.btnNext.setOnClickListener {
             this.findNavController()
                 .navigate(BestOfFragmentDirections.actionBestOfFragmentToFirstServerFragment(bestOf))

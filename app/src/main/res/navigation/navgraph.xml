@@ -3,78 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/openingScreenFragment">
-
+    app:startDestination="@id/playFragment2">
     <fragment
-        android:id="@+id/openingScreenFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.opening_screen.OpeningScreenFragment"
-        android:label="opening_screen_fragment"
-        tools:layout="@layout/opening_screen_fragment">
+        android:id="@+id/playFragment2"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
+        tools:layout="@layout/play_fragment"
+        android:label="PlayFragment" >
         <action
-            android:id="@+id/action_openingScreenFragment_to_playFragment"
-            app:destination="@id/playFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left">
-            <argument
-                android:name="best_of"
-                android:defaultValue="-1"
-                app:argType="integer" />
-            <argument
-                android:name="first_server"
-                android:defaultValue="-1"
-                app:argType="integer" />
-        </action>
+            android:id="@+id/action_playFragment2_to_bestOfFragment"
+            app:destination="@id/bestOfFragment" />
         <action
-            android:id="@+id/action_openingScreenFragment_to_aboutFragment"
+            android:id="@+id/action_playFragment2_to_aboutFragment"
             app:destination="@id/aboutFragment" />
         <argument
-            android:name="gameFinished"
-            app:argType="boolean"
-            android:defaultValue="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/playFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
-        android:label="PlayFragment"
-        tools:layout="@layout/play_fragment">
-        <argument
             android:name="best_of"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="9" />
         <argument
             android:name="first_server"
-            app:argType="integer" />
-        <action
-            android:id="@+id/action_playFragment_to_bestOfFragment"
-            app:destination="@id/bestOfFragment" />
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
-        android:label="AboutFragment"
-        tools:layout="@layout/about_fragment" />
-    <fragment
+        tools:layout="@layout/best_of_fragment"
         android:id="@+id/bestOfFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.BestOfFragment"
-        tools:layout="@layout/best_of_fragment"
         android:label="BestOfFragment" >
         <action
             android:id="@+id/action_bestOfFragment_to_firstServerFragment"
             app:destination="@id/firstServerFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/first_server_fragment"
         android:id="@+id/firstServerFragment"
+        tools:layout="@layout/first_server_fragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.FirstServerFragment"
         android:label="FirstServerFragment" >
         <action
-            android:id="@+id/action_firstServerFragment_to_playFragment"
-            app:destination="@id/playFragment"
-            app:popUpTo="@id/openingScreenFragment" />
+            android:id="@+id/action_firstServerFragment_to_playFragment2"
+            app:destination="@id/playFragment2" />
         <argument
             android:name="best_of"
             app:argType="integer"
-            android:defaultValue="21" />
+            android:defaultValue="9" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        tools:layout="@layout/about_fragment"
+        android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_playFragment2"
+            app:destination="@id/playFragment2" />
     </fragment>
 </navigation>

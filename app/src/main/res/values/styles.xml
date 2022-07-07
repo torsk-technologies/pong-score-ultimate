@@ -2,17 +2,17 @@
 <resources>
 
     <style name="back_button">
-<!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
+        <item name="fabCustomSize">@dimen/fab_custom_size</item>
         <item name="backgroundTint">@color/bt_black</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
     <style name="menu_button">
-<!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
+        <item name="fabCustomSize">@dimen/fab_custom_size</item>
         <item name="backgroundTint">@color/bt_red</item>
         <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
-        <item name="android:layout_marginEnd">@dimen/margin_btn_option_start</item>
+        <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
     </style>
 
     <style name="small_button">
@@ -62,7 +62,7 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/bt_black</item>
-<!--        <item name="backgroundTint">?attr/buttonBgColor</item>-->
+        <!--        <item name="backgroundTint">?attr/buttonBgColor</item>-->
         <item name="fontFamily">?attr/headerFont</item>
     </style>
 

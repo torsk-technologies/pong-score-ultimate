@@ -77,7 +77,7 @@ class FirstServerFragment : Fragment() {
         val btnPlay = binding.btnLetsPlay
         btnPlay.setOnClickListener {
             this.findNavController()
-                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment(
+                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment2(
                     bestOf = bestOf,
                     firstServer = firstServer))
         }

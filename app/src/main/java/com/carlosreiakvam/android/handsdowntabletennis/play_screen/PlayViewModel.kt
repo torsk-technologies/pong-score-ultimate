@@ -44,12 +44,13 @@ class PlayViewModel(
     private suspend fun deleteLast() = gameStateDAO.deleteLast()
 
     init {
-        // Check if init comes from opening screen or best of screen
-        if (gameRulesFromArgs.bestOf == -1) { // either -1 or val from bestOfScreen
+        // Check if init comes from best of screen
+        if (!isNewGame()) {
+//            init load game
             game = Game(player1, player2, GameRules(9, 1))
             setGameStateFromDB()
         } else {
-            // game setup from best of screen
+            // Init new game
             game = Game(player1, player2, GameRules(
                 bestOf = gameRulesFromArgs.bestOf,
                 firstServer = gameRulesFromArgs.firstServer))
@@ -64,6 +65,10 @@ class PlayViewModel(
             }
         }
         updateLiveDataFromGame()
+    }
+
+    fun isNewGame(): Boolean {
+        return gameRulesFromArgs.bestOf == -1
     }
 
 
@@ -153,7 +158,6 @@ class PlayViewModel(
 
     fun onFirstRun() {
         viewModelScope.launch { gameStateDAO.insertGameState(GameStateEntity()) }
-
     }
 
     override fun onCleared() {
