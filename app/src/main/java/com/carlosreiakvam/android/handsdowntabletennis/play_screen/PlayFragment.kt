@@ -28,7 +28,8 @@ import timber.log.Timber
 
 class PlayFragment : Fragment() {
 
-    private val args: PlayFragmentArgs by navArgs()
+//    private val args: PlayFragmentDirections by navArgs()
+    private var args: PlayFragmentDirections by navArgs()
     private lateinit var gameRulesFromArgs: GameRules
     private var isSoundEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
@@ -52,7 +53,7 @@ class PlayFragment : Fragment() {
         viewModel =
             PlayViewModelFactory(
                 (requireActivity().application as ApplicationController).database.gameStateDao(),
-                gameRulesFromArgs)
+                gameRulesFromArgs, isNewGame = args.isNewGame)
                 .create(PlayViewModel::class.java)
 
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return requireView()
@@ -115,12 +116,14 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnNewGame?.setOnClickListener {
-            alertNewGame()
+            this.findNavController()
+                .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
+
         }
 
         binding.btnInfo?.setOnClickListener {
             this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragment2ToAboutFragment())
+                .navigate(PlayFragmentDirections.actionPlayFragmentToAboutFragment())
 
         }
 
@@ -234,21 +237,21 @@ class PlayFragment : Fragment() {
         else soundPlayer.playSound(player.gameScore)
     }
 
-    private fun alertNewGame() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setView(R.layout.alert_new_game)
-            builder.create()
-        }
-        alertDialog?.show()
-
-        alertDialog?.findViewById<TextView>(R.id.alert_btn_new_game)?.setOnClickListener {
-            alertDialog.cancel()
-
-            this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragment2ToBestOfFragment())
-        }
-    }
+//    private fun alertNewGame() {
+//        val alertDialog: AlertDialog? = activity?.let {
+//            val builder = AlertDialog.Builder(it)
+//            builder.setView(R.layout.alert_new_game)
+//            builder.create()
+//        }
+//        alertDialog?.show()
+//
+//        alertDialog?.findViewById<TextView>(R.id.alert_btn_new_game)?.setOnClickListener {
+//            alertDialog.cancel()
+//
+//            this.findNavController()
+//                .navigate(PlayFragmentDirections.actionPlayFragment2ToBestOfFragment())
+//        }
+//    }
 
     private fun alertOnMatchWon() {
         val alertDialog: AlertDialog? = activity?.let {
@@ -332,6 +335,9 @@ class PlayFragment : Fragment() {
         super.onResume()
 //        loadSharedPrefsGameState()
     }
+
+}
+
 
 }
 

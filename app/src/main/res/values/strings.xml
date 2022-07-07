@@ -17,7 +17,7 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love"><![CDATA[Created with <3 by\nCarlos Reiakvam\nat Torsk Technologies]]></string>
+    <string name="made_with_love">Created with 🖤 by\nCarlos Reiakvam\nat Torsk Technologies</string>
     <string name="at_torsk_technologies">\@Torsk_Technologies</string>
     <string name="best_of_complete">best of %1$d</string>
     <string name="best_of">best\nof</string>

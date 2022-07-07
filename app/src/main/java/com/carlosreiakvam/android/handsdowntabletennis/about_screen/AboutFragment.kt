@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.FirstServerFragmentDirections
 
 class AboutFragment : Fragment() {
     private lateinit var binding: AboutFragmentBinding
@@ -18,11 +20,16 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
-        binding.btnBack.setOnClickListener{
-            activity?.onBackPressed()
+        binding.btnBack.setOnClickListener {
+//            activity?.onBackPressed()
+
+            this.findNavController()
+                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment(
+                    isNewGame = false))
         }
-        binding.btnLinktree.setOnClickListener{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://linktr.ee/carlosreiakvam"))
+        binding.btnLinktree.setOnClickListener {
+            val browserIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://linktr.ee/carlosreiakvam"))
             startActivity(browserIntent)
         }
         return binding.root

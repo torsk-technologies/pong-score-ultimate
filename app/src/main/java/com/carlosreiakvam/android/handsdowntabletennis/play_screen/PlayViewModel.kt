@@ -11,10 +11,12 @@ import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
-    private val gameRulesFromArgs: GameRules, // either -1 or val from bestOfScreen
+    private val gameRulesFromArgs: GameRules,
+    private val isNewGame: Boolean, //
 ) : ViewModel() {
     private var player1: Player = Player("player one")
     private var player2: Player = Player("player two")
@@ -44,13 +46,8 @@ class PlayViewModel(
     private suspend fun deleteLast() = gameStateDAO.deleteLast()
 
     init {
-        // Check if init comes from best of screen
-        if (!isNewGame()) {
-//            init load game
-            game = Game(player1, player2, GameRules(9, 1))
-            setGameStateFromDB()
-        } else {
-            // Init new game
+        if (isNewGame) {
+            Timber.d("is new game")
             game = Game(player1, player2, GameRules(
                 bestOf = gameRulesFromArgs.bestOf,
                 firstServer = gameRulesFromArgs.firstServer))
@@ -63,14 +60,13 @@ class PlayViewModel(
                 } catch (e: Exception) {
                 }
             }
+        } else {
+            Timber.d("is not new game")
+            game = Game(player1, player2, GameRules(9, 1))
+            setGameStateFromDB()
         }
         updateLiveDataFromGame()
     }
-
-    fun isNewGame(): Boolean {
-        return gameRulesFromArgs.bestOf == -1
-    }
-
 
     fun onUndo() {
         viewModelScope.launch {

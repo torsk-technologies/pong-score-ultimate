@@ -76,15 +76,16 @@ class FirstServerFragment : Fragment() {
     private fun setupPlayButton() {
         val btnPlay = binding.btnLetsPlay
         btnPlay.setOnClickListener {
-            this.findNavController()
-                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment2(
-                    bestOf = bestOf,
-                    firstServer = firstServer))
+//            this.findNavController()
+//                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment2(
+//                    isNewGame = true,
+//                    bestOf = bestOf,
+//                    firstServer = firstServer))
         }
     }
 
     private fun setupBackButton() {
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
     }
