@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Hands Down Table Tennis</string>
-    <string name="hands_down">hands\ndown</string>
-    <string name="table_tennis">table\ntennis</string>
+    <string name="app_name_short">HDTT</string>
+    <string name="hands_down">CHO-LE</string>
+    <string name="table_tennis">Counter</string>
 
     <string name="lets_play">Start match</string>
     <string name="player_one">player one</string>
@@ -39,4 +39,5 @@
     <string name="lets_go">let\'s go</string>
     <string name="buy_me_a_coffe">check me out :)</string>
     <string name="this_is_a_heart_3"><![CDATA[this is a heart: <3]]></string>
+    <string name="hdtt">HDTT</string>
 </resources>

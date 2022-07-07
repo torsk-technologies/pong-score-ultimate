@@ -11,7 +11,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
@@ -45,14 +44,11 @@ class PlayViewModel(
     private suspend fun deleteLast() = gameStateDAO.deleteLast()
 
     init {
-        Timber.d("init viewmodel")
         // Check if init comes from opening screen or best of screen
         if (gameRulesFromArgs.bestOf == -1) { // either -1 or val from bestOfScreen
-            Timber.d("game not setup from bestOf screen")
             game = Game(player1, player2, GameRules(9, 1))
             setGameStateFromDB()
         } else {
-            Timber.d("game setup from bestOf screen")
             // game setup from best of screen
             game = Game(player1, player2, GameRules(
                 bestOf = gameRulesFromArgs.bestOf,
@@ -64,7 +60,6 @@ class PlayViewModel(
                         gameToBestOf = gameRulesFromArgs.bestOf,
                         firstServer = gameRulesFromArgs.firstServer))
                 } catch (e: Exception) {
-                    Timber.d("huuuh")
                 }
             }
         }
@@ -73,7 +68,6 @@ class PlayViewModel(
 
 
     fun onUndo() {
-        Timber.d("onUndo")
         viewModelScope.launch {
             deleteLast()
             setGameStateFromDB()
@@ -90,7 +84,6 @@ class PlayViewModel(
     }
 
     fun registerPoint(playerNumber: Int) {
-        Timber.d("registerPoint")
         game.registerPoint(playerNumber) // update Game with new values
         updateLiveDataFromGame()
         insertGameStateToDB() // insert values from Game to DB
@@ -98,7 +91,6 @@ class PlayViewModel(
 
 
     private fun insertGameStateToDB() {
-        Timber.d("insertGameStateToDB")
         viewModelScope.launch {
             gameStateDAO.insertGameState(GameStateEntity(
                 p1GameScore = _player1Live.value?.gameScore ?: 0,
@@ -138,11 +130,7 @@ class PlayViewModel(
                     _player2Live.value = game.player2
                     _currentServerLive.value = game.currentServer
                 }
-                Timber.d("DB does indeed exist")
-            } catch (nullp: NullPointerException) {
-//                Timber.d("DB does not exist")
-                // if no db exists
-//                insertGameStateToDB()
+            } catch (nullPointer: NullPointerException) {
             }
         }
     }
@@ -164,14 +152,12 @@ class PlayViewModel(
     }
 
     fun onFirstRun() {
-        Timber.d("onFirstRun")
         viewModelScope.launch { gameStateDAO.insertGameState(GameStateEntity()) }
 
     }
 
     override fun onCleared() {
         super.onCleared()
-        Timber.tag("lifecycle").d("ViewModel cleared")
     }
 
 

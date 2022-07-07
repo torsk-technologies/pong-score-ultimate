@@ -23,7 +23,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentB
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Preferences.SOUNDENABLED
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
-import timber.log.Timber
 
 
 class PlayFragment : Fragment() {
@@ -50,7 +49,6 @@ class PlayFragment : Fragment() {
         setupSoundPlayer()
         // args defaults to -1, -1 from action
         // best of screen sends different values
-        Timber.d("args best of: ${args.bestOf}")
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =
             PlayViewModelFactory(
@@ -85,7 +83,6 @@ class PlayFragment : Fragment() {
             // New install
             viewModel.onFirstRun()
         } else if (currentVersionCode > savedVersionCode) {
-            Timber.d("new version")
             // This is an upgrade
         }
         sharedPref.edit().putInt("version_code", currentVersionCode).apply()
@@ -108,7 +105,6 @@ class PlayFragment : Fragment() {
                 orientations[MIRRORED] == true -> setOrientation(LEFT)
                 orientations[LEFT] == true -> setOrientation(NORMAL)
             }
-            Timber.d("orientations: $orientations")
         }
 
         binding.btnToggleSound?.setOnClickListener {
@@ -204,14 +200,10 @@ class PlayFragment : Fragment() {
     private fun observeWinStates() {
         viewModel.winStates.observe(viewLifecycleOwner) { state ->
             if (state.isMatchReset) {
-                Timber.d("match is reset")
             } else if (state.isMatchWon) {
-                Timber.d("match won ")
                 alertOnMatchWon()
             } else if (state.isGameWon) {
-                Timber.d("game won ")
             } else {
-                Timber.d("No win. Ordinary point")
             }
         }
 
@@ -284,7 +276,6 @@ class PlayFragment : Fragment() {
         alertDialog?.show()
         val prevGameRules = viewModel.gameRulesLive.value
         // new game button
-        Timber.d("on match won, using following gamerules\nbestof: ${prevGameRules?.bestOf}")
         alertDialog?.findViewById<Button>(R.id.btn_woho)?.setOnClickListener {
             viewModel.newGameOnMatchWon()
             alertDialog.cancel()
@@ -350,13 +341,11 @@ class PlayFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Timber.tag("lifecycle").d("onStart")
     }
 
     override fun onPause() {
         super.onPause()
         soundPlayer.release()
-        Timber.d("onPause")
     }
 
 }

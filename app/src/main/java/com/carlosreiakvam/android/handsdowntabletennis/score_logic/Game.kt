@@ -5,7 +5,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Players.PLAYE
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Players.PLAYER2
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.WinConditions
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.WinStates
-import timber.log.Timber
 
 class Game(
     var player1: Player,
@@ -20,17 +19,11 @@ class Game(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )
 
-    init {
-        Timber.d("game init")
-        Timber.d("first server: ${gameRules.firstServer}")
-        Timber.d("best of: ${gameRules.bestOf}")
-    }
-
-    fun checkIfGamePoint(player: Player, otherPlayer: Player): Boolean {
+    private fun checkIfGamePoint(player: Player, otherPlayer: Player): Boolean {
         return player.gameScore >= 10 && otherPlayer.gameScore <= player.gameScore - 1
     }
 
-    fun checkIfMatchPoint(player: Player): Boolean {
+    private fun checkIfMatchPoint(player: Player): Boolean {
         return player.matchScore == matchPool[gameRules.bestOf]?.minus(1)
 
     }
@@ -62,7 +55,6 @@ class Game(
             player.increaseMatchScore()
 
             if (winConditions.matchWonByBestOf(matchPool, gameRules, player)) {
-                Timber.d("match won")
                 // return if maximum limit is reached
                 winStates.isMatchWon = true
                 player1.resetGameScore()
@@ -71,7 +63,6 @@ class Game(
                 return
             } else {
                 // on game won
-                Timber.d("game won")
                 nGamesPlayed += 1
                 winStates.isGameWon = true
                 player1.resetGameScore()
@@ -86,8 +77,6 @@ class Game(
             if (serveSwitchOnPoint(player, otherPlayer)) serveSwitch()
         }
 
-        Timber.d("player1 gamescore: ${player1.gameScore}")
-        Timber.d("player1 matchScore: ${player1.matchScore}")
     }
 
     private fun numberToPlayer(playerNumber: Int): List<Player> {
@@ -110,14 +99,11 @@ class Game(
     }
 
     private fun serveSwitchOnGameWon() {
-        Timber.d("game points played: $nGamesPlayed")
-        Timber.d("game points played mod 2: ${nGamesPlayed % 2}")
 
         if (gameRules.firstServer == PLAYER1.i) {
             currentServer = if (nGamesPlayed % 2 == 0) PLAYER1.i else PLAYER2.i
         } else if (gameRules.firstServer == PLAYER2.i)
             currentServer = if (nGamesPlayed % 2 == 0) PLAYER2.i else PLAYER1.i
-        Timber.d("current server: $currentServer")
     }
 
     private fun serveSwitchOnPoint(player: Player, otherPlayer: Player): Boolean {

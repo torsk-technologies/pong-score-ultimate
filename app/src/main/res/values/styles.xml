@@ -49,7 +49,7 @@
 
     <style name="main_header">
         <item name="android:lineSpacingMultiplier">0.7</item>
-        <item name="android:textSize">100sp</item>
+        <item name="android:textSize">110sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/headerFont</item>
