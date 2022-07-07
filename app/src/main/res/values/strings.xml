@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name_short">HDTT</string>
-    <string name="hands_down">CHO-LE</string>
-    <string name="table_tennis">Counter</string>
+    <string name="app_name_short">ChoTracker</string>
+    <string name="hands_down">CHO</string>
+    <string name="table_tennis">TRACKER</string>
 
     <string name="lets_play">Start match</string>
     <string name="player_one">player one</string>
