@@ -3,9 +3,7 @@
     <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
 
-        <item name="headerFont">@font/pt_sans_narrow_bold</item>
-        <item name="mukta_bold">@font/pt_sans_narrow_bold</item>
-        <item name="mukta_normal">@font/pt_sans_narrow_bold</item>
+        <item name="mainFont">@font/audiowide</item>
 
         <item name="buttonBgColor">@color/bt_red</item>
         <item name="mainTxtColor">@color/white</item>
@@ -24,6 +22,9 @@
 
         <!--         Status bar color.-->
         <item name="android:statusBarColor">@color/bt_red</item>
+
+        <item name="android:windowBackground">@drawable/splash_background</item>
+
     </style>
 
 </resources>

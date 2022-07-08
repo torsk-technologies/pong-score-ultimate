@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name_short">ChoTracker</string>
+    <string name="app_name_short">Cho!</string>
     <string name="hands_down">CHO</string>
     <string name="table_tennis">TRACKER</string>
 
@@ -33,11 +33,10 @@
     <string name="by_carlos_reiakvam">by Carlos Reiakvam</string>
     <string name="next">NEXT</string>
     <string name="rules">rules</string>
-    <string name="match_won">match won!</string>
+    <string name="match_won">CHO-LE!</string>
     <string name="back">back</string>
     <string name="chekout_my_linktree">Chekout my\nlinktree</string>
     <string name="lets_go">let\'s go</string>
-    <string name="buy_me_a_coffe">check me out :)</string>
-    <string name="this_is_a_heart_3"><![CDATA[this is a heart: <3]]></string>
+    <string name="buy_me_a_coffe">check me out</string>
     <string name="hdtt">HDTT</string>
 </resources>

@@ -22,9 +22,8 @@ class AboutFragment : Fragment() {
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.btnBack.setOnClickListener {
 //            activity?.onBackPressed()
-
             this.findNavController()
-                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment(
+                .navigate(AboutFragmentDirections.actionAboutFragmentToPlayFragment(
                     isNewGame = false))
         }
         binding.btnLinktree.setOnClickListener {

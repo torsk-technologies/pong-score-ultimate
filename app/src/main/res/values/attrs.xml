@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    Fonts-->
-    <attr name="headerFont" format="reference" />
+    <attr name="mainFont" format="reference" />
     <attr name="mukta_bold" format="reference" />
     <attr name="mukta_normal" format="reference" />
     <attr name="roboto" format="reference" />

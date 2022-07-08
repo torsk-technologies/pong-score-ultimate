@@ -76,11 +76,11 @@ class FirstServerFragment : Fragment() {
     private fun setupPlayButton() {
         val btnPlay = binding.btnLetsPlay
         btnPlay.setOnClickListener {
-//            this.findNavController()
-//                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment2(
-//                    isNewGame = true,
-//                    bestOf = bestOf,
-//                    firstServer = firstServer))
+            this.findNavController()
+                .navigate(FirstServerFragmentDirections.actionFirstServerFragmentToPlayFragment(
+                    isNewGame = true,
+                    bestOf = bestOf,
+                    firstServer = firstServer))
         }
     }
 

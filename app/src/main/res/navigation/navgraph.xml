@@ -10,7 +10,8 @@
         android:label="PlayFragment" >
         <action
             android:id="@+id/action_playFragment_to_bestOfFragment"
-            app:destination="@id/bestOfFragment" />
+            app:destination="@id/bestOfFragment"
+            app:popUpTo="@id/playFragment" />
         <action
             android:id="@+id/action_playFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
@@ -41,7 +42,8 @@
         android:label="FirstServerFragment" >
         <action
             android:id="@+id/action_firstServerFragment_to_playFragment"
-            app:destination="@id/playFragment" />
+            app:destination="@id/playFragment"
+            app:popUpTo="@id/playFragment" />
         <argument
             android:name="bestOf"
             app:argType="integer"
@@ -50,5 +52,10 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_playFragment"
+            app:destination="@id/playFragment"
+            app:popUpTo="@id/playFragment" />
+    </fragment>
 </navigation>

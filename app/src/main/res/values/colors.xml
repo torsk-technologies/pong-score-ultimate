@@ -3,6 +3,8 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
-    <color name="bt_black">#171B1E</color>
-    <color name="bt_red">#CB4500</color>
+    <color name="bt_black_old">#171B1E</color>
+    <color name="bt_black">#000000</color>
+    <color name="bt_red">#ED1C24</color>
+    <color name="bt_red_old">#CB4500</color>
 </resources>
