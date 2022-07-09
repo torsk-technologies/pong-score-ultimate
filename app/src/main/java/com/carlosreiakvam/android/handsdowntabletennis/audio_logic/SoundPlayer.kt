@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
+import timber.log.Timber
 import java.io.IOException
 
 class SoundPlayer(context: Context) {
@@ -19,6 +20,7 @@ class SoundPlayer(context: Context) {
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setMaxStreams(4).setAudioAttributes(audioAttributes).build()
     }
+
 
     fun fetchSounds() {
         val soundFiles: Array<String> = assetManager.list(SOUNDFOLDER) as Array<String>
@@ -42,6 +44,7 @@ class SoundPlayer(context: Context) {
     fun playSound(soundId: Int) {
         soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
     }
+
 
     fun release() {
         soundPool.release()

@@ -21,14 +21,13 @@ class AboutFragment : Fragment() {
     ): View {
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.btnBack.setOnClickListener {
-//            activity?.onBackPressed()
             this.findNavController()
                 .navigate(AboutFragmentDirections.actionAboutFragmentToPlayFragment(
                     isNewGame = false))
         }
         binding.btnLinktree.setOnClickListener {
             val browserIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://linktr.ee/carlosreiakvam"))
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://www.buymeacoffee.com/carlosreiakvam"))
             startActivity(browserIntent)
         }
         return binding.root

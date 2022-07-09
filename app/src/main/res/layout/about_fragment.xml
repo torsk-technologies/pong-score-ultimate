@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/bt_red"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@color/bt_red"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+            android:src="@drawable/cho_icon_red_bg_288x288"
+            app:layout_constraintBottom_toTopOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,11 +33,11 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@color/bt_black"
+            android:src="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            app:layout_constraintTop_toBottomOf="@id/solid_midline"
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -47,17 +48,6 @@
             app:layout_constraintGuide_percent="0.5" />
 
 
-        <TextView
-            android:id="@+id/tv_made_with_love"
-            style="@style/text_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/made_with_love"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--            <TextView-->
         <!--                android:id="@+id/tv_by_carlos_reiakvam"-->
@@ -89,6 +79,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
+        <TextView
+            android:id="@+id/tv_made_with_love"
+            style="@style/text_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/made_with_love"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/btn_linktree"
+            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
         <Button
             android:id="@+id/btn_linktree"
             style="@style/check_me_button"

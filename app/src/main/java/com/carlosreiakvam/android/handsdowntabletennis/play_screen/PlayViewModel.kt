@@ -9,14 +9,13 @@ import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateEntity
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
     private val gameRulesFromArgs: GameRules,
-    private val isNewGame: Boolean, //
+    isNewGame: Boolean, //
 ) : ViewModel() {
     private var player1: Player = Player("player one")
     private var player2: Player = Player("player two")
@@ -154,10 +153,6 @@ class PlayViewModel(
 
     fun onFirstRun() {
         viewModelScope.launch { gameStateDAO.insertGameState(GameStateEntity()) }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 
 

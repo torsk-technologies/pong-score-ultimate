@@ -4,7 +4,8 @@ enum class Orientation {
     NORMAL,
     MIRRORED,
     LEFT,
-    RIGHT
+    RIGHT,
+    ORIENTATION
 }
 
 enum class Preferences {

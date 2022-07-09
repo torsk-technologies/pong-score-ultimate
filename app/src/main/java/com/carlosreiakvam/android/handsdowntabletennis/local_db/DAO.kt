@@ -17,7 +17,7 @@ interface GameStateDAO {
     suspend fun deleteLast()
 
     @Query("DELETE FROM game_state")
-    suspend fun deleteAll()
+    suspend fun deleteAll(): Int
 
 
 }

@@ -1,24 +1,17 @@
 <resources>
-    <string name="app_name_short">Cho!</string>
-    <string name="hands_down">CHO</string>
-    <string name="table_tennis">TRACKER</string>
-
+    <string name="app_name_short">Cho</string>
     <string name="lets_play">Start match</string>
-    <string name="player_one">player one</string>
-    <string name="player_two">player two</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
     <string name="new_match">start new match</string>
     <string name="settings">Settings</string>
-    <string name="best_of_x_won_by_y">Best of %1$d won! %2$s</string>
     <string name="orientation">Orientation</string>
     <string name="toggle_sound_on_or_off">Toggle sound on or off</string>
     <string name="toggle_themes">Toggle themes</string>
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Created with 🖤 by\nCarlos Reiakvam\nat Torsk Technologies</string>
-    <string name="at_torsk_technologies">\@Torsk_Technologies</string>
+    <string name="made_with_love">Created with ❤ by\nCarlos Reiakvam\nat Torsk Technologies</string>
     <string name="best_of_complete">best of %1$d</string>
     <string name="best_of">best\nof</string>
     <string name="best">best</string>
@@ -26,17 +19,11 @@
     <string name="best_of_number">%1$d</string>
     <string name="random">\?</string>
     <string name="first_server">First\nserver</string>
-    <string name="first">First</string>
-    <string name="server">senrver</string>
     <string name="layout_change">layout change</string>
     <string name="best_of_no_content">best of</string>
-    <string name="by_carlos_reiakvam">by Carlos Reiakvam</string>
     <string name="next">NEXT</string>
     <string name="rules">rules</string>
-    <string name="match_won">CHO-LE!</string>
+    <string name="match_won">CHO!</string>
     <string name="back">back</string>
-    <string name="chekout_my_linktree">Chekout my\nlinktree</string>
-    <string name="lets_go">let\'s go</string>
-    <string name="buy_me_a_coffe">check me out</string>
-    <string name="hdtt">HDTT</string>
+    <string name="buy_me_a_coffe">Buy me a ☕</string>
 </resources>

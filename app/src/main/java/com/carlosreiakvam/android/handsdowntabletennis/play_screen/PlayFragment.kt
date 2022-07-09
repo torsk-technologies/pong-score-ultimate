@@ -23,24 +23,25 @@ import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentB
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
 import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Preferences.SOUNDENABLED
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
-import timber.log.Timber
 
 
 class PlayFragment : Fragment() {
 
-    val args : PlayFragmentArgs by navArgs()
+    val args: PlayFragmentArgs by navArgs()
     private lateinit var gameRulesFromArgs: GameRules
     private var isSoundEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
     private lateinit var viewModel: PlayViewModel
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var sharedPref: SharedPreferences
-    private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
-        NORMAL to true,
-        MIRRORED to false,
-        LEFT to false,
-        RIGHT to false
-    )
+
+    //    private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
+//        NORMAL to false,
+//        MIRRORED to false,
+//        LEFT to false,
+//        RIGHT to false
+//    )
+    private var orientationName: String = NORMAL.name
 
 
     override fun onCreateView(
@@ -62,9 +63,9 @@ class PlayFragment : Fragment() {
         observeCurrentServer()
         observePlayerScores()
         observeWinStates()
-        loadSharedPrefsGameState()
         setupGameClickListeners()
         setupMenuClickListeners()
+        loadSharedPrefsGameState()
         checkFirstRun()
         return binding.root
     }
@@ -80,7 +81,7 @@ class PlayFragment : Fragment() {
         } else if (savedVersionCode == DOESNTEXIST) {
             // New install
             viewModel.onFirstRun()
-        } else if (currentVersionCode > savedVersionCode) {
+//        } else if (currentVersionCode > savedVersionCode) {
             // This is an upgrade
         }
         sharedPref.edit().putInt("version_code", currentVersionCode).apply()
@@ -93,10 +94,10 @@ class PlayFragment : Fragment() {
 
         binding.btnLayoutChange?.setOnClickListener {
             when {
-                orientations[NORMAL] == true -> setOrientation(RIGHT)
-                orientations[RIGHT] == true -> setOrientation(MIRRORED)
-                orientations[MIRRORED] == true -> setOrientation(LEFT)
-                orientations[LEFT] == true -> setOrientation(NORMAL)
+                orientationName == NORMAL.name -> setOrientation(RIGHT.name)
+                orientationName == RIGHT.name -> setOrientation(MIRRORED.name)
+                orientationName == MIRRORED.name -> setOrientation(LEFT.name)
+                orientationName == LEFT.name -> setOrientation(NORMAL.name)
             }
         }
 
@@ -115,12 +116,14 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnNewGame?.setOnClickListener {
+            saveSharedPrefsGameState()
             this.findNavController()
                 .navigate(PlayFragmentDirections.actionPlayFragmentToBestOfFragment())
 
         }
 
         binding.btnInfo?.setOnClickListener {
+            saveSharedPrefsGameState()
             this.findNavController()
                 .navigate(PlayFragmentDirections.actionPlayFragmentToAboutFragment())
 
@@ -194,35 +197,20 @@ class PlayFragment : Fragment() {
 
     private fun saveSharedPrefsGameState() {
         with(sharedPref.edit()) {
-            putBoolean(NORMAL.name, orientations[NORMAL] ?: false)
-            putBoolean(MIRRORED.name, orientations[MIRRORED] ?: false)
-            putBoolean(LEFT.name, orientations[LEFT] ?: false)
-            putBoolean(RIGHT.name, orientations[RIGHT] ?: false)
+            putString(ORIENTATION.name, orientationName)
             putBoolean(SOUNDENABLED.name, isSoundEnabled)
             apply()
         }
     }
 
     private fun loadSharedPrefsGameState() {
-        Timber.d("orientation normal:  ${orientations[NORMAL]}")
-        Timber.d("orientation mirrored:  ${orientations[MIRRORED]}")
         isSoundEnabled = sharedPref.getBoolean(SOUNDENABLED.name, true)
         if (isSoundEnabled) binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_note_24)
         else binding.btnToggleSound?.setImageResource(R.drawable.ic_baseline_music_off_24)
 
-        val orientationNormal = sharedPref.getBoolean(NORMAL.name, false)
-        val orientationMirrored = sharedPref.getBoolean(MIRRORED.name, false)
-        val orientationLeft = sharedPref.getBoolean(LEFT.name, false)
-        val orientationRight = sharedPref.getBoolean(RIGHT.name, false)
-        Timber.d("orientation normal etter sharedpref:  ${orientations[NORMAL]}")
-        Timber.d("orientation mirrored ettersharedpref:  ${orientations[MIRRORED]}")
+        orientationName = sharedPref.getString(ORIENTATION.name, NORMAL.name).toString()
+        setOrientation(orientationName)
 
-        when {
-            orientationNormal -> setOrientation(NORMAL)
-            orientationMirrored -> setOrientation(MIRRORED)
-            orientationLeft -> setOrientation(LEFT)
-            orientationRight -> setOrientation(RIGHT)
-        }
     }
 
     private fun setupSoundPlayer() {
@@ -265,35 +253,29 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun setOrientationState(orientation: Orientation) {
-        for (i in orientations) {
-            orientations[i.key] = i.key == orientation
-        }
-    }
 
-    private fun setOrientation(orientation: Orientation) {
-        Timber.d("set orientation: ${orientation.name}")
-        setOrientationState(orientation)
+    private fun setOrientation(orientation: String) {
+        orientationName = orientation
         when (orientation) {
-            NORMAL -> {
+            NORMAL.name -> {
                 binding.tvP1GameScore?.rotation = 0f
                 binding.tvP2GameScore?.rotation = 0f
                 binding.tvP1MatchScore?.rotation = 0f
                 binding.tvP2MatchScore?.rotation = 0f
             }
-            MIRRORED -> {
+            MIRRORED.name -> {
                 binding.tvP1GameScore?.rotation = 180f
                 binding.tvP1MatchScore?.rotation = 180f
                 binding.tvP2GameScore?.rotation = 0f
                 binding.tvP2MatchScore?.rotation = 0f
             }
-            LEFT -> {
+            LEFT.name -> {
                 binding.tvP1GameScore?.rotation = 90f
                 binding.tvP1MatchScore?.rotation = 90f
                 binding.tvP2GameScore?.rotation = 90f
                 binding.tvP2MatchScore?.rotation = 90f
             }
-            RIGHT -> {
+            RIGHT.name -> {
                 binding.tvP1GameScore?.rotation = 270f
                 binding.tvP1MatchScore?.rotation = 270f
                 binding.tvP2GameScore?.rotation = 270f
@@ -307,16 +289,6 @@ class PlayFragment : Fragment() {
         super.onDestroy()
         soundPlayer.release()
         saveSharedPrefsGameState()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        soundPlayer.release()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        loadSharedPrefsGameState()
     }
 
 }

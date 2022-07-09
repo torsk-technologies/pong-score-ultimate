@@ -5,7 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [GameStateEntity::class], version = 4)
+@Database(entities = [GameStateEntity::class], version = 4, exportSchema = false
+)
 abstract class HandsDownDatabase : RoomDatabase() {
     abstract fun gameStateDao(): GameStateDAO
 
