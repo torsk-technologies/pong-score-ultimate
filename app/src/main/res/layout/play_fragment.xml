@@ -66,14 +66,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.49" />
+            app:layout_constraintGuide_percent="0.495" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/hor_51"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.51" />
+            app:layout_constraintGuide_percent="0.505" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/hor_50"
