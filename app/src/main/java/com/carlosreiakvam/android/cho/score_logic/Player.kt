@@ -13,9 +13,9 @@ class Player(var name: String) {
         gameScore = 0
     }
 
-    fun resetMatchScore() {
-        matchScore = 0
-    }
+//    fun resetMatchScore() {
+//        matchScore = 0
+//    }
 
     fun increaseMatchScore() {
         matchScore += 1

@@ -27,7 +27,7 @@ import com.carlosreiakvam.android.cho.score_logic.Player
 
 class PlayFragment : Fragment() {
 
-    val args: PlayFragmentArgs by navArgs()
+    private val args: PlayFragmentArgs by navArgs()
     private lateinit var gameRulesFromArgs: GameRules
     private var isSoundEnabled: Boolean = true
     private lateinit var binding: PlayFragmentBinding
@@ -35,12 +35,6 @@ class PlayFragment : Fragment() {
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var sharedPref: SharedPreferences
 
-    //    private var orientations: MutableMap<Orientation, Boolean> = mutableMapOf(
-//        NORMAL to false,
-//        MIRRORED to false,
-//        LEFT to false,
-//        RIGHT to false
-//    )
     private var orientationName: String = NORMAL.name
 
 
@@ -71,14 +65,14 @@ class PlayFragment : Fragment() {
     }
 
     private fun checkFirstRun() {
-        val DOESNTEXIST = -1
+        val doesNotExist = -1
         val currentVersionCode = BuildConfig.VERSION_CODE
-        val savedVersionCode = sharedPref.getInt("version_code", DOESNTEXIST)
+        val savedVersionCode = sharedPref.getInt("version_code", doesNotExist)
 
         if (currentVersionCode == savedVersionCode) {
             // just a normal run
             return
-        } else if (savedVersionCode == DOESNTEXIST) {
+        } else if (savedVersionCode == doesNotExist) {
             // New install
             viewModel.onFirstRun()
 //        } else if (currentVersionCode > savedVersionCode) {
@@ -262,6 +256,8 @@ class PlayFragment : Fragment() {
                 binding.tvP2GameScore?.rotation = 0f
                 binding.tvP1MatchScore?.rotation = 0f
                 binding.tvP2MatchScore?.rotation = 0f
+
+
             }
             MIRRORED.name -> {
                 binding.tvP1GameScore?.rotation = 180f
@@ -282,7 +278,6 @@ class PlayFragment : Fragment() {
                 binding.tvP2MatchScore?.rotation = 270f
             }
         }
-
     }
 
     override fun onDestroy() {

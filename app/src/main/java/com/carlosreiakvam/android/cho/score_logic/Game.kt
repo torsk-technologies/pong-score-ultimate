@@ -19,14 +19,13 @@ class Game(
         3 to 2, 5 to 3, 7 to 4, 9 to 5, 11 to 6, 13 to 7, 15 to 8, 17 to 9, 19 to 10, 21 to 11
     )
 
-    private fun checkIfGamePoint(player: Player, otherPlayer: Player): Boolean {
-        return player.gameScore >= 10 && otherPlayer.gameScore <= player.gameScore - 1
-    }
-
-    private fun checkIfMatchPoint(player: Player): Boolean {
-        return player.matchScore == matchPool[gameRules.bestOf]?.minus(1)
-
-    }
+//    private fun checkIfGamePoint(player: Player, otherPlayer: Player): Boolean {
+//        return player.gameScore >= 10 && otherPlayer.gameScore <= player.gameScore - 1
+//    }
+//
+//    private fun checkIfMatchPoint(player: Player): Boolean {
+//        return player.matchScore == matchPool[gameRules.bestOf]?.minus(1)
+//    }
 
 //    private fun playVoiceOverOnSpecialPoints(player: Player, otherPlayer: Player) {
 //        if (checkIfGamePoint(player, otherPlayer)) {
