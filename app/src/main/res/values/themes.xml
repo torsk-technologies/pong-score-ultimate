@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.HandsDownTableTennis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Cho" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
 
         <item name="mainFont">@font/audiowide</item>

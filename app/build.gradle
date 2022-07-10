@@ -9,11 +9,11 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.carlosreiakvam.android.handsdowntabletennis"
+        applicationId "com.carlosreiakvam.android.cho"
         minSdk 27
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ android {
     buildFeatures {
         dataBinding true
     }
-    namespace 'com.carlosreiakvam.android.handsdowntabletennis'
+    namespace 'com.carlosreiakvam.android.cho'
 }
 
 dependencies {
