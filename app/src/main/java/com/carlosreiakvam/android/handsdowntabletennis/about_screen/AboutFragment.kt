@@ -1,6 +1,7 @@
 package com.carlosreiakvam.android.handsdowntabletennis.about_screen
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragmentBinding
-import com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.FirstServerFragmentDirections
+import timber.log.Timber
 
 class AboutFragment : Fragment() {
     private lateinit var binding: AboutFragmentBinding
@@ -25,11 +26,20 @@ class AboutFragment : Fragment() {
                 .navigate(AboutFragmentDirections.actionAboutFragmentToPlayFragment(
                     isNewGame = false))
         }
-        binding.btnLinktree.setOnClickListener {
+        binding.btnBuyCoffee.setOnClickListener {
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://www.buymeacoffee.com/carlosreiakvam"))
             startActivity(browserIntent)
         }
+
+        binding.btnGiveFeedback.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:") // only email apps should handle this
+                putExtra(Intent.EXTRA_SUBJECT, "Feedback for cho")
+            }
+            startActivity(intent)
+        }
+
         return binding.root
     }
 

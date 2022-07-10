@@ -11,7 +11,7 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Created with ❤ by\nCarlos Reiakvam\nat Torsk Technologies</string>
+    <string name="made_with_love">Made by Carlos Reiakvam</string>
     <string name="best_of_complete">best of %1$d</string>
     <string name="best_of">best\nof</string>
     <string name="best">best</string>
@@ -25,5 +25,7 @@
     <string name="rules">rules</string>
     <string name="match_won">CHO!</string>
     <string name="back">back</string>
-    <string name="buy_me_a_coffe">Buy me a ☕</string>
+    <string name="buy_me_a_coffee">Buy me a ☕</string>
+    <string name="manual_art">manual art</string>
+    <string name="give_feedback">Give feedback</string>
 </resources>

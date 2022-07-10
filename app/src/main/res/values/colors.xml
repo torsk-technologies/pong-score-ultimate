@@ -5,4 +5,5 @@
     <color name="black">#000000</color>
     <color name="bt_black">#000000</color>
     <color name="bt_red">#ED1C24</color>
+    <color name="bt_blue">#3333CC</color>
 </resources>

@@ -4,19 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/bt_red"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/cho_icon_red_bg_288x288"
-            app:layout_constraintBottom_toTopOf="@id/solid_midline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+        android:layout_height="match_parent"
+        android:background="@color/bt_red">
 
         <ImageView
             android:id="@+id/solid_midline"
@@ -31,6 +21,7 @@
 
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/black"
@@ -46,19 +37,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
-
-
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/tv_by_carlos_reiakvam"-->
-        <!--                style="@style/text_small"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/by_carlos_reiakvam"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintBottom_toTopOf="@id/guideline_mid"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@id/guideline_mid"
@@ -86,21 +64,43 @@
             android:layout_height="wrap_content"
             android:text="@string/made_with_love"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/btn_linktree"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            app:layout_constraintBottom_toTopOf="@id/btn_buy_coffee"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/btn_linktree"
-            style="@style/check_me_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/manual_art"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/buy_me_a_coffe"
+            android:contentDescription="@string/manual_art"
+            android:src="@drawable/manual_art"
+            app:layout_constraintBottom_toTopOf="@+id/solid_midline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_buy_coffee"
+            style="@style/btn_buy_coffee"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_me_a_coffee"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid" />
+            app:layout_constraintTop_toBottomOf="@id/solid_midline"
+            app:layout_constraintTop_toTopOf="@+id/solid_midline" />
 
+        <Button
+            android:id="@+id/btn_give_feedback"
+            style="@style/btn_buy_coffee"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/give_feedback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_buy_coffee" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
