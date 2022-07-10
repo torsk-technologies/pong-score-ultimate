@@ -28,18 +28,17 @@ class Game(
 
     }
 
-    fun playVoiceOverOnSpecialPoints(player: Player, otherPlayer: Player) {
-        if (checkIfGamePoint(player, otherPlayer)) {
-            if (checkIfMatchPoint(player)) {
-                winStates.isMatchPoint = true
-                //play matchpoint
-            }
-            winStates.isGamePoint = true
-            //play gamepoint
-
-        }
-
-    }
+//    private fun playVoiceOverOnSpecialPoints(player: Player, otherPlayer: Player) {
+//        if (checkIfGamePoint(player, otherPlayer)) {
+//            if (checkIfMatchPoint(player)) {
+//                winStates.isMatchPoint = true
+//                //play matchpoint
+//            }
+//            winStates.isGamePoint = true
+//            //play gamepoint
+//
+//        }
+//    }
 
 
     fun registerPoint(playerNumber: Int) {
@@ -49,7 +48,7 @@ class Game(
         val otherPlayer = players[1]
 
         player.increaseGameScore()
-        playVoiceOverOnSpecialPoints(player, otherPlayer)
+//        playVoiceOverOnSpecialPoints(player, otherPlayer)
 
         if (winConditions.isGameWon(player, otherPlayer)) {
             player.increaseMatchScore()

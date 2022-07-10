@@ -93,11 +93,11 @@ class PlayFragment : Fragment() {
         }
 
         binding.btnLayoutChange?.setOnClickListener {
-            when {
-                orientationName == NORMAL.name -> setOrientation(RIGHT.name)
-                orientationName == RIGHT.name -> setOrientation(MIRRORED.name)
-                orientationName == MIRRORED.name -> setOrientation(LEFT.name)
-                orientationName == LEFT.name -> setOrientation(NORMAL.name)
+            when (orientationName) {
+                NORMAL.name -> setOrientation(RIGHT.name)
+                RIGHT.name -> setOrientation(MIRRORED.name)
+                MIRRORED.name -> setOrientation(LEFT.name)
+                LEFT.name -> setOrientation(NORMAL.name)
             }
         }
 
