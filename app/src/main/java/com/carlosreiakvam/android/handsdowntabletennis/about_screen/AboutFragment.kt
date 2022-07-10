@@ -21,8 +21,11 @@ class AboutFragment : Fragment() {
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.btnBack.setOnClickListener {
             this.findNavController()
-                .navigate(AboutFragmentDirections.actionAboutFragmentToPlayFragment(
-                    isNewGame = false))
+                .navigate(
+                    AboutFragmentDirections.actionAboutFragmentToPlayFragment(
+                        isNewGame = false
+                    )
+                )
         }
         binding.btnBuyCoffee.setOnClickListener {
             val browserIntent =
@@ -32,8 +35,8 @@ class AboutFragment : Fragment() {
 
         binding.btnGiveFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:torsktechnologies@gmail.com") // only email apps should handle this
                 putExtra(Intent.EXTRA_SUBJECT, "Feedback for cho")
+                data = Uri.parse("mailto:torsktechnologies@gmail.com")
             }
             startActivity(intent)
         }
