@@ -14,7 +14,7 @@
     </style>
 
     <style name="menu_button">
-        <!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
+        <item name="fabCustomSize">@dimen/fab_custom_size</item>
         <item name="backgroundTint">@color/bt_red</item>
         <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
         <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
