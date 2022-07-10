@@ -28,7 +28,7 @@ class AboutFragment : Fragment() {
         }
         binding.btnBuyCoffee.setOnClickListener {
             val browserIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://www.buymeacoffee.com/carlosreiakvam"))
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://ko-fi.com/carlosreiakvam"))
             startActivity(browserIntent)
         }
 
