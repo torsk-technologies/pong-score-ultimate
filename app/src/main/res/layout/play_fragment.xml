@@ -252,6 +252,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_toggle_menu"
             style="@style/menu_button"
+            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/toggle_menu"
@@ -259,7 +260,7 @@
             android:tooltipText="@string/orientation"
             app:ensureMinTouchTargetSize="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/vert_15" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -112,12 +112,12 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.10" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/fs_vert_175"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.175" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/fs_vert_175"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.175" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vert_50"
@@ -211,8 +211,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:contentDescription="@string/back"
-            app:layout_constraintBottom_toTopOf="@id/fs_hor_10"
-            app:layout_constraintEnd_toStartOf="@id/fs_vert_175"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <!--        <Button-->
