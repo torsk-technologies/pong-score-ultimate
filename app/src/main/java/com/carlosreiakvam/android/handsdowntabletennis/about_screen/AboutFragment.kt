@@ -34,7 +34,7 @@ class AboutFragment : Fragment() {
 
         binding.btnGiveFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:") // only email apps should handle this
+                data = Uri.parse("mailto:torsktechnologies@gmail.com") // only email apps should handle this
                 putExtra(Intent.EXTRA_SUBJECT, "Feedback for cho")
             }
             startActivity(intent)
