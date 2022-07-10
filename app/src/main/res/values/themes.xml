@@ -26,4 +26,9 @@
 
     </style>
 
+    <!--Create a new style and name it splashScreenTheme and add the following code-->
+    <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_image</item>
+    </style>
+
 </resources>
