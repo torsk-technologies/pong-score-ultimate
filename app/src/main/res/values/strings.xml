@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name_short">Cho</string>
-    <string name="lets_play">Start match</string>
+    <string name="start">Start</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
     <string name="new_match">start new match</string>

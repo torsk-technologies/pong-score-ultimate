@@ -30,6 +30,21 @@
             app:layout_constraintGuide_percent="0.45" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_49"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.49" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_51"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.51" />
+
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/fs_hor_50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,12 +132,12 @@
         <ImageView
             android:id="@+id/solid_midline"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="0dp"
             android:src="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hor_49"
+            app:layout_constraintBottom_toTopOf="@id/hor_51"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
         <!--        <TextView-->
         <!--            android:id="@+id/tv_first_server_label"-->
@@ -183,7 +198,7 @@
             style="@style/large_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/lets_play"
+            android:text="@string/start"
             app:layout_constraintBottom_toTopOf="@id/fs_hor_55"
             app:layout_constraintEnd_toEndOf="@id/fs_vert_75"
             app:layout_constraintStart_toStartOf="@id/vert_50"

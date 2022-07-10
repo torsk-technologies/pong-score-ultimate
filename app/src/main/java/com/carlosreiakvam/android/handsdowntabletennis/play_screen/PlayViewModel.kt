@@ -46,7 +46,6 @@ class PlayViewModel(
 
     init {
         if (isNewGame) {
-            Timber.d("is new game")
             game = Game(player1, player2, GameRules(
                 bestOf = gameRulesFromArgs.bestOf,
                 firstServer = gameRulesFromArgs.firstServer))
@@ -60,7 +59,6 @@ class PlayViewModel(
                 }
             }
         } else {
-            Timber.d("is not new game")
             game = Game(player1, player2, GameRules(9, 1))
             setGameStateFromDB()
         }

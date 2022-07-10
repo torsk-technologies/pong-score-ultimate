@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
-import timber.log.Timber
 import java.io.IOException
 
 class SoundPlayer(context: Context) {
