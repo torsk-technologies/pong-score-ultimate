@@ -28,4 +28,8 @@
     <string name="buy_me_a_coffee">Buy me a ☕</string>
     <string name="manual_art">manual art</string>
     <string name="give_feedback">Give feedback</string>
+    <string name="info">info</string>
+    <string name="player_one_score_field">player one score field</string>
+    <string name="midline">midline</string>
+    <string name="player_two_score_field">Player two score field</string>
 </resources>

@@ -40,41 +40,117 @@
             app:layout_constraintTop_toBottomOf="@id/solid_midline"
             tools:ignore="ContentDescription" />
 
+
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_mid"
+            android:id="@+id/fs_hor_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_45"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_55"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_hor_90"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.90" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_vert_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_vert_175"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.175" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_vert_75"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fs_vert_90"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+
 
         <TextView
             android:id="@+id/tv_best_of"
-            style="@style/best_of_fragment_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="10dp"
+            style="@style/score_large"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/best_of"
             android:textAllCaps="true"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TextContrastCheck" />
+            app:layout_constraintTop_toBottomOf="@id/fs_hor_10"
+            app:layout_constraintBottom_toTopOf="@id/fs_hor_40"
+            app:layout_constraintStart_toStartOf="@id/fs_vert_10"
+            app:layout_constraintEnd_toEndOf="@id/fs_vert_90" />
 
 
         <TextView
             android:id="@+id/tv_best_of_number"
             style="@style/score_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/best_of_number"
             android:textAllCaps="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
-            tools:ignore="TextContrastCheck"
+            app:layout_constraintTop_toBottomOf="@id/fs_hor_60"
+            app:layout_constraintBottom_toTopOf="@id/fs_hor_90"
+            app:layout_constraintStart_toEndOf="@id/fs_vert_10"
+            app:layout_constraintEnd_toStartOf="@id/fs_vert_90"
             tools:text="9" />
 
 
@@ -82,16 +158,16 @@
             android:id="@+id/slider_best_of"
             android:layout_width="250dp"
             android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
             android:backgroundTint="@color/transparent"
             android:contentDescription="@string/best_of_no_content"
             android:stepSize="2"
             android:valueFrom="3"
             android:valueTo="21"
             app:labelBehavior="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="30dp"
             app:thumbColor="@color/white"
             app:thumbRadius="20dp"
             app:tickColorActive="@color/white"
@@ -102,13 +178,16 @@
         <Button
             android:id="@+id/btn_next"
             style="@style/large_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeMaxTextSize="35sp"
+            android:autoSizeMinTextSize="2sp"
+            android:autoSizeTextType="uniform"
             android:text="@string/next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/fs_hor_45"
+            app:layout_constraintBottom_toBottomOf="@id/fs_hor_55"
+            app:layout_constraintEnd_toEndOf="@id/fs_vert_75"
+            app:layout_constraintStart_toStartOf="@id/vert_50"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_back"
@@ -117,8 +196,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:contentDescription="@string/back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/fs_hor_10"
+            app:layout_constraintEnd_toStartOf="@id/fs_vert_175"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <!--        <Button-->

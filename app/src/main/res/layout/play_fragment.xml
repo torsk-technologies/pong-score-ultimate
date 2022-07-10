@@ -16,45 +16,94 @@
             android:id="@+id/p1_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/player_one_score_field"
             android:src="@color/bt_red"
             app:layout_constraintBottom_toTopOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/solid_midline"
             android:layout_width="match_parent"
             android:layout_height="10dp"
+            android:contentDescription="@string/midline"
             android:src="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/p2_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/player_two_score_field"
             android:src="@color/bt_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/solid_midline"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toBottomOf="@id/solid_midline" />
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_mid"
+            android:id="@+id/hor_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_mid_vert"
+            android:id="@+id/hor_60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_90"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.90" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_175"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.175" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_85"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_50"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -64,44 +113,48 @@
         <TextView
             android:id="@+id/tv_p1_game_score"
             style="@style/score_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/hor_40"
+            app:layout_constraintEnd_toEndOf="@id/vert_85"
+            app:layout_constraintStart_toStartOf="@id/vert_15"
+            app:layout_constraintTop_toTopOf="@id/hor_10"
             tools:rotation="180"
             tools:text="12" />
 
         <TextView
             android:id="@+id/tv_p2_game_score"
             style="@style/score_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_mid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/hor_90"
+            app:layout_constraintEnd_toEndOf="@id/vert_85"
+            app:layout_constraintStart_toStartOf="@id/vert_15"
+            app:layout_constraintTop_toTopOf="@id/hor_60"
             tools:text="14" />
 
         <TextView
             android:id="@+id/tv_p1_match_score"
             style="@style/score_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="25dp"
-            app:layout_constraintBottom_toTopOf="@id/solid_midline"
+            app:layout_constraintBottom_toTopOf="@id/hor_50"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/vert_85"
+            app:layout_constraintTop_toBottomOf="@id/hor_40"
             tools:text="4" />
 
         <TextView
             android:id="@+id/tv_p2_match_score"
             style="@style/score_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="25dp"
+            app:layout_constraintBottom_toTopOf="@id/hor_60"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/solid_midline"
+            app:layout_constraintStart_toEndOf="@id/vert_85"
+            app:layout_constraintTop_toBottomOf="@id/hor_50"
             tools:text="9" />
 
 
@@ -128,7 +181,7 @@
             android:tooltipText="rules"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_new_game"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btn_toggle_menu"
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -141,7 +194,7 @@
             android:tooltipText="@string/undo"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btn_toggle_menu"
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -153,7 +206,7 @@
             android:src="@drawable/ic_baseline_fast_rewind_24"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_undo"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btn_toggle_menu"
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -173,7 +226,7 @@
             style="@style/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/toggle_sound_on_or_off"
+            android:contentDescription="@string/info"
             android:src="@drawable/ic_baseline_info_24"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
@@ -186,12 +239,12 @@
             style="@style/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
             android:contentDescription="@string/toggle_menu"
             android:src="@drawable/ic_baseline_menu_24"
             android:tooltipText="@string/orientation"
+            app:ensureMinTouchTargetSize="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/vert_15" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

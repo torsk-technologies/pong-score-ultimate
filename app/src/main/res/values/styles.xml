@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="main_activity" >
 
+    <style name="main_activity">
 
 
     </style>
@@ -14,7 +14,7 @@
     </style>
 
     <style name="menu_button">
-        <item name="fabCustomSize">@dimen/fab_custom_size</item>
+        <!--        <item name="fabCustomSize">@dimen/fab_custom_size</item>-->
         <item name="backgroundTint">@color/bt_red</item>
         <item name="android:layout_marginBottom">@dimen/margin_btn_option_bottom</item>
         <item name="android:layout_marginStart">@dimen/margin_btn_option_start</item>
@@ -28,7 +28,8 @@
 
 
     <style name="large_button">
-        <item name="android:textSize">35sp</item>
+        <!--        <item name="android:textSize">35sp</item>-->
+        <item name="autoSizeTextType">uniform</item>
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/bt_black</item>
         <item name="android:textStyle">bold</item>
@@ -84,26 +85,31 @@
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/mainFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">100sp</item>
-        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="score_large">
+        <item name="autoSizeMaxTextSize">725sp</item>
+        <item name="autoSizeMinTextSize">60sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
         <item name="fontFamily">?attr/mainFont</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textSize">225sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/mainTxtColor</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="score_medium">
+        <item name="autoSizeMaxTextSize">225sp</item>
+        <item name="autoSizeMinTextSize">30sp</item>
+        <item name="autoSizeTextType">uniform</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/mainFont</item>
         <item name="android:layout_marginEnd">@dimen/match_score_end_margin</item>
         <item name="android:textSize">60sp</item>
-        <item name="autoSizeTextType">uniform</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">?attr/mainTxtColor</item>
@@ -119,7 +125,7 @@
     </style>
 
     <style name="text_about">
-<!--        <item name="fontFamily">?attr/headerFont</item>-->
+        <!--        <item name="fontFamily">?attr/headerFont</item>-->
         <item name="android:textSize">20sp</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
