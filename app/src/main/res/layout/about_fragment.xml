@@ -32,6 +32,13 @@
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hor_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/hor_49"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,13 +54,6 @@
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/hor_50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@id/hor_50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -88,11 +88,11 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/manual_art"
             android:src="@drawable/manual_art"
-            app:layout_constraintBottom_toTopOf="@+id/solid_midline"
+            app:layout_constraintBottom_toTopOf="@+id/hor_40"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:ignore="ImageContrastCheck" />
 
         <Button
             android:id="@+id/btn_buy_coffee"
