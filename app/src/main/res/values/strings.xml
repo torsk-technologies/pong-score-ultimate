@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name_short">Cho</string>
+    <string name="app_name_short">ChoCounter</string>
     <string name="start">Start</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
