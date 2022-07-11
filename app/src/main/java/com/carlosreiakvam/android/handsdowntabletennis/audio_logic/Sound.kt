@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.audio_logic
+package com.carlosreiakvam.android.handsdowntabletennis.audio_logic
 
 class Sound(var pathName: String) {
 

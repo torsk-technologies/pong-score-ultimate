@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.carlosreiakvam.android.cho.play_screen.PlayViewModel" />
+            type="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayViewModel" />
 
 
     </data>

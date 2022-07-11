@@ -1,8 +1,8 @@
-package com.carlosreiakvam.android.cho.play_screen
+package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.carlosreiakvam.android.cho.local_db.GameStateDAO
+import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateDAO
 
 class PlayViewModelFactory(
     private val gameStateDAO: GameStateDAO,

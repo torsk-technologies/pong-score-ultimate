@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.new_game_screens
+package com.carlosreiakvam.android.handsdowntabletennis.new_game_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.carlosreiakvam.android.cho.R
-import com.carlosreiakvam.android.cho.databinding.FirstServerFragmentBinding
-import com.carlosreiakvam.android.cho.play_screen.InitialValues
+import com.carlosreiakvam.android.handsdowntabletennis.R
+import com.carlosreiakvam.android.handsdowntabletennis.databinding.FirstServerFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.InitialValues
 import kotlin.random.Random
 
 class FirstServerFragment : Fragment() {

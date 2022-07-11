@@ -1,10 +1,10 @@
-package com.carlosreiakvam.android.cho.local_db
+package com.carlosreiakvam.android.handsdowntabletennis.local_db
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.carlosreiakvam.android.cho.play_screen.InitialValues
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.InitialValues
 
 @Entity(tableName = "game_state")
 data class GameStateEntity(

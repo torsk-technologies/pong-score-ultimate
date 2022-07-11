@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.new_game_screens
+package com.carlosreiakvam.android.handsdowntabletennis.new_game_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.carlosreiakvam.android.cho.databinding.BestOfFragmentBinding
-import com.carlosreiakvam.android.cho.play_screen.InitialValues
+import com.carlosreiakvam.android.handsdowntabletennis.databinding.BestOfFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.InitialValues
 
 class BestOfFragment : Fragment() {
 

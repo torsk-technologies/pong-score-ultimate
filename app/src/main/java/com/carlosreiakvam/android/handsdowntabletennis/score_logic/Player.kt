@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.score_logic
+package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
 
 class Player(var name: String) {

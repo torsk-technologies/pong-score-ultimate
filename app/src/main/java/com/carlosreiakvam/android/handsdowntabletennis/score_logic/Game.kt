@@ -1,10 +1,10 @@
-package com.carlosreiakvam.android.cho.score_logic
+package com.carlosreiakvam.android.handsdowntabletennis.score_logic
 
-import com.carlosreiakvam.android.cho.play_screen.GameRules
-import com.carlosreiakvam.android.cho.play_screen.Players.PLAYER1
-import com.carlosreiakvam.android.cho.play_screen.Players.PLAYER2
-import com.carlosreiakvam.android.cho.play_screen.WinConditions
-import com.carlosreiakvam.android.cho.play_screen.WinStates
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.GameRules
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Players.PLAYER1
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Players.PLAYER2
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.WinConditions
+import com.carlosreiakvam.android.handsdowntabletennis.play_screen.WinStates
 
 class Game(
     var player1: Player,

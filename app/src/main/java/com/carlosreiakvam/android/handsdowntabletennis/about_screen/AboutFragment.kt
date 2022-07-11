@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.about_screen
+package com.carlosreiakvam.android.handsdowntabletennis.about_screen
 
 import android.content.Intent
 import android.net.Uri
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.carlosreiakvam.android.cho.databinding.AboutFragmentBinding
+import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragmentBinding
 
 class AboutFragment : Fragment() {
     private lateinit var binding: AboutFragmentBinding

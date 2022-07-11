@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.cho.play_screen
+package com.carlosreiakvam.android.handsdowntabletennis.play_screen
 
 enum class Orientation {
     NORMAL,
