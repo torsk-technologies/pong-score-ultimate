@@ -103,8 +103,8 @@
     </style>
 
     <style name="score_medium">
-        <item name="autoSizeMaxTextSize">225sp</item>
-        <item name="autoSizeMinTextSize">30sp</item>
+<!--        <item name="autoSizeMaxTextSize">225sp</item>-->
+        <item name="autoSizeMinTextSize">15sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">?attr/mainFont</item>
