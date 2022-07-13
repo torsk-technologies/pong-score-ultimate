@@ -10,7 +10,6 @@ import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
