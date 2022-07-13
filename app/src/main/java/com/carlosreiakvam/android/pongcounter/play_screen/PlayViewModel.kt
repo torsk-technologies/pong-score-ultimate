@@ -1,13 +1,13 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.pongcounter.play_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateDAO
-import com.carlosreiakvam.android.handsdowntabletennis.local_db.GameStateEntity
-import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
-import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import com.carlosreiakvam.android.pongcounter.local_db.GameStateDAO
+import com.carlosreiakvam.android.pongcounter.local_db.GameStateEntity
+import com.carlosreiakvam.android.pongcounter.score_logic.Game
+import com.carlosreiakvam.android.pongcounter.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

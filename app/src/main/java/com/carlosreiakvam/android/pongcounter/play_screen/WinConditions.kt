@@ -1,6 +1,6 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.pongcounter.play_screen
 
-import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import com.carlosreiakvam.android.pongcounter.score_logic.Player
 
 class WinConditions {
 

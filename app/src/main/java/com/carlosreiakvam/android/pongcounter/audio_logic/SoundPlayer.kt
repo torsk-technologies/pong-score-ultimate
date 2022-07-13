@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.audio_logic
+package com.carlosreiakvam.android.pongcounter.audio_logic
 
 import android.content.Context
 import android.content.res.AssetManager

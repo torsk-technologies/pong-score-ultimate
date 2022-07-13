@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.local_db
+package com.carlosreiakvam.android.pongcounter.local_db
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.pongcounter.play_screen
 
 data class GameRules(
     var bestOf: Int = InitialValues.BESTOF.i,

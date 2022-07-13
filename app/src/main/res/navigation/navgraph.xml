@@ -8,7 +8,7 @@
     <fragment
         tools:layout="@layout/play_fragment"
         android:id="@+id/playFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.play_screen.PlayFragment"
+        android:name="com.carlosreiakvam.android.pongcounter.play_screen.PlayFragment"
         android:label="PlayFragment" >
         <action
             android:id="@+id/action_playFragment_to_bestOfFragment"
@@ -34,7 +34,7 @@
     <fragment
         tools:layout="@layout/best_of_fragment"
         android:id="@+id/bestOfFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.BestOfFragment"
+        android:name="com.carlosreiakvam.android.pongcounter.new_game_screens.BestOfFragment"
         android:label="BestOfFragment" >
         <action
             android:id="@+id/action_bestOfFragment_to_firstServerFragment"
@@ -43,7 +43,7 @@
     <fragment
         tools:layout="@layout/first_server_fragment"
         android:id="@+id/firstServerFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.new_game_screens.FirstServerFragment"
+        android:name="com.carlosreiakvam.android.pongcounter.new_game_screens.FirstServerFragment"
         android:label="FirstServerFragment" >
         <action
             android:id="@+id/action_firstServerFragment_to_playFragment"
@@ -57,7 +57,7 @@
     <fragment
         tools:layout="@layout/about_fragment"
         android:id="@+id/aboutFragment"
-        android:name="com.carlosreiakvam.android.handsdowntabletennis.about_screen.AboutFragment"
+        android:name="com.carlosreiakvam.android.pongcounter.about_screen.AboutFragment"
         android:label="AboutFragment" >
         <action
             android:id="@+id/action_aboutFragment_to_playFragment"

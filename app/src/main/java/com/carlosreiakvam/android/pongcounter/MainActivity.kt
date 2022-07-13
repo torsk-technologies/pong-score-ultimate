@@ -1,10 +1,10 @@
-package com.carlosreiakvam.android.handsdowntabletennis
+package com.carlosreiakvam.android.pongcounter
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.carlosreiakvam.android.handsdowntabletennis.R.*
+import com.carlosreiakvam.android.pongcounter.R.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

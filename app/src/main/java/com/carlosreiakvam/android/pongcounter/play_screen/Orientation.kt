@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.pongcounter.play_screen
 
 enum class Orientation {
     NORMAL,

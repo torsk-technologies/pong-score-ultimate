@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.play_screen
+package com.carlosreiakvam.android.pongcounter.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,14 +15,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.carlosreiakvam.android.handsdowntabletennis.ApplicationController
-import com.carlosreiakvam.android.handsdowntabletennis.BuildConfig
-import com.carlosreiakvam.android.handsdowntabletennis.R
-import com.carlosreiakvam.android.handsdowntabletennis.audio_logic.SoundPlayer
-import com.carlosreiakvam.android.handsdowntabletennis.databinding.PlayFragmentBinding
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Orientation.*
-import com.carlosreiakvam.android.handsdowntabletennis.play_screen.Preferences.SOUNDENABLED
-import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
+import com.carlosreiakvam.android.pongcounter.ApplicationController
+import com.carlosreiakvam.android.pongcounter.BuildConfig
+import com.carlosreiakvam.android.pongcounter.R
+import com.carlosreiakvam.android.pongcounter.audio_logic.SoundPlayer
+import com.carlosreiakvam.android.pongcounter.databinding.PlayFragmentBinding
+import com.carlosreiakvam.android.pongcounter.play_screen.Orientation.*
+import com.carlosreiakvam.android.pongcounter.play_screen.Preferences.SOUNDENABLED
+import com.carlosreiakvam.android.pongcounter.score_logic.Player
 import timber.log.Timber
 import java.lang.Exception
 

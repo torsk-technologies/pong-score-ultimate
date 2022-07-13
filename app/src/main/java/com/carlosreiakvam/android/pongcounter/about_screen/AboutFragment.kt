@@ -1,4 +1,4 @@
-package com.carlosreiakvam.android.handsdowntabletennis.about_screen
+package com.carlosreiakvam.android.pongcounter.about_screen
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragmentBinding
+import com.carlosreiakvam.android.pongcounter.databinding.AboutFragmentBinding
 import java.lang.Exception
 
 class AboutFragment : Fragment() {
