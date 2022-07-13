@@ -15,7 +15,7 @@ data class GameStateEntity(
     @NonNull @ColumnInfo(name = "p2_match_score") var p2MatchScore: Int = 0,
     @NonNull @ColumnInfo(name = "first_server") var firstServer: Int = InitialValues.FIRSTSERVER.i,
     @NonNull @ColumnInfo(name = "current_server") var currentServer: Int = 1,
-    @NonNull @ColumnInfo(name = "game_won_by_best_of") var gameWonByBestOf: Int = 9,
+    @NonNull @ColumnInfo(name = "game_won_by_best_of") var gameWonByBestOf: Int = 3,
     @NonNull @ColumnInfo(name = "points_played") var nGamesPlayed: Int = 0,
     @NonNull @ColumnInfo(name = "game_winner") var gameWinner: Int = 1,
     @NonNull @ColumnInfo(name = "game_to_best_of") var gameToBestOf: Int = InitialValues.BESTOF.i,

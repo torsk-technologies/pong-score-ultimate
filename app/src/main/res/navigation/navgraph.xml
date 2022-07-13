@@ -25,7 +25,7 @@
         <argument
             android:name="bestOf"
             app:argType="integer"
-            android:defaultValue="9" />
+            android:defaultValue="3" />
         <argument
             android:name="firstServer"
             app:argType="integer"
@@ -52,7 +52,7 @@
         <argument
             android:name="bestOf"
             app:argType="integer"
-            android:defaultValue="9" />
+            android:defaultValue="3" />
     </fragment>
     <fragment
         tools:layout="@layout/about_fragment"

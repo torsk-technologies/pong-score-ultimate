@@ -10,10 +10,8 @@
 
         <!--         Primary brand color. -->
         <item name="colorPrimary">@color/bt_red</item>
-        <item name="colorPrimaryVariant">@color/bt_red</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
-
-        <!--        Background-->
 
         <!--        Secondary brand color.-->
         <item name="colorSecondary">@color/bt_black</item>
@@ -30,6 +28,21 @@
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_image</item>
         <item name="android:statusBarColor">@color/white</item>
+
+
+        <item name="mainFont">@font/audiowide</item>
+
+        <item name="buttonBgColor">@color/bt_red</item>
+        <item name="mainTxtColor">@color/white</item>
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/bt_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/bt_black</item>
+        <item name="colorSecondaryVariant">@color/bt_black</item>
+        <item name="colorOnSecondary">@color/white</item>
+
     </style>
 
 </resources>
