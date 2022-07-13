@@ -45,9 +45,6 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
 
-        Timber.d("isResumed: $isResumed")
-        Timber.d("onCreate")
-        Timber.d("is new game from args: ${args.isNewGame}")
         setupSoundPlayer()
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =
@@ -286,43 +283,19 @@ class PlayFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        Timber.d("onPause")
-        super.onPause()
-    }
-
-    override fun onStart() {
-        Timber.d("onStart")
-        super.onStart()
-    }
-
-    override fun onResume() {
-        Timber.d("onResume")
-        super.onResume()
-    }
 
     override fun onStop() {
         super.onStop()
-        Timber.d("onStop")
         saveSharedPrefsGameState()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("onDestroy")
         try {
             soundPlayer.release()
-            Timber.d("soundplayer released")
         } catch (e: Exception) {
             Timber.d(e.message)
         }
-//        try {
-//            soundPlayer.release()
-//            Timber.d("soundplayer released")
-//        } catch (e: Exception) {
-//            Timber.d(e.message)
-//        }
-//        saveSharedPrefsGameState()
     }
 
 }

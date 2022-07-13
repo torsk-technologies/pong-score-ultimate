@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name_short">ChoCounter</string>
+    <string name="app_name_short">PongCounter</string>
     <string name="start">Start</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
@@ -11,7 +11,7 @@
     <string name="toggle_menu">toggle menu</string>
     <string name="continue_str">CONTINUE</string>
     <string name="new_game">New Game</string>
-    <string name="made_with_love">Made by Carlos Reiakvam</string>
+    <string name="made_with_love">Made with ♥ by Carlos Reiakvam</string>
     <string name="best_of_complete">best of %1$d</string>
     <string name="best_of">best\nof</string>
     <string name="best">best</string>
@@ -25,11 +25,12 @@
     <string name="rules">rules</string>
     <string name="match_won">CHO!</string>
     <string name="back">back</string>
-    <string name="buy_me_a_coffee">Buy me a ☕</string>
+    <string name="buy_me_a_coffee">Tip ☕</string>
     <string name="manual_art">manual art</string>
-    <string name="give_feedback">Give feedback</string>
+    <string name="give_feedback">Contact</string>
     <string name="info">info</string>
     <string name="player_one_score_field">player one score field</string>
     <string name="midline">midline</string>
     <string name="player_two_score_field">Player two score field</string>
+    <string name="place_phone_on_table_for_easy_access">Place phone on table for easy access 👌</string>
 </resources>

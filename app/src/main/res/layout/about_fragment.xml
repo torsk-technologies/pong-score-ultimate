@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/tv_made_with_love"
-            style="@style/text_about"
+            style="@style/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/made_with_love"
@@ -94,10 +94,23 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="ImageContrastCheck" />
 
+        <TextView
+            style="@style/text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:autoSizeTextType="uniform"
+            android:text="@string/place_phone_on_table_for_easy_access"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manual_art" />
+
         <Button
             android:id="@+id/btn_buy_coffee"
             style="@style/btn_buy_coffee"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/buy_me_a_coffee"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +122,7 @@
         <Button
             android:id="@+id/btn_give_feedback"
             style="@style/btn_buy_coffee"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/give_feedback"
             app:layout_constraintEnd_toEndOf="parent"

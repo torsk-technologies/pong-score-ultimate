@@ -4,9 +4,9 @@
 
     <application
         android:name="com.carlosreiakvam.android.handsdowntabletennis.ApplicationController"
-        android:icon="@drawable/paddle_3d"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_short"
-        android:roundIcon="@drawable/paddle_3d"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
         <activity

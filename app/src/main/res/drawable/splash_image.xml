@@ -3,6 +3,6 @@
     <item android:drawable="@color/white" />
     <!--Add the logo that you want to display and its gravity to centre-->
     <item
-        android:drawable="@drawable/cho_splash_icon288x288"
+        android:drawable="@drawable/splash_icon"
         android:gravity="center" />
 </layer-list>

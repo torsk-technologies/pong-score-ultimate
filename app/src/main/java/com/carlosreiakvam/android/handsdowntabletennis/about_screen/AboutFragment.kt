@@ -37,7 +37,7 @@ class AboutFragment : Fragment() {
 
         binding.btnGiveFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                putExtra(Intent.EXTRA_SUBJECT, "Feedback for Cho Counter")
+                putExtra(Intent.EXTRA_SUBJECT, "Feedback for Pong Counter")
                 data = Uri.parse("mailto:torsktechnologies@gmail.com")
             }
             try {

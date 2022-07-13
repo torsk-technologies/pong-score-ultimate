@@ -24,7 +24,7 @@
         <!--         Status bar color.-->
         <item name="android:statusBarColor">@color/bt_red</item>
 
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/cho_splash_icon288x288</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_image</item>
 
     </style>
 </resources>
