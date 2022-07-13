@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.carlosreiakvam.android.handsdowntabletennis"
-        minSdk 27
+        minSdk 28
         targetSdk 32
         versionCode 4
         versionName "1.04"

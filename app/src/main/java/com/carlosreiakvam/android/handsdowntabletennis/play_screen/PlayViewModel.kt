@@ -10,11 +10,12 @@ import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Game
 import com.carlosreiakvam.android.handsdowntabletennis.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class PlayViewModel(
     private val gameStateDAO: GameStateDAO,
     private val gameRulesFromArgs: GameRules,
-    isNewGame: Boolean, //
+    isNewGame: Boolean,
 ) : ViewModel() {
     private var player1: Player = Player("player one")
     private var player2: Player = Player("player two")
@@ -45,6 +46,7 @@ class PlayViewModel(
 
     init {
         if (isNewGame) {
+            Timber.d("is new game")
             game = Game(player1, player2, GameRules(
                 bestOf = gameRulesFromArgs.bestOf,
                 firstServer = gameRulesFromArgs.firstServer))
@@ -58,7 +60,8 @@ class PlayViewModel(
                 }
             }
         } else {
-            game = Game(player1, player2, GameRules(9, 1))
+            Timber.d("is not new game")
+            game = Game(player1, player2, GameRules())
             setGameStateFromDB()
         }
         updateLiveDataFromGame()

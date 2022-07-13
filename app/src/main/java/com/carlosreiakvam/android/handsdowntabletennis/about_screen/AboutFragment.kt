@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.carlosreiakvam.android.handsdowntabletennis.databinding.AboutFragmentBinding
-import java.lang.Error
 import java.lang.Exception
 
 class AboutFragment : Fragment() {

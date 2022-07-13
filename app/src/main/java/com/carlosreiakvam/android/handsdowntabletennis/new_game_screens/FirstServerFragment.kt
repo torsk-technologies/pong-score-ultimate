@@ -61,7 +61,7 @@ class FirstServerFragment : Fragment() {
             tvFirstBottom.isVisible = true
             tvFirstBottom.text = getString(R.string.random)
             tvFirstTop.text = getString(R.string.random)
-            true
+            return@setOnLongClickListener true
         }
         bgTableTop.setOnLongClickListener {
             firstServer = Random.nextInt(1, 3)
@@ -69,7 +69,7 @@ class FirstServerFragment : Fragment() {
             tvFirstBottom.isVisible = true
             tvFirstBottom.text = getString(R.string.random)
             tvFirstTop.text = getString(R.string.random)
-            true
+            return@setOnLongClickListener true
         }
     }
 
