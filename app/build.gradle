@@ -9,11 +9,11 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.carlosreiakvam.android.pongcounter"
+        applicationId "xyz.torsktechnologies.pongcounter"
         minSdk 28
         targetSdk 32
-        versionCode 4
-        versionName "1.04"
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ android {
     buildFeatures {
         dataBinding true
     }
-    namespace 'com.carlosreiakvam.android.pongcounter'
+    namespace 'xyz.torsktechnologies.pongcounter'
 }
 
 dependencies {

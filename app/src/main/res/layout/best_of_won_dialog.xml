@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.carlosreiakvam.android.pongcounter.play_screen.PlayViewModel" />
+            type="xyz.torsktechnologies.pongcounter.play_screen.PlayViewModel" />
 
 
     </data>
