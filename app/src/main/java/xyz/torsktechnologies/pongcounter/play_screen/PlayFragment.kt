@@ -17,13 +17,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import xyz.torsktechnologies.pongcounter.ApplicationController
 import xyz.torsktechnologies.pongcounter.BuildConfig
-import xyz.torsktechnologies.pongcounter.R
 import xyz.torsktechnologies.pongcounter.audio_logic.SoundPlayer
-import xyz.torsktechnologies.pongcounter.databinding.PlayFragmentBinding
 import xyz.torsktechnologies.pongcounter.play_screen.Orientation.*
 import xyz.torsktechnologies.pongcounter.play_screen.Preferences.SOUNDENABLED
 import xyz.torsktechnologies.pongcounter.score_logic.Player
 import timber.log.Timber
+import xyz.torsktechnologies.pongcounter.R
+import xyz.torsktechnologies.pongcounter.databinding.PlayFragmentBinding
 import java.lang.Exception
 
 
