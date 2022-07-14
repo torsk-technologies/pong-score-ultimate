@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.about_screen
+package xyz.torsktechnologies.tabletennisscore.about_screen
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import xyz.torsktechnologies.pongcounter.databinding.AboutFragmentBinding
+import xyz.torsktechnologies.tabletennisscore.databinding.AboutFragmentBinding
 import java.lang.Exception
 
 class AboutFragment : Fragment() {
@@ -37,7 +37,7 @@ class AboutFragment : Fragment() {
 
         binding.btnGiveFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                putExtra(Intent.EXTRA_SUBJECT, "Feedback for Pong Counter")
+                putExtra(Intent.EXTRA_SUBJECT, "Feedback for Pong Score")
                 data = Uri.parse("mailto:torsktechnologies@gmail.com")
             }
             try {

@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.local_db
+package xyz.torsktechnologies.tabletennisscore.local_db
 
 import android.content.Context
 import androidx.room.Database

@@ -1,10 +1,10 @@
-package xyz.torsktechnologies.pongcounter
+package xyz.torsktechnologies.tabletennisscore
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import xyz.torsktechnologies.pongcounter.R.*
+import xyz.torsktechnologies.tabletennisscore.R.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

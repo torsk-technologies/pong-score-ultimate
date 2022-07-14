@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.tabletennisscore.play_screen
 
 
 enum class Players(val i: Int) {

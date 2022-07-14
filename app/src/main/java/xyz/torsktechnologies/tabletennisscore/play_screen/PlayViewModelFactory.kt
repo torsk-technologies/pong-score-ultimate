@@ -1,8 +1,8 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.tabletennisscore.play_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import xyz.torsktechnologies.pongcounter.local_db.GameStateDAO
+import xyz.torsktechnologies.tabletennisscore.local_db.GameStateDAO
 
 class PlayViewModelFactory(
     private val gameStateDAO: GameStateDAO,

@@ -1,10 +1,10 @@
-package xyz.torsktechnologies.pongcounter.score_logic
+package xyz.torsktechnologies.tabletennisscore.score_logic
 
-import xyz.torsktechnologies.pongcounter.play_screen.GameRules
-import xyz.torsktechnologies.pongcounter.play_screen.Players.PLAYER1
-import xyz.torsktechnologies.pongcounter.play_screen.Players.PLAYER2
-import xyz.torsktechnologies.pongcounter.play_screen.WinConditions
-import xyz.torsktechnologies.pongcounter.play_screen.WinStates
+import xyz.torsktechnologies.tabletennisscore.play_screen.GameRules
+import xyz.torsktechnologies.tabletennisscore.play_screen.Players.PLAYER1
+import xyz.torsktechnologies.tabletennisscore.play_screen.Players.PLAYER2
+import xyz.torsktechnologies.tabletennisscore.play_screen.WinConditions
+import xyz.torsktechnologies.tabletennisscore.play_screen.WinStates
 
 class Game(
     var player1: Player,

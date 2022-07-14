@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.audio_logic
+package xyz.torsktechnologies.tabletennisscore.audio_logic
 
 import android.content.Context
 import android.content.res.AssetManager

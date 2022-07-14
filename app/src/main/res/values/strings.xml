@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name_short">Pong Counter</string>
+    <string name="app_name_short">Pong Score</string>
     <string name="start">Start</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>

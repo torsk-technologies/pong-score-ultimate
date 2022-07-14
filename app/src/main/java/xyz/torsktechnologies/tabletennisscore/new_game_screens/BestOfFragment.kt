@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.new_game_screens
+package xyz.torsktechnologies.tabletennisscore.new_game_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import xyz.torsktechnologies.pongcounter.databinding.BestOfFragmentBinding
-import xyz.torsktechnologies.pongcounter.play_screen.InitialValues
+import xyz.torsktechnologies.tabletennisscore.databinding.BestOfFragmentBinding
+import xyz.torsktechnologies.tabletennisscore.play_screen.InitialValues
 
 class BestOfFragment : Fragment() {
 

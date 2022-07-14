@@ -1,13 +1,13 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.tabletennisscore.play_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import xyz.torsktechnologies.pongcounter.local_db.GameStateDAO
-import xyz.torsktechnologies.pongcounter.local_db.GameStateEntity
-import xyz.torsktechnologies.pongcounter.score_logic.Game
-import xyz.torsktechnologies.pongcounter.score_logic.Player
+import xyz.torsktechnologies.tabletennisscore.local_db.GameStateDAO
+import xyz.torsktechnologies.tabletennisscore.local_db.GameStateEntity
+import xyz.torsktechnologies.tabletennisscore.score_logic.Game
+import xyz.torsktechnologies.tabletennisscore.score_logic.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

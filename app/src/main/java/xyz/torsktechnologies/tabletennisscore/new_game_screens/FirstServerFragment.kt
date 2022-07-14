@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.new_game_screens
+package xyz.torsktechnologies.tabletennisscore.new_game_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import xyz.torsktechnologies.pongcounter.R
-import xyz.torsktechnologies.pongcounter.databinding.FirstServerFragmentBinding
-import xyz.torsktechnologies.pongcounter.play_screen.InitialValues
+import xyz.torsktechnologies.tabletennisscore.R
+import xyz.torsktechnologies.tabletennisscore.databinding.FirstServerFragmentBinding
+import xyz.torsktechnologies.tabletennisscore.play_screen.InitialValues
 import kotlin.random.Random
 
 class FirstServerFragment : Fragment() {

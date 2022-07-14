@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="xyz.torsktechnologies.pongcounter.play_screen.PlayViewModel" />
+            type="xyz.torsktechnologies.tabletennisscore.play_screen.PlayViewModel" />
 
 
     </data>

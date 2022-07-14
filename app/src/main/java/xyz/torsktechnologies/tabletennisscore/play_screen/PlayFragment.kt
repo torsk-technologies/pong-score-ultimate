@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.tabletennisscore.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,15 +15,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import xyz.torsktechnologies.pongcounter.ApplicationController
-import xyz.torsktechnologies.pongcounter.BuildConfig
-import xyz.torsktechnologies.pongcounter.audio_logic.SoundPlayer
-import xyz.torsktechnologies.pongcounter.play_screen.Orientation.*
-import xyz.torsktechnologies.pongcounter.play_screen.Preferences.SOUNDENABLED
-import xyz.torsktechnologies.pongcounter.score_logic.Player
+import xyz.torsktechnologies.tabletennisscore.ApplicationController
+import xyz.torsktechnologies.tabletennisscore.BuildConfig
+import xyz.torsktechnologies.tabletennisscore.audio_logic.SoundPlayer
+import xyz.torsktechnologies.tabletennisscore.play_screen.Orientation.*
+import xyz.torsktechnologies.tabletennisscore.play_screen.Preferences.SOUNDENABLED
+import xyz.torsktechnologies.tabletennisscore.score_logic.Player
 import timber.log.Timber
-import xyz.torsktechnologies.pongcounter.R
-import xyz.torsktechnologies.pongcounter.databinding.PlayFragmentBinding
+import xyz.torsktechnologies.tabletennisscore.R
+import xyz.torsktechnologies.tabletennisscore.databinding.PlayFragmentBinding
 import java.lang.Exception
 
 
