@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.pongscore.play_screen
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,14 +15,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import xyz.torsktechnologies.pongcounter.ApplicationController
-import xyz.torsktechnologies.pongcounter.BuildConfig
-import xyz.torsktechnologies.pongcounter.R
-import xyz.torsktechnologies.pongcounter.audio_logic.SoundPlayer
-import xyz.torsktechnologies.pongcounter.databinding.PlayFragmentBinding
-import xyz.torsktechnologies.pongcounter.play_screen.Orientation.*
-import xyz.torsktechnologies.pongcounter.play_screen.Preferences.SOUNDENABLED
-import xyz.torsktechnologies.pongcounter.score_logic.Player
+import xyz.torsktechnologies.pongscore.ApplicationController
+import xyz.torsktechnologies.pongscore.BuildConfig
+import xyz.torsktechnologies.pongscore.R
+import xyz.torsktechnologies.pongscore.audio_logic.SoundPlayer
+import xyz.torsktechnologies.pongscore.databinding.PlayFragmentBinding
+import xyz.torsktechnologies.pongscore.play_screen.Orientation.*
+import xyz.torsktechnologies.pongscore.play_screen.Preferences.SOUNDENABLED
+import xyz.torsktechnologies.pongscore.score_logic.Player
 import timber.log.Timber
 import java.lang.Exception
 
@@ -44,7 +44,6 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
         setupSoundPlayer()
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =

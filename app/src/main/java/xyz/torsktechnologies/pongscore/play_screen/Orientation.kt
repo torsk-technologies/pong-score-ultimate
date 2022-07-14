@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.pongscore.play_screen
 
 enum class Orientation {
     NORMAL,

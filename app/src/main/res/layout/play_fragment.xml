@@ -29,18 +29,17 @@
             android:layout_height="0dp"
             android:contentDescription="@string/midline"
             android:src="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/hor_49"
             app:layout_constraintBottom_toTopOf="@id/hor_51"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/hor_49" />
 
         <ImageView
             android:id="@+id/p2_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:contentDescription="@string/player_two_score_field"
-            android:src="@color/bt_black"
+            android:src="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +95,10 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.90" />
 
+        <!---->
+        <!--VERTS -->
+        <!---->
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vert_175"
             android:layout_width="match_parent"
@@ -103,12 +106,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.175" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vert_85"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vert_15"
@@ -124,10 +121,31 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_75"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_85"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_97"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
 
         <TextView
             android:id="@+id/tv_p1_game_score"
-            style="@style/score_large"
+            style="@style/game_score"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/hor_40"
@@ -139,7 +157,7 @@
 
         <TextView
             android:id="@+id/tv_p2_game_score"
-            style="@style/score_large"
+            style="@style/game_score"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@id/hor_90"
@@ -150,27 +168,31 @@
 
         <TextView
             android:id="@+id/tv_p1_match_score"
-            style="@style/score_medium"
+            style="@style/match_score"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="25dp"
-            app:layout_constraintBottom_toTopOf="@id/hor_50"
+            app:layout_constraintBottom_toTopOf="@id/hor_49"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vert_85"
+            app:layout_constraintStart_toEndOf="@id/vert_75"
             app:layout_constraintTop_toBottomOf="@id/hor_40"
-            tools:text="4" />
+            tools:rotation="180"
+            tools:text="10" />
 
         <TextView
             android:id="@+id/tv_p2_match_score"
-            style="@style/score_medium"
+            style="@style/match_score"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="25dp"
             app:layout_constraintBottom_toTopOf="@id/hor_60"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vert_85"
-            app:layout_constraintTop_toBottomOf="@id/hor_50"
-            tools:text="9" />
+            app:layout_constraintStart_toEndOf="@id/vert_75"
+            app:layout_constraintTop_toBottomOf="@id/hor_51"
+            tools:text="10" />
+
+
+        <!--        -->
+        <!-- MENU BUTTONS-->
+        <!--        -->
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -218,7 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/toggle_themes"
-            android:src="@drawable/ic_baseline_fast_rewind_24"
+            android:src="@drawable/ic_asset_5"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_undo"
             app:layout_constraintEnd_toEndOf="@id/btn_toggle_menu"
@@ -252,15 +274,15 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_toggle_menu"
             style="@style/menu_button"
-            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:contentDescription="@string/toggle_menu"
             android:src="@drawable/ic_baseline_menu_24"
             android:tooltipText="@string/orientation"
             app:ensureMinTouchTargetSize="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

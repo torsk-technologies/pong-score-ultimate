@@ -1,7 +1,7 @@
-package xyz.torsktechnologies.pongcounter
+package xyz.torsktechnologies.pongscore
 
 import android.app.Application
-import xyz.torsktechnologies.pongcounter.local_db.ChoDatabase
+import xyz.torsktechnologies.pongscore.local_db.ChoDatabase
 import timber.log.Timber
 
 class ApplicationController : Application() {

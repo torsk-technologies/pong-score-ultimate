@@ -1,10 +1,10 @@
-package xyz.torsktechnologies.pongcounter.local_db
+package xyz.torsktechnologies.pongscore.local_db
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import xyz.torsktechnologies.pongcounter.play_screen.InitialValues
+import xyz.torsktechnologies.pongscore.play_screen.InitialValues
 
 @Entity(tableName = "game_state")
 data class GameStateEntity(

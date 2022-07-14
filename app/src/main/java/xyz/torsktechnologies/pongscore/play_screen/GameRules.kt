@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.pongscore.play_screen
 
 data class GameRules(
     var bestOf: Int = InitialValues.BESTOF.i,

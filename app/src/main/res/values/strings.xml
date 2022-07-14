@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name_short">PongCounter</string>
+    <string name="app_name_short">PongScore</string>
     <string name="start">Start</string>
     <string name="p1score">p1Score</string>
     <string name="undo">Undo</string>
@@ -23,7 +23,7 @@
     <string name="best_of_no_content">best of</string>
     <string name="next">NEXT</string>
     <string name="rules">rules</string>
-    <string name="match_won">CHO!</string>
+    <string name="match_won">Match won!</string>
     <string name="back">back</string>
     <string name="buy_me_a_coffee">Tip ☕</string>
     <string name="manual_art">manual art</string>

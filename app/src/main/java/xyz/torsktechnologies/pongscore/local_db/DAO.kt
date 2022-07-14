@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.local_db
+package xyz.torsktechnologies.pongscore.local_db
 
 import androidx.room.Dao
 import androidx.room.Insert

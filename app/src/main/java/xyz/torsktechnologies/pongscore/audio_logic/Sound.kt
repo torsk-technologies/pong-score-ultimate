@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.audio_logic
+package xyz.torsktechnologies.pongscore.audio_logic
 
 class Sound(var pathName: String) {
 

@@ -22,7 +22,7 @@
             android:id="@+id/solid_midline"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@color/white"
+            android:src="@color/black"
             app:layout_constraintBottom_toTopOf="@id/hor_51"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/lower_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@color/bt_black"
+            android:src="@color/bt_red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,9 +142,12 @@
 
         <TextView
             android:id="@+id/tv_best_of"
-            style="@style/score_large"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            style="@style/game_score"
+            android:textColor="@color/black"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
             android:text="@string/best_of"
             android:textAllCaps="true"
             app:layout_constraintBottom_toTopOf="@id/fs_hor_40"
@@ -155,9 +158,12 @@
 
         <TextView
             android:id="@+id/tv_best_of_number"
-            style="@style/score_large"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            style="@style/game_score"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:text="@string/best_of_number"
             android:textAllCaps="true"
             app:layout_constraintBottom_toTopOf="@id/fs_hor_90"
@@ -181,12 +187,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:thumbColor="@color/white"
+            app:thumbColor="@color/black"
             app:thumbRadius="20dp"
-            app:tickColorActive="@color/white"
-            app:tickColorInactive="@color/white"
-            app:trackColorActive="@color/white"
-            app:trackColorInactive="@color/white" />
+            app:tickColorActive="@color/black"
+            app:tickColorInactive="@color/black"
+            app:trackColorActive="@color/black"
+            app:trackColorInactive="@color/black" />
 
         <Button
             android:id="@+id/btn_next"

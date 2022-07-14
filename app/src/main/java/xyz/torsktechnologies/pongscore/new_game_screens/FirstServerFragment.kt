@@ -1,16 +1,15 @@
-package xyz.torsktechnologies.pongcounter.new_game_screens
+package xyz.torsktechnologies.pongscore.new_game_screens
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import xyz.torsktechnologies.pongcounter.R
-import xyz.torsktechnologies.pongcounter.databinding.FirstServerFragmentBinding
-import xyz.torsktechnologies.pongcounter.play_screen.InitialValues
+import xyz.torsktechnologies.pongscore.R
+import xyz.torsktechnologies.pongscore.databinding.FirstServerFragmentBinding
+import xyz.torsktechnologies.pongscore.play_screen.InitialValues
 import kotlin.random.Random
 
 class FirstServerFragment : Fragment() {
@@ -30,7 +29,6 @@ class FirstServerFragment : Fragment() {
         setupPlayButton()
         setupBackButton()
         bestOf = args.bestOf
-
         return binding.root
     }
 

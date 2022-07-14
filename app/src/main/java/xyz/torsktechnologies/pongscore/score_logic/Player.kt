@@ -1,4 +1,4 @@
-package xyz.torsktechnologies.pongcounter.score_logic
+package xyz.torsktechnologies.pongscore.score_logic
 
 
 class Player(var name: String) {

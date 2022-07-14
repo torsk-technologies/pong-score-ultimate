@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Cho" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="pong_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
 
         <item name="mainFont">@font/audiowide</item>
@@ -20,29 +20,6 @@
 
         <!--         Status bar color.-->
         <item name="android:statusBarColor">@color/bt_red</item>
-
-
-    </style>
-
-    <!--Create a new style and name it splashScreenTheme and add the following code-->
-    <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_image</item>
-        <item name="android:statusBarColor">@color/white</item>
-
-
-        <item name="mainFont">@font/audiowide</item>
-
-        <item name="buttonBgColor">@color/bt_red</item>
-        <item name="mainTxtColor">@color/white</item>
-
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/bt_red</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-        <item name="colorSecondary">@color/bt_black</item>
-        <item name="colorSecondaryVariant">@color/bt_black</item>
-        <item name="colorOnSecondary">@color/white</item>
-
     </style>
 
 </resources>

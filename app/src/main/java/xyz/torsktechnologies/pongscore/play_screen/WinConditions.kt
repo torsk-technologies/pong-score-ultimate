@@ -1,6 +1,6 @@
-package xyz.torsktechnologies.pongcounter.play_screen
+package xyz.torsktechnologies.pongscore.play_screen
 
-import xyz.torsktechnologies.pongcounter.score_logic.Player
+import xyz.torsktechnologies.pongscore.score_logic.Player
 
 class WinConditions {
 
