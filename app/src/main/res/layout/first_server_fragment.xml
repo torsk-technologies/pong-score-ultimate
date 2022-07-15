@@ -79,12 +79,12 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.10" />
 
-<!--        <androidx.constraintlayout.widget.Guideline-->
-<!--            android:id="@+id/fs_vert_175"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            app:layout_constraintGuide_percent="0.175" />-->
+        <!--        <androidx.constraintlayout.widget.Guideline-->
+        <!--            android:id="@+id/fs_vert_175"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            app:layout_constraintGuide_percent="0.175" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vert_50"
@@ -111,17 +111,18 @@
             android:id="@+id/table_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/first_server_top"
             android:src="@color/bt_red"
             app:layout_constraintBottom_toTopOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/table_bottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="@string/first_server_bottom"
             android:src="@color/bt_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,24 +135,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/hor_49"
             app:layout_constraintBottom_toTopOf="@id/hor_51"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hor_49"
             tools:ignore="ContentDescription" />
-        <!--        <TextView-->
-        <!--            android:id="@+id/tv_first_server_label"-->
-        <!--            style="@style/main_header"-->
-        <!--            android:textAllCaps="true"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/first_server"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintBottom_toTopOf="@id/guideline_mid"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            tools:ignore="TextContrastCheck" />-->
-
 
         <TextView
             android:id="@+id/tv_first_top"
@@ -178,20 +166,6 @@
             app:layout_constraintTop_toBottomOf="@id/fs_hor_60"
             tools:ignore="ContentDescription"
             tools:text="@string/first_server" />
-
-
-        <!--        <com.google.android.material.button.MaterialButton-->
-        <!--            android:id="@+id/btn_random"-->
-        <!--            style="@style/large_button"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:layout_width="@dimen/first_serve_button_width"-->
-        <!--            android:layout_height="@dimen/button_height"-->
-        <!--            android:text="@string/random"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
 
         <Button
             android:id="@+id/btn_lets_play"

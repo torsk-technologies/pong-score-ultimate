@@ -33,4 +33,6 @@
     <string name="midline">midline</string>
     <string name="player_two_score_field">Player two score field</string>
     <string name="place_phone_on_table_for_easy_access">Place phone on table for easy access 👌</string>
+    <string name="first_server_bottom">first server bottom</string>
+    <string name="first_server_top">first server top</string>
 </resources>
