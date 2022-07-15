@@ -44,7 +44,7 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
+        requireActivity().window.statusBarColor = requireContext().getColor(R.color.bt_red)
         setupSoundPlayer()
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =

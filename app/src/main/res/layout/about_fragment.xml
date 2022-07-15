@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bt_red">
+        android:background="@color/charcoal">
 
         <ImageView
             android:id="@+id/solid_midline"
@@ -24,7 +24,6 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,9 +87,9 @@
             android:layout_height="170dp"
             android:contentDescription="@string/manual_art"
             android:src="@drawable/manual_art"
-            app:layout_constraintBottom_toTopOf="@+id/hor_40"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="ImageContrastCheck" />
 

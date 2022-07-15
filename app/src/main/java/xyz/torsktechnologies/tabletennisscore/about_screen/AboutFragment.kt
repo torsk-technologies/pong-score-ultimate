@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import xyz.torsktechnologies.tabletennisscore.R
 import xyz.torsktechnologies.tabletennisscore.databinding.AboutFragmentBinding
 import java.lang.Exception
 
@@ -20,6 +21,7 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        requireActivity().window.statusBarColor = requireContext().getColor(R.color.charcoal)
         binding = AboutFragmentBinding.inflate(layoutInflater, container, false)
         binding.btnBack.setOnClickListener {
             this.findNavController()
