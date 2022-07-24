@@ -48,4 +48,8 @@
     <string name="_2_12_a_match">2.12 A MATCH</string>
     <string name="_2_13_the_order_of_serving_receiving_and_ends">2.13 THE ORDER OF SERVING, RECEIVING AND ENDS</string>
     <string name="what_is_table_tennis">What is table tennis?</string>
+    <string name="play">Play</string>
+    <string name="table_tennis">Table Tennis?</string>
+    <string name="ittf_rules">ITTF Rules</string>
+    <string name="about">about</string>
 </resources>

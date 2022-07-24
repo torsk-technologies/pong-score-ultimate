@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.shape.ShapeAppearanceModel
 import xyz.torsktechnologies.tabletennisscore.R
 import xyz.torsktechnologies.tabletennisscore.databinding.StartScreenBinding
 
@@ -41,7 +38,7 @@ class StartScreenFragment : Fragment() {
             this.findNavController()
                 .navigate(StartScreenFragmentDirections.actionStartScreenFragmentToEzDescFragment())
         }
-        binding.btnIttfRules.setOnClickListener() {
+        binding.btnIttfRules.setOnClickListener {
             this.findNavController()
                 .navigate(StartScreenFragmentDirections.actionStartScreenFragmentToIttfRulesFragment())
         }

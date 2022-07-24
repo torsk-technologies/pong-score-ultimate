@@ -2,15 +2,12 @@ package xyz.torsktechnologies.tabletennisscore.ittf_rules
 
 class RulesStrings {
 
-    val main_title: String = """
+    val mainTitle: String = """
        LAWS OF TABLE TENNIS 
     """.trimIndent()
     val underTitle: String = """
        as provided by The International Table Tennis Federation handbook 2022
     """.trimIndent()
-
-    val definitionsMap =
-        mapOf("2.5.1" to "A rally is the period during which the ball is in play.")
 
 
     val definitions: String = """

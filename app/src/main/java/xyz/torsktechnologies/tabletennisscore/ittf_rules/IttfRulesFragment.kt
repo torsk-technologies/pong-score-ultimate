@@ -23,13 +23,12 @@ class IttfRulesFragment : Fragment() {
         requireActivity().window.statusBarColor = requireContext().getColor(R.color.bt_black)
         binding = DataBindingUtil.inflate(inflater, R.layout.ittf_rules_fragment, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        set_text()
-        setupActionColor()
+        setText()
         return binding.root
     }
 
-    fun set_text() {
-        binding.mainTitle.text = RulesStrings().main_title
+    private fun setText() {
+        binding.mainTitle.text = RulesStrings().mainTitle
         binding.underTitle.text = RulesStrings().underTitle
         binding.rulesDefinitions.text = RulesStrings().definitions
         binding.rulesService.text = RulesStrings().service
@@ -42,14 +41,6 @@ class IttfRulesFragment : Fragment() {
         binding.rulesOrderServe.text = RulesStrings().orderServing
     }
 
-    fun setupActionColor() {
-        binding.root.setOnTouchListener { view, motionEvent ->
-            val ape = binding.rulesOrderPlay.getLocationOnScreen(intArrayOf(0,1))
-            Timber.d("ape $ape")
-
-            view.performClick()
-        }
-    }
 
 
 }

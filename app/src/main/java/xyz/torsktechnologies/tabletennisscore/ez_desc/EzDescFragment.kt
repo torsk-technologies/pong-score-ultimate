@@ -22,7 +22,7 @@ class EzDescFragment : Fragment() {
         return binding.root
     }
 
-    fun setupBindings() {
+    private fun setupBindings() {
         binding.ezServe.text = EzStrings().ezServe
         binding.ezReturn.text = EzStrings().ezReturn
         binding.ezPoint.text = EzStrings().ezPoint
