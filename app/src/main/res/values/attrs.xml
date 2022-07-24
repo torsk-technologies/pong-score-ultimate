@@ -2,6 +2,7 @@
 <resources>
     <!--    Fonts-->
     <attr name="mainFont" format="reference" />
+    <attr name="scoreFont" format="reference" />
     <attr name="mukta_bold" format="reference" />
     <attr name="mukta_normal" format="reference" />
     <attr name="roboto" format="reference" />

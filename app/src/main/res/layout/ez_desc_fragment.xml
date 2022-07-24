@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pong_mate_no_title_bg_80opacity">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/ez_title"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/agency_fb_regular"
+                android:gravity="center"
+                android:text="@string/what_is_table_tennis"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/ez_under_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:paddingBottom="40dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:id="@+id/ez_serve"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_red"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/ez_return"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_orange"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/ez_point"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_yel"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/ez_turn"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_gre"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/ez_game"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_blu"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/ez_match"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_ind"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</layout>

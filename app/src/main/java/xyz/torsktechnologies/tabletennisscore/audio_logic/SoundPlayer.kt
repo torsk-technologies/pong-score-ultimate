@@ -9,7 +9,7 @@ import java.io.IOException
 class SoundPlayer(context: Context) {
     private var soundPool: SoundPool
     private lateinit var assetManager: AssetManager
-    private val SOUNDFOLDER = "sounds"
+    private val soundFolder = "sounds"
     private var soundList: ArrayList<Sound> = arrayListOf()
 
     init {
@@ -22,11 +22,11 @@ class SoundPlayer(context: Context) {
 
 
     fun fetchSounds() {
-        val soundFiles: Array<String> = assetManager.list(SOUNDFOLDER) as Array<String>
+        val soundFiles: Array<String> = assetManager.list(soundFolder) as Array<String>
 
         for (filename in soundFiles) {
             try {
-                val path = "$SOUNDFOLDER/$filename"
+                val path = "$soundFolder/$filename"
                 val sound = Sound(path)
                 loadSound(sound)
                 soundList.add(sound)

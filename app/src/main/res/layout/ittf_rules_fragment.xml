@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pong_mate_no_title_bg_80opacity"
+        android:padding="40dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_title"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="40dp"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                tools:text="LAWS OF TABLE TENNIS" />
+
+            <TextView
+                android:id="@+id/under_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:paddingBottom="40dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                tools:text="undertitle" />
+
+            <TextView
+                android:id="@+id/header_definitions"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_red"
+                android:text="@string/_2_5_definitions"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_definitions"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_red"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_service"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_orange"
+                android:text="@string/_2_6_the_service"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_service"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_orange"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_return"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_yel"
+                android:text="@string/_2_7_the_return"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_return"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_yel"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_order_play"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_gre"
+                android:text="@string/_2_8_the_order_of_play"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_order_play"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_gre"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_let"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_blu"
+                android:text="@string/_2_9_a_let"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_let"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_blu"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_point"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_ind"
+                android:text="@string/_2_10_a_point"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_point"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_ind"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_game"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_vio"
+                android:text="@string/_2_11_a_game"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_game"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_vio"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_match"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_red"
+                android:text="@string/_2_12_a_match"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_match"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_red"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/header_order_serve"
+                style="@style/rules_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_orange"
+                android:text="@string/_2_13_the_order_of_serving_receiving_and_ends"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/rules_order_serve"
+                style="@style/rules_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rog_orange"
+                android:textColor="@color/white" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</layout>

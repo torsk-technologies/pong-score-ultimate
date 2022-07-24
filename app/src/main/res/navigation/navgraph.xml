@@ -3,65 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/playFragment">
+    app:startDestination="@id/startScreenFragment">
 
     <fragment
-        tools:layout="@layout/play_fragment"
+        android:id="@+id/startScreenFragment"
+        android:name="xyz.torsktechnologies.tabletennisscore.start_screen.StartScreenFragment"
+        android:label="StartScreenFragment"
+        tools:layout="@layout/start_screen">
+        <action
+            android:id="@+id/action_startScreenFragment_to_playFragment"
+            app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_ittfRulesFragment"
+            app:destination="@id/ittfRulesFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_ezDescFragment"
+            app:destination="@id/ezDescFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/playFragment"
         android:name="xyz.torsktechnologies.tabletennisscore.play_screen.PlayFragment"
-        android:label="PlayFragment" >
+        android:label="PlayFragment"
+        tools:layout="@layout/play_fragment">
         <action
             android:id="@+id/action_playFragment_to_bestOfFragment"
             app:destination="@id/bestOfFragment"
             app:popUpTo="@id/playFragment" />
-        <action
-            android:id="@+id/action_playFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment"
-            app:popUpTo="@id/playFragment" />
         <argument
             android:name="isNewGame"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <argument
             android:name="bestOf"
-            app:argType="integer"
-            android:defaultValue="3" />
+            android:defaultValue="3"
+            app:argType="integer" />
         <argument
             android:name="firstServer"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
     <fragment
-        tools:layout="@layout/best_of_fragment"
         android:id="@+id/bestOfFragment"
         android:name="xyz.torsktechnologies.tabletennisscore.new_game_screens.BestOfFragment"
-        android:label="BestOfFragment" >
+        android:label="BestOfFragment"
+        tools:layout="@layout/best_of_fragment">
         <action
             android:id="@+id/action_bestOfFragment_to_firstServerFragment"
             app:destination="@id/firstServerFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/first_server_fragment"
         android:id="@+id/firstServerFragment"
         android:name="xyz.torsktechnologies.tabletennisscore.new_game_screens.FirstServerFragment"
-        android:label="FirstServerFragment" >
+        android:label="FirstServerFragment"
+        tools:layout="@layout/first_server_fragment">
         <action
             android:id="@+id/action_firstServerFragment_to_playFragment"
             app:destination="@id/playFragment"
             app:popUpTo="@id/playFragment" />
         <argument
             android:name="bestOf"
-            app:argType="integer"
-            android:defaultValue="3" />
+            android:defaultValue="3"
+            app:argType="integer" />
     </fragment>
     <fragment
-        tools:layout="@layout/about_fragment"
         android:id="@+id/aboutFragment"
         android:name="xyz.torsktechnologies.tabletennisscore.about_screen.AboutFragment"
-        android:label="AboutFragment" >
+        android:label="AboutFragment"
+        tools:layout="@layout/about_fragment">
         <action
-            android:id="@+id/action_aboutFragment_to_playFragment"
-            app:destination="@id/playFragment"
-            app:popUpTo="@id/playFragment" />
+            android:id="@+id/action_aboutFragment_to_startScreenFragment"
+            app:destination="@id/startScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ittfRulesFragment"
+        android:name="xyz.torsktechnologies.tabletennisscore.ittf_rules.IttfRulesFragment"
+        android:label="IttfRulesFragment"
+        tools:layout="@layout/ittf_rules_fragment" />
+    <fragment
+        android:id="@+id/ezDescFragment"
+        android:name="xyz.torsktechnologies.tabletennisscore.ez_desc.EzDescFragment"
+        android:label="EzDescFragment"
+        tools:layout="@layout/ez_desc_fragment" />
 </navigation>

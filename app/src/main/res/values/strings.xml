@@ -35,4 +35,21 @@
     <string name="place_phone_on_table_for_easy_access">Place phone on table for easy access 👌</string>
     <string name="first_server_bottom">first server bottom</string>
     <string name="first_server_top">first server top</string>
+    <string name="rules1">\n\n2.5 \nDEFINITIONS \n\n2.5.1 \nA rally is the period during which the ball is in play. \n\n2.5.2 \nThe ball is in play from the last moment at which it is stationary on the palm of the free hand before being intentionally projected in service until the rally is decided as</string>
+    <string name="rules2">a let or a point. \n\n2.5.3 \nA let is a rally of which the result is not scored. \n\n2.5.4 \nA point is a rally of which the result is scored. \n\n2.5.5 \nThe racket hand is the hand carrying the racket. \n\n2.5.6 \nThe free hand is the hand not carrying the l </string>
+    <string name="rules3">racket; the free arm is the arm of the free hand. \n\n2.5.7 \nA player strikes the ball if he or she touches it in play with his or her racket, held in the hand, or with his or her racket hand below the wrist. \n\n2.5.8 \nA player obstructs the ball   </string>
+    <string name="_2_5_definitions">2.5 DEFINITIONS</string>
+    <string name="_2_6_the_service">2.6 THE SERVICE</string>
+    <string name="_2_7_the_return">2.7 THE RETURN</string>
+    <string name="_2_8_the_order_of_play">2.8 THE ORDER OF PLAY</string>
+    <string name="_2_9_a_let">2.9 A LET</string>
+    <string name="_2_10_a_point">2.10 A POINT</string>
+    <string name="_2_11_a_game">2.11 A GAME</string>
+    <string name="_2_12_a_match">2.12 A MATCH</string>
+    <string name="_2_13_the_order_of_serving_receiving_and_ends">2.13 THE ORDER OF SERVING, RECEIVING AND ENDS</string>
+    <string name="what_is_table_tennis">What is table tennis?</string>
+    <string name="play">Play</string>
+    <string name="table_tennis">Table Tennis?</string>
+    <string name="ittf_rules">ITTF Rules</string>
+    <string name="about">about</string>
 </resources>
