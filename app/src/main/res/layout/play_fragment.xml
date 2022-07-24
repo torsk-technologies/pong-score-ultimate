@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:contentDescription="@string/player_one_score_field"
-            android:src="@color/bt_red"
+            android:src="@drawable/red_bg"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@id/solid_midline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:contentDescription="@string/player_two_score_field"
-            android:src="@color/bt_black"
+            android:src="@drawable/black_dotted_bg"
+            android:scaleType="fitXY"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -232,21 +235,21 @@
             android:contentDescription="@string/toggle_sound_on_or_off"
             android:src="@drawable/ic_baseline_music_note_24"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/btn_info"
-            app:layout_constraintStart_toEndOf="@id/btn_toggle_menu"
-            tools:visibility="visible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_info"
-            style="@style/menu_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/info"
-            android:src="@drawable/ic_baseline_info_24"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"
             app:layout_constraintStart_toEndOf="@id/btn_toggle_menu"
             tools:visibility="visible" />
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/btn_info"-->
+<!--            style="@style/menu_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:contentDescription="@string/info"-->
+<!--            android:src="@drawable/ic_baseline_info_24"-->
+<!--            android:visibility="invisible"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/btn_toggle_menu"-->
+<!--            app:layout_constraintStart_toEndOf="@id/btn_toggle_menu"-->
+<!--            tools:visibility="visible" />-->
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

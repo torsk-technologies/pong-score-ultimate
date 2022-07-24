@@ -3,7 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/playFragment">
+    app:startDestination="@id/startScreenFragment">
+
+    <fragment
+        android:id="@+id/startScreenFragment"
+        android:name="xyz.torsktechnologies.tabletennisscore.start_screen.StartScreenFragment"
+        tools:layout="@layout/start_screen"
+        android:label="StartScreenFragment" >
+        <action
+            android:id="@+id/action_startScreenFragment_to_playFragment"
+            app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_ittfRulesFragment"
+            app:destination="@id/ittfRulesFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
 
     <fragment
         tools:layout="@layout/play_fragment"
@@ -13,10 +29,6 @@
         <action
             android:id="@+id/action_playFragment_to_bestOfFragment"
             app:destination="@id/bestOfFragment"
-            app:popUpTo="@id/playFragment" />
-        <action
-            android:id="@+id/action_playFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment"
             app:popUpTo="@id/playFragment" />
         <argument
             android:name="isNewGame"
@@ -60,8 +72,12 @@
         android:name="xyz.torsktechnologies.tabletennisscore.about_screen.AboutFragment"
         android:label="AboutFragment" >
         <action
-            android:id="@+id/action_aboutFragment_to_playFragment"
-            app:destination="@id/playFragment"
-            app:popUpTo="@id/playFragment" />
+            android:id="@+id/action_aboutFragment_to_startScreenFragment"
+            app:destination="@id/startScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ittfRulesFragment"
+        tools:layout="@layout/ittf_rules_fragment"
+        android:name="xyz.torsktechnologies.tabletennisscore.ittf_rules.IttfRulesFragment"
+        android:label="IttfRulesFragment" />
 </navigation>

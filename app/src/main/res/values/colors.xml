@@ -8,4 +8,15 @@
     <color name="bt_blue">#3333CC</color>
     <color name="charcoal">#232323</color>
     <color name="bt_blue_fresh">#1129F2</color>
+
+
+    <color name="transp_black">#50000000</color>
+    <color name="rog_red">#50D50000</color>
+    <color name="rog_orange">#50FF6D00</color>
+    <color name="rog_yel">#50FFD600</color>
+    <color name="rog_gre">#5000C853</color>
+    <color name="rog_blu">#50304FFE</color>
+    <color name="rog_ind">#500F29BA</color>
+    <color name="rog_vio">#506200EA</color>
+
 </resources>

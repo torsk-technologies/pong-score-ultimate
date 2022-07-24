@@ -8,7 +8,7 @@
         android:label="@string/app_name_short"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/splashScreenTheme">
+        android:theme="@style/Theme.Apptheme">
         <activity
             android:name="xyz.torsktechnologies.tabletennisscore.MainActivity"
             android:configChanges="uiMode"

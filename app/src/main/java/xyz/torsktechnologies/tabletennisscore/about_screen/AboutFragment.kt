@@ -26,9 +26,7 @@ class AboutFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             this.findNavController()
                 .navigate(
-                    AboutFragmentDirections.actionAboutFragmentToPlayFragment(
-                        isNewGame = false
-                    )
+                    AboutFragmentDirections.actionAboutFragmentToStartScreenFragment()
                 )
         }
         binding.btnBuyCoffee.setOnClickListener {

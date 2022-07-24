@@ -44,7 +44,7 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        requireActivity().window.statusBarColor = requireContext().getColor(R.color.bt_red)
+//        requireActivity().window.statusBarColor = requireContext().getColor(R.color.bt_red)
         setupSoundPlayer()
         gameRulesFromArgs = GameRules(args.bestOf, args.firstServer)
         viewModel =
@@ -119,24 +119,16 @@ class PlayFragment : Fragment() {
 
         }
 
-        binding.btnInfo.setOnClickListener {
-            saveSharedPrefsGameState()
-            this.findNavController()
-                .navigate(PlayFragmentDirections.actionPlayFragmentToAboutFragment())
-
-        }
 
 
         binding.btnToggleMenu.setOnClickListener {
             if (binding.btnUndo.isVisible) {
                 binding.btnUndo.isVisible = false
                 binding.btnLayoutChange.isVisible = false
-                binding.btnInfo.isVisible = false
                 binding.btnNewGame.isVisible = false
                 binding.btnToggleSound.isVisible = false
                 binding.btnRules.isVisible = false
             } else {
-                binding.btnInfo.isVisible = true
                 binding.btnUndo.isVisible = true
                 binding.btnNewGame.isVisible = true
                 binding.btnLayoutChange.isVisible = true
