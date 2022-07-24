@@ -37,6 +37,10 @@ class StartScreenFragment : Fragment() {
             this.findNavController()
                 .navigate(StartScreenFragmentDirections.actionStartScreenFragmentToPlayFragment())
         }
+        binding.btnEzDesc.setOnClickListener {
+            this.findNavController()
+                .navigate(StartScreenFragmentDirections.actionStartScreenFragmentToEzDescFragment())
+        }
         binding.btnIttfRules.setOnClickListener() {
             this.findNavController()
                 .navigate(StartScreenFragmentDirections.actionStartScreenFragmentToIttfRulesFragment())
