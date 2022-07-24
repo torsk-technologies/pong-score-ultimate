@@ -8,30 +8,22 @@
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/ez_title"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
                 android:fontFamily="@font/agency_fb_regular"
                 android:gravity="center"
-                android:text="@string/what_is_table_tennis"
+                android:text="@string/simple_rules"
                 android:textColor="@color/white"
                 android:textSize="40sp" />
-
-            <TextView
-                android:id="@+id/ez_under_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:gravity="center"
-                android:paddingBottom="40dp"
-                android:textColor="@color/white"
-                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/ez_serve"
